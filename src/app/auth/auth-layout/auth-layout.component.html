@@ -1,0 +1,73 @@
+<main class="min-h-screen flex">
+  <!-- Left: Brand Hero (hidden on mobile, shown lg+) -->
+  <section class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-surface-container-low">
+    <!-- Abstract gradient background -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-surface-container-low via-surface-bright to-primary-container/10"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-secondary/5 rounded-full blur-[120px]"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 p-16 flex flex-col justify-between w-full">
+      <div>
+        <div class="flex items-center gap-2 mb-12">
+          <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
+        </div>
+        <div class="max-w-md">
+          <!-- <span class="inline-block text-on-surface-variant font-label text-xs uppercase tracking-[0.2em] mb-4">{{ 'AUTH.LAYOUT.TAGLINE' | translate }}</span> -->
+          <h1 class="text-on-surface font-headline text-6xl font-bold leading-tight mb-6 tracking-tight">
+            {{ 'AUTH.LAYOUT.HERO_LINE1' | translate }} <br />
+            <span class="text-primary">{{ 'AUTH.LAYOUT.HERO_LINE2' | translate }}</span> <br />
+            {{ 'AUTH.LAYOUT.HERO_LINE3' | translate }}
+          </h1>
+          <p class="text-on-surface-variant text-lg max-w-sm leading-relaxed">
+            {{ 'AUTH.LAYOUT.HERO_DESCRIPTION' | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right: Form Section -->
+  <section class="w-full lg:w-1/2 flex flex-col bg-surface">
+    <!-- Mobile logo -->
+    <div class="lg:hidden px-8 pt-8">
+      <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
+    </div>
+
+    <!-- Form area -->
+    <div class="flex-1 flex items-center justify-center p-8">
+      <div class="w-full max-w-md">
+        <router-outlet />
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="px-8 pb-8 flex flex-wrap items-center justify-between">
+      <!-- Language Switcher -->
+      <div class="flex items-center gap-1">
+        <button
+          type="button"
+          (click)="switchLang('en')"
+          class="text-[10px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+          [class]="currentLang === 'en' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+        >EN</button>
+        <span class="text-on-surface-variant/20 text-[10px]">|</span>
+        <button
+          type="button"
+          (click)="switchLang('hr')"
+          class="text-[10px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+          [class]="currentLang === 'hr' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+        >HR</button>
+      </div>
+      <!-- Links -->
+      <div class="flex flex-wrap gap-6">
+        <a class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors" href="#">{{ 'AUTH.LAYOUT.FOOTER_SUSTAINABILITY' | translate }}</a>
+        <a class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors" href="#">{{ 'AUTH.LAYOUT.FOOTER_PRIVACY' | translate }}</a>
+        <a class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors" href="#">{{ 'AUTH.LAYOUT.FOOTER_TERMS' | translate }}</a>
+        <a class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors" href="#">{{ 'AUTH.LAYOUT.FOOTER_SUPPORT' | translate }}</a>
+      </div>
+    </footer>
+  </section>
+</main>

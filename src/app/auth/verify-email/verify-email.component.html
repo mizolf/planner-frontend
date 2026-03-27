@@ -1,0 +1,78 @@
+<!-- Header -->
+<header class="mb-10">
+  <h2 class="text-on-surface font-headline text-3xl font-bold tracking-tight mb-2">{{ 'AUTH.VERIFY.TITLE' | translate }}</h2>
+  <p class="text-on-surface-variant">{{ 'AUTH.VERIFY.SUBTITLE' | translate }}</p>
+</header>
+
+<div class="space-y-6">
+  <!-- Description -->
+  <p class="text-sm text-on-surface-variant">
+    {{ 'AUTH.VERIFY.DESCRIPTION' | translate }} <span class="font-semibold text-on-surface">{{ email }}</span>
+  </p>
+
+  <!-- Success Message -->
+  @if (successMessage()) {
+    <div class="flex items-center gap-2 p-3 rounded-lg bg-secondary-container text-on-secondary-container text-sm">
+      <span class="material-symbols-outlined text-[18px]">check_circle</span>
+      {{ successMessage()! | translate }}
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (errorMessage()) {
+    <div class="flex items-center gap-2 p-3 rounded-lg bg-error-container text-on-error-container text-sm">
+      <span class="material-symbols-outlined text-[18px]">error</span>
+      {{ errorMessage()! | translate }}
+    </div>
+  }
+
+  <!-- Verify Form -->
+  <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <app-form-field
+      label="AUTH.VERIFY.CODE_LABEL" icon="pin" type="text"
+      controlName="verificationCode" placeholder="AUTH.VERIFY.CODE_PLACEHOLDER"
+      [errors]="{ required: 'AUTH.VERIFY.CODE_REQUIRED', minlength: 'AUTH.VERIFY.CODE_LENGTH', maxlength: 'AUTH.VERIFY.CODE_LENGTH' }"
+    />
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="loading()"
+      class="w-full py-4 bg-primary text-on-primary font-headline font-bold rounded-lg shadow-[0_12px_40px_rgba(0,98,140,0.15)] hover:shadow-[0_12px_40px_rgba(0,98,140,0.25)] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      @if (loading()) {
+        {{ 'AUTH.COMMON.LOADING' | translate }}
+      } @else {
+        {{ 'AUTH.VERIFY.SUBMIT' | translate }}
+      }
+    </button>
+  </form>
+
+  <!-- Resend Code -->
+  <div class="text-center">
+    <p class="text-sm text-on-surface-variant">
+      {{ 'AUTH.VERIFY.NO_CODE' | translate }}
+      @if (resendCooldown() > 0) {
+        <span class="text-on-surface-variant/60 ml-1">
+          {{ 'AUTH.VERIFY.RESEND_COOLDOWN' | translate }} {{ resendCooldown() }}s
+        </span>
+      } @else {
+        <button
+          type="button"
+          (click)="onResend()"
+          [disabled]="resendLoading()"
+          class="text-primary font-bold hover:underline underline-offset-4 ml-1 disabled:opacity-50"
+        >
+          {{ 'AUTH.VERIFY.RESEND' | translate }}
+        </button>
+      }
+    </p>
+  </div>
+
+  <!-- Back to Login -->
+  <div class="pt-2 text-center">
+    <p class="text-sm text-on-surface-variant">
+      <a routerLink="/auth/login" class="text-primary font-bold hover:underline underline-offset-4">{{ 'AUTH.VERIFY.BACK_TO_LOGIN' | translate }}</a>
+    </p>
+  </div>
+</div>

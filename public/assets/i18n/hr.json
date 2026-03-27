@@ -1,0 +1,77 @@
+{
+  "AUTH": {
+    "COMMON": {
+      "GOOGLE_SIGNIN": "Nastavi s Googleom",
+      "DIVIDER": "Ili koristi email",
+      "EMAIL_LABEL": "Email adresa",
+      "EMAIL_PLACEHOLDER": "plannr@gmail.com",
+      "EMAIL_REQUIRED": "Email je obavezan.",
+      "EMAIL_INVALID": "Unesite ispravnu email adresu.",
+      "PASSWORD_LABEL": "Lozinka",
+      "PASSWORD_REQUIRED": "Lozinka je obavezna.",
+      "PASSWORD_MINLENGTH": "Lozinka mora imati najmanje 8 znakova.",
+      "FORGOT_PASSWORD": "Zaboravljena lozinka?",
+      "LOADING": "Molimo pričekajte..."
+    },
+    "LAYOUT": {
+      "TAGLINE": "Odabrana otkrića",
+      "HERO_LINE1": "Vaše putovanje,",
+      "HERO_LINE2": "lijepo",
+      "HERO_LINE3": "osmišljeno.",
+      "HERO_DESCRIPTION": "Iskusite planer putovanja koji djeluje kao premium časopis. Svako odredište, novo poglavlje.",
+      "FOOTER_SUSTAINABILITY": "Održivost",
+      "FOOTER_PRIVACY": "Privatnost",
+      "FOOTER_TERMS": "Uvjeti",
+      "FOOTER_SUPPORT": "Podrška"
+    },
+    "LOGIN": {
+      "TITLE": "Dobro došli natrag",
+      "SUBTITLE": "Prijavite se na svoje putovanje ili kreirajte novo.",
+      "PASSWORD_PLACEHOLDER": "••••••••",
+      "SUBMIT": "Prijava",
+      "NO_ACCOUNT": "Nemate račun?",
+      "CREATE_ACCOUNT_LINK": "Kreiraj račun",
+      "ERROR_WRONG_PASSWORD": "Neispravna email adresa ili lozinka.",
+      "ERROR_NOT_FOUND": "Ne postoji račun s ovom email adresom.",
+      "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
+    },
+    "REGISTER": {
+      "TITLE": "Kreiraj račun",
+      "SUBTITLE": "Počnite planirati svoju sljedeću avanturu već danas.",
+      "FULLNAME_LABEL": "Ime i prezime",
+      "FULLNAME_PLACEHOLDER": "Ivan Horvat",
+      "FULLNAME_REQUIRED": "Ime je obavezno.",
+      "FULLNAME_MINLENGTH": "Ime mora imati najmanje 2 znaka.",
+      "PASSWORD_PLACEHOLDER": "Najmanje 8 znakova",
+      "CONFIRM_PASSWORD_LABEL": "Potvrdi lozinku",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Ponovite lozinku",
+      "CONFIRM_PASSWORD_REQUIRED": "Potvrdite svoju lozinku.",
+      "PASSWORDS_MISMATCH": "Lozinke se ne podudaraju.",
+      "SUBMIT": "Kreiraj račun",
+      "HAS_ACCOUNT": "Već imate račun?",
+      "SIGNIN_LINK": "Prijava",
+      "ERROR_DUPLICATE": "Račun s ovom email adresom već postoji.",
+      "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
+    },
+    "VERIFY": {
+      "TITLE": "Potvrdite email",
+      "SUBTITLE": "Još jedan korak prije nego što počnete.",
+      "DESCRIPTION": "Poslali smo 6-znamenkasti kod na",
+      "CODE_LABEL": "Verifikacijski kod",
+      "CODE_PLACEHOLDER": "000000",
+      "CODE_REQUIRED": "Verifikacijski kod je obavezan.",
+      "CODE_LENGTH": "Kod mora imati točno 6 znamenki.",
+      "SUBMIT": "Potvrdi",
+      "NO_CODE": "Niste primili kod?",
+      "RESEND": "Pošalji ponovo",
+      "RESEND_COOLDOWN": "Pošalji ponovo za",
+      "CODE_RESENT": "Novi kod je poslan na vaš email.",
+      "SUCCESS": "Email uspješno potvrđen! Preusmjeravanje na prijavu...",
+      "ALREADY_VERIFIED": "Vaš račun je već potvrđen. Preusmjeravanje na prijavu...",
+      "BACK_TO_LOGIN": "Natrag na prijavu",
+      "ERROR_INVALID_CODE": "Nevažeći ili istekli verifikacijski kod.",
+      "ERROR_NOT_FOUND": "Ne postoji račun s ovom email adresom.",
+      "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
+    }
+  }
+}

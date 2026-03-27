@@ -1,0 +1,77 @@
+{
+  "AUTH": {
+    "COMMON": {
+      "GOOGLE_SIGNIN": "Continue with Google",
+      "DIVIDER": "Or use email",
+      "EMAIL_LABEL": "Email Address",
+      "EMAIL_PLACEHOLDER": "plannr@gmail.com",
+      "EMAIL_REQUIRED": "Email is required.",
+      "EMAIL_INVALID": "Please enter a valid email address.",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_REQUIRED": "Password is required.",
+      "PASSWORD_MINLENGTH": "Password must be at least 8 characters.",
+      "FORGOT_PASSWORD": "Forgot password?",
+      "LOADING": "Please wait..."
+    },
+    "LAYOUT": {
+      "TAGLINE": "Curated Discovery",
+      "HERO_LINE1": "Your Journey,",
+      "HERO_LINE2": "Beautifully",
+      "HERO_LINE3": "Composed.",
+      "HERO_DESCRIPTION": "Experience a travel planner that feels like a premium editorial. Every destination, a new chapter.",
+      "FOOTER_SUSTAINABILITY": "Sustainability",
+      "FOOTER_PRIVACY": "Privacy",
+      "FOOTER_TERMS": "Terms",
+      "FOOTER_SUPPORT": "Support"
+    },
+    "LOGIN": {
+      "TITLE": "Welcome Back",
+      "SUBTITLE": "Log in to your ethereal journey or create a new one.",
+      "PASSWORD_PLACEHOLDER": "••••••••",
+      "SUBMIT": "Sign In",
+      "NO_ACCOUNT": "New to plannr?",
+      "CREATE_ACCOUNT_LINK": "Create Account",
+      "ERROR_WRONG_PASSWORD": "Invalid email or password.",
+      "ERROR_NOT_FOUND": "No account found with this email.",
+      "ERROR_GENERIC": "Something went wrong. Please try again."
+    },
+    "REGISTER": {
+      "TITLE": "Create Account",
+      "SUBTITLE": "Start planning your next adventure today.",
+      "FULLNAME_LABEL": "Full Name",
+      "FULLNAME_PLACEHOLDER": "John Doe",
+      "FULLNAME_REQUIRED": "Full name is required.",
+      "FULLNAME_MINLENGTH": "Name must be at least 2 characters.",
+      "PASSWORD_PLACEHOLDER": "At least 8 characters",
+      "CONFIRM_PASSWORD_LABEL": "Confirm Password",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Repeat your password",
+      "CONFIRM_PASSWORD_REQUIRED": "Please confirm your password.",
+      "PASSWORDS_MISMATCH": "Passwords do not match.",
+      "SUBMIT": "Create Account",
+      "HAS_ACCOUNT": "Already have an account?",
+      "SIGNIN_LINK": "Sign In",
+      "ERROR_DUPLICATE": "An account with this email already exists.",
+      "ERROR_GENERIC": "Something went wrong. Please try again."
+    },
+    "VERIFY": {
+      "TITLE": "Verify Your Email",
+      "SUBTITLE": "One last step before you get started.",
+      "DESCRIPTION": "We sent a 6-digit verification code to",
+      "CODE_LABEL": "Verification Code",
+      "CODE_PLACEHOLDER": "000000",
+      "CODE_REQUIRED": "Verification code is required.",
+      "CODE_LENGTH": "Code must be exactly 6 digits.",
+      "SUBMIT": "Verify",
+      "NO_CODE": "Didn't receive a code?",
+      "RESEND": "Resend Code",
+      "RESEND_COOLDOWN": "Resend in",
+      "CODE_RESENT": "A new code has been sent to your email.",
+      "SUCCESS": "Email verified successfully! Redirecting to login...",
+      "ALREADY_VERIFIED": "Your account is already verified. Redirecting to login...",
+      "BACK_TO_LOGIN": "Back to Sign In",
+      "ERROR_INVALID_CODE": "Invalid or expired verification code.",
+      "ERROR_NOT_FOUND": "No account found with this email.",
+      "ERROR_GENERIC": "Something went wrong. Please try again."
+    }
+  }
+}
