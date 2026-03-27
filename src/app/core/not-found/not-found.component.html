@@ -1,0 +1,57 @@
+<div class="min-h-screen bg-surface flex flex-col items-center justify-center px-6 relative overflow-hidden">
+  <!-- Decorative background blurs -->
+  <div class="absolute top-[-15%] right-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-[-15%] left-[-10%] w-[50%] h-[50%] bg-secondary/5 rounded-full blur-[120px]"></div>
+
+  <div class="relative z-10 max-w-lg w-full text-center space-y-8">
+    <!-- Icon -->
+    <div class="flex justify-center">
+      <div class="w-20 h-20 rounded-full bg-primary-container/15 flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary">explore_off</span>
+      </div>
+    </div>
+
+    <!-- Large 404 -->
+    <p class="text-[8rem] leading-none font-headline font-bold text-primary/8 select-none">
+      {{ 'NOT_FOUND.ERROR_CODE' | translate }}
+    </p>
+
+    <!-- Text -->
+    <div class="space-y-3 -mt-4">
+      <h1 class="text-on-surface font-headline text-3xl font-bold tracking-tight">
+        {{ 'NOT_FOUND.TITLE' | translate }}
+      </h1>
+      <p class="text-on-surface-variant text-base leading-relaxed max-w-sm mx-auto">
+        {{ 'NOT_FOUND.DESCRIPTION' | translate }}
+      </p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+      <!-- TODO: Update route to home/dashboard when implemented -->
+      <button
+        type="button"
+        (click)="goHome()"
+        class="w-full sm:w-auto px-8 py-3.5 bg-primary text-on-primary font-headline font-bold rounded-lg shadow-[0_12px_40px_rgba(0,98,140,0.15)] hover:shadow-[0_12px_40px_rgba(0,98,140,0.25)] active:scale-[0.98] transition-all"
+      >
+        {{ 'NOT_FOUND.GO_HOME' | translate }}
+      </button>
+
+      <!-- TODO: Update route to explore/destinations when implemented -->
+      <button
+        type="button"
+        (click)="goExplore()"
+        class="w-full sm:w-auto px-8 py-3.5 text-primary font-medium rounded-lg border border-outline-variant/15 hover:bg-surface-container-low active:scale-[0.98] transition-all"
+      >
+        {{ 'NOT_FOUND.EXPLORE' | translate }}
+      </button>
+    </div>
+
+    <!-- Footer links -->
+    <div class="flex items-center justify-center gap-6 pt-8">
+      <a href="#" class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors">{{ 'NOT_FOUND.FOOTER_PRIVACY' | translate }}</a>
+      <a href="#" class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors">{{ 'NOT_FOUND.FOOTER_SUPPORT' | translate }}</a>
+      <a href="#" class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40 hover:text-primary transition-colors">{{ 'NOT_FOUND.FOOTER_STATUS' | translate }}</a>
+    </div>
+  </div>
+</div>

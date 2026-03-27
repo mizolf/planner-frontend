@@ -6,5 +6,9 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then(m => m.authRoutes),
   },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/auth/login' },
+  {
+    path: 'not-found',
+    loadComponent: () => import('./core/not-found/not-found.component').then(m => m.NotFoundComponent),
+  },
+  { path: '**', redirectTo: '/not-found' },
 ];

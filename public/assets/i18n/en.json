@@ -73,5 +73,15 @@
       "ERROR_NOT_FOUND": "No account found with this email.",
       "ERROR_GENERIC": "Something went wrong. Please try again."
     }
+  },
+  "NOT_FOUND": {
+    "ERROR_CODE": "404",
+    "TITLE": "You've drifted off course",
+    "DESCRIPTION": "The page you're looking for doesn't exist or may have been moved. Let's get you back on track.",
+    "GO_HOME": "Go Back Home",
+    "EXPLORE": "Explore Destinations",
+    "FOOTER_PRIVACY": "Privacy Policy",
+    "FOOTER_SUPPORT": "Support Center",
+    "FOOTER_STATUS": "System Status"
   }
 }

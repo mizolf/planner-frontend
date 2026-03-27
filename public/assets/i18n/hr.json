@@ -73,5 +73,15 @@
       "ERROR_NOT_FOUND": "Ne postoji račun s ovom email adresom.",
       "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
     }
+  },
+  "NOT_FOUND": {
+    "ERROR_CODE": "404",
+    "TITLE": "Skrenuli ste s puta",
+    "DESCRIPTION": "Stranica koju tražite ne postoji ili je premještena. Vratimo vas na pravi put.",
+    "GO_HOME": "Povratak na početnu",
+    "EXPLORE": "Istraži odredišta",
+    "FOOTER_PRIVACY": "Pravila privatnosti",
+    "FOOTER_SUPPORT": "Centar za podršku",
+    "FOOTER_STATUS": "Status sustava"
   }
 }

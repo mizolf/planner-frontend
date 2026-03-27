@@ -12,10 +12,6 @@ export class AuthLayoutComponent {
   private translateService = inject(TranslateService);
   currentLang = 'en';
 
-  constructor() {
-    this.translateService.use('en');
-  }
-
   switchLang(lang: string): void {
     this.currentLang = lang;
     this.translateService.use(lang);
