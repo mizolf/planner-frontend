@@ -39,7 +39,7 @@ export class LoginComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);

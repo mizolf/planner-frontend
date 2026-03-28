@@ -74,6 +74,14 @@
       "ERROR_GENERIC": "Something went wrong. Please try again."
     }
   },
+  "HOME": {
+    "LOADING": "Loading your data...",
+    "WELCOME": "Welcome to plannr!",
+    "NAME_LABEL": "Name",
+    "EMAIL_LABEL": "Email",
+    "LOGOUT": "Logout",
+    "ERROR_LOADING_USER": "Failed to load user data. Please try again."
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "You've drifted off course",

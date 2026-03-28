@@ -74,6 +74,14 @@
       "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
     }
   },
+  "HOME": {
+    "LOADING": "Učitavanje podataka...",
+    "WELCOME": "Dobrodošli u plannr!",
+    "NAME_LABEL": "Ime",
+    "EMAIL_LABEL": "Email",
+    "LOGOUT": "Odjava",
+    "ERROR_LOADING_USER": "Učitavanje podataka nije uspjelo. Pokušajte ponovo."
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "Skrenuli ste s puta",

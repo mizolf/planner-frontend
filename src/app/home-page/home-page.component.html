@@ -1,0 +1,25 @@
+<div class="flex min-h-screen items-center justify-center bg-surface px-4">
+  <div class="text-center">
+    @if (loading()) {
+      <p class="text-on-surface-variant">{{ 'HOME.LOADING' | translate }}</p>
+    } @else if (errorMessage()) {
+      <p class="text-error">{{ errorMessage()! | translate }}</p>
+    } @else if (user()) {
+      <h1 class="text-3xl font-semibold text-on-surface mb-4">
+        {{ 'HOME.WELCOME' | translate }}
+      </h1>
+      <p class="text-lg text-on-surface-variant mb-2">
+        {{ 'HOME.NAME_LABEL' | translate }}: <span class="font-medium text-on-surface">{{ user()!.fullName }}</span>
+      </p>
+      <p class="text-lg text-on-surface-variant mb-6">
+        {{ 'HOME.EMAIL_LABEL' | translate }}: <span class="font-medium text-on-surface">{{ user()!.email }}</span>
+      </p>
+      <button
+        (click)="onLogout()"
+        class="px-6 py-2 bg-error text-on-error rounded-lg hover:bg-error/90 transition-colors"
+      >
+        {{ 'HOME.LOGOUT' | translate }}
+      </button>
+    }
+  </div>
+</div>
