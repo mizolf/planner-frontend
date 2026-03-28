@@ -1,0 +1,137 @@
+<!-- Top Navbar -->
+<nav class="bg-surface-container-highest/70 backdrop-blur-xl sticky top-0 z-50">
+  <!-- max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -->
+   <!-- px-6 lg:px-10 -->
+  <div class="px-6 lg:px-10">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Left: Logo -->
+      <a routerLink="/home" class="text-primary font-headline text-2xl font-bold tracking-tighter">
+        plannr.
+      </a>
+
+      <!-- Center: Nav links (desktop) -->
+      <div class="hidden lg:flex items-center gap-1">
+        <a routerLink="/home"
+           routerLinkActive="bg-primary/10 text-primary"
+           [routerLinkActiveOptions]="{ exact: true }"
+           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+          {{ 'NAV.DASHBOARD' | translate }}
+        </a>
+        <a routerLink="/home"
+           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+          {{ 'NAV.MY_TRIPS' | translate }}
+        </a>
+        <a routerLink="/home"
+           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+          {{ 'NAV.EXPLORE' | translate }}
+        </a>
+      </div>
+
+      <!-- Right: Bell + Avatar + Hamburger -->
+      <div class="flex items-center gap-2">
+        <!-- Notification bell -->
+        <button
+          type="button"
+          class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
+          aria-label="Notifications"
+        >
+          <span class="material-symbols-outlined text-[22px]">notifications</span>
+        </button>
+
+        <!-- Profile avatar + dropdown -->
+        <div class="relative">
+          <button
+            type="button"
+            (click)="toggleProfile()"
+            class="w-9 h-9 rounded-full bg-primary text-on-primary font-label text-sm font-semibold flex items-center justify-center hover:bg-primary-dim transition-colors"
+            aria-label="User menu"
+          >
+            {{ getInitials() }}
+          </button>
+
+          @if (profileOpen()) {
+            <!-- Backdrop -->
+            <div (click)="closeProfile()" class="fixed inset-0 z-40"></div>
+
+            <!-- Dropdown -->
+            <div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl z-50 py-1"
+                 style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+              <a routerLink="/home"
+                 (click)="closeProfile()"
+                 class="flex items-center gap-3 px-4 py-2.5 font-label text-sm text-on-surface hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[20px] text-on-surface-variant">person</span>
+                {{ 'NAV.MY_PROFILE' | translate }}
+              </a>
+              <div class="mx-3 my-1 border-t border-outline-variant/15"></div>
+              <button
+                type="button"
+                (click)="onLogout()"
+                class="flex items-center gap-3 w-full text-left px-4 py-2.5 font-label text-sm text-error hover:bg-error/5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">logout</span>
+                {{ 'NAV.LOGOUT' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <button
+          type="button"
+          (click)="toggleMobile()"
+          class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
+          aria-label="Open menu"
+        >
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer overlay -->
+@if (mobileOpen()) {
+  <div (click)="closeMobile()" class="fixed inset-0 bg-inverse-surface/30 z-40 lg:hidden"></div>
+
+  <!-- Drawer -->
+  <aside class="fixed top-0 left-0 h-full w-72 bg-surface-container-lowest z-50 lg:hidden"
+         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-6">
+      <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
+      <button
+        type="button"
+        (click)="closeMobile()"
+        class="p-1 rounded-lg text-on-surface-variant hover:text-primary transition-colors"
+        aria-label="Close menu"
+      >
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <!-- Nav links -->
+    <nav class="px-4 flex flex-col gap-1">
+      <a routerLink="/home"
+         routerLinkActive="bg-primary/10 text-primary"
+         [routerLinkActiveOptions]="{ exact: true }"
+         (click)="closeMobile()"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">dashboard</span>
+        {{ 'NAV.DASHBOARD' | translate }}
+      </a>
+      <a routerLink="/home"
+         (click)="closeMobile()"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">luggage</span>
+        {{ 'NAV.MY_TRIPS' | translate }}
+      </a>
+      <a routerLink="/home"
+         (click)="closeMobile()"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">explore</span>
+        {{ 'NAV.EXPLORE' | translate }}
+      </a>
+    </nav>
+  </aside>
+}

@@ -74,6 +74,13 @@
       "ERROR_GENERIC": "Nešto je pošlo po krivu. Pokušajte ponovo."
     }
   },
+  "NAV": {
+    "DASHBOARD": "Početna",
+    "MY_TRIPS": "Moja putovanja",
+    "EXPLORE": "Istraži",
+    "MY_PROFILE": "Moj profil",
+    "LOGOUT": "Odjava"
+  },
   "HOME": {
     "LOADING": "Učitavanje podataka...",
     "WELCOME": "Dobrodošli u plannr!",

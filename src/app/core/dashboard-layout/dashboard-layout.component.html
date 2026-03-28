@@ -1,0 +1,15 @@
+<app-navbar />
+
+<main class="min-h-[calc(100vh-4rem)] bg-surface">
+  @if (userService.loading()) {
+    <div class="flex items-center justify-center h-[calc(100vh-4rem)]">
+      <p class="text-on-surface-variant font-label">{{ 'HOME.LOADING' | translate }}</p>
+    </div>
+  } @else if (userService.error()) {
+    <div class="flex items-center justify-center h-[calc(100vh-4rem)]">
+      <p class="text-error font-label">{{ userService.error()! | translate }}</p>
+    </div>
+  } @else {
+    <router-outlet />
+  }
+</main>

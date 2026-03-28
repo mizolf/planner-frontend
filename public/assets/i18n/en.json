@@ -74,6 +74,13 @@
       "ERROR_GENERIC": "Something went wrong. Please try again."
     }
   },
+  "NAV": {
+    "DASHBOARD": "Dashboard",
+    "MY_TRIPS": "My Trips",
+    "EXPLORE": "Explore",
+    "MY_PROFILE": "My Profile",
+    "LOGOUT": "Logout"
+  },
   "HOME": {
     "LOADING": "Loading your data...",
     "WELCOME": "Welcome to plannr!",
