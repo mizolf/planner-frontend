@@ -83,11 +83,33 @@
   },
   "HOME": {
     "LOADING": "Loading your data...",
-    "WELCOME": "Welcome to plannr!",
-    "NAME_LABEL": "Name",
-    "EMAIL_LABEL": "Email",
-    "LOGOUT": "Logout",
-    "ERROR_LOADING_USER": "Failed to load user data. Please try again."
+    "ERROR_LOADING_USER": "Failed to load user data. Please try again.",
+    "ERROR_LOADING_TRIPS": "Failed to load your trips. Please try again.",
+    "RETRY": "Try again",
+    "GREETING_MORNING": "Good morning, {{name}}!",
+    "GREETING_AFTERNOON": "Good afternoon, {{name}}!",
+    "GREETING_EVENING": "Good evening, {{name}}!",
+    "SUBTITLE": "Here's what's happening with your travels.",
+    "STATS": {
+      "TOTAL": "Total Trips",
+      "UPCOMING": "Upcoming",
+      "IN_PROGRESS": "In Progress"
+    },
+    "NEXT_TRIP": "Your next adventure",
+    "DAYS_UNTIL": "days to go",
+    "RECENT_TRIPS": "Recent Trips",
+    "PLAN_NEW_TRIP": "Plan a new trip",
+    "STATUS": {
+      "PLANNING": "Planning",
+      "UPCOMING": "Upcoming",
+      "IN_PROGRESS": "In Progress",
+      "COMPLETED": "Completed"
+    },
+    "EMPTY": {
+      "TITLE": "No trips yet",
+      "DESCRIPTION": "Start planning your first adventure and it will appear here.",
+      "CTA": "Plan your first trip"
+    }
   },
   "NOT_FOUND": {
     "ERROR_CODE": "404",

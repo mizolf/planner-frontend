@@ -83,11 +83,33 @@
   },
   "HOME": {
     "LOADING": "Učitavanje podataka...",
-    "WELCOME": "Dobrodošli u plannr!",
-    "NAME_LABEL": "Ime",
-    "EMAIL_LABEL": "Email",
-    "LOGOUT": "Odjava",
-    "ERROR_LOADING_USER": "Učitavanje podataka nije uspjelo. Pokušajte ponovo."
+    "ERROR_LOADING_USER": "Učitavanje podataka nije uspjelo. Pokušajte ponovo.",
+    "ERROR_LOADING_TRIPS": "Učitavanje putovanja nije uspjelo. Pokušajte ponovo.",
+    "RETRY": "Pokušaj ponovo",
+    "GREETING_MORNING": "Dobro jutro, {{name}}!",
+    "GREETING_AFTERNOON": "Dobar dan, {{name}}!",
+    "GREETING_EVENING": "Dobra večer, {{name}}!",
+    "SUBTITLE": "Evo što se događa s vašim putovanjima.",
+    "STATS": {
+      "TOTAL": "Ukupno putovanja",
+      "UPCOMING": "Nadolazeća",
+      "IN_PROGRESS": "U tijeku"
+    },
+    "NEXT_TRIP": "Vaša sljedeća avantura",
+    "DAYS_UNTIL": "dana do polaska",
+    "RECENT_TRIPS": "Nedavna putovanja",
+    "PLAN_NEW_TRIP": "Planiraj novo putovanje",
+    "STATUS": {
+      "PLANNING": "Planiranje",
+      "UPCOMING": "Nadolazeće",
+      "IN_PROGRESS": "U tijeku",
+      "COMPLETED": "Završeno"
+    },
+    "EMPTY": {
+      "TITLE": "Nema putovanja",
+      "DESCRIPTION": "Počnite planirati svoju prvu avanturu i pojavit će se ovdje.",
+      "CTA": "Planiraj prvo putovanje"
+    }
   },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
