@@ -95,10 +95,11 @@
       "UPCOMING": "Nadolazeća",
       "IN_PROGRESS": "U tijeku"
     },
-    "NEXT_TRIP": "Vaša sljedeća avantura",
-    "DAYS_UNTIL": "dana do polaska",
-    "RECENT_TRIPS": "Nedavna putovanja",
-    "PLAN_NEW_TRIP": "Planiraj novo putovanje",
+    "UPCOMING_TRIPS": "Nadolazeća putovanja",
+    "VIEW_ALL": "Prikaži sve",
+    "CREATE_NEW_TRIP": "Novo putovanje",
+    "NO_IMAGE": "Nema slike",
+    "DAYS_TO_GO": "još {{count}} dana",
     "STATUS": {
       "PLANNING": "Planiranje",
       "UPCOMING": "Nadolazeće",

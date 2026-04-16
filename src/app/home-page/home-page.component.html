@@ -1,21 +1,34 @@
 <div class="px-6 lg:px-10 py-8 max-w-7xl mx-auto">
 
+  <!-- Greeting + CTA (always visible) -->
+  <div class="flex items-start justify-between mb-8">
+    <div>
+      <h1 class="text-3xl font-bold font-headline text-on-surface">
+        {{ greetingKey | translate:{ name: getFirstName() } }}
+      </h1>
+      <p class="text-on-surface-variant font-body mt-1">
+        {{ 'HOME.SUBTITLE' | translate }}
+      </p>
+    </div>
+    <a routerLink="/trips/new"
+       class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-label font-semibold text-sm hover:bg-primary-dim transition-colors shrink-0"
+       style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+      <span class="material-symbols-outlined text-[20px]">add_circle</span>
+      {{ 'HOME.CREATE_NEW_TRIP' | translate }}
+    </a>
+  </div>
+
   <!-- Loading -->
   @if (tripsLoading()) {
     <div class="animate-pulse space-y-8">
-      <div>
-        <div class="h-8 w-64 bg-surface-container-low rounded-lg mb-2"></div>
-        <div class="h-5 w-80 bg-surface-container-low rounded-lg"></div>
-      </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (_ of [1, 2, 3]; track $index) {
           <div class="h-24 bg-surface-container-low rounded-xl"></div>
         }
       </div>
-      <div class="h-28 bg-surface-container-low rounded-xl"></div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        @for (_ of [1, 2, 3, 4]; track $index) {
-          <div class="h-44 bg-surface-container-low rounded-xl"></div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        @for (_ of [1, 2]; track $index) {
+          <div class="h-48 bg-surface-container-low rounded-xl"></div>
         }
       </div>
     </div>
@@ -41,9 +54,9 @@
       <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
         <span class="material-symbols-outlined text-5xl text-primary">flight_takeoff</span>
       </div>
-      <h1 class="text-2xl font-bold font-headline text-on-surface mb-2">
+      <h2 class="text-2xl font-bold font-headline text-on-surface mb-2">
         {{ 'HOME.EMPTY.TITLE' | translate }}
-      </h1>
+      </h2>
       <p class="text-on-surface-variant font-body max-w-sm mb-8">
         {{ 'HOME.EMPTY.DESCRIPTION' | translate }}
       </p>
@@ -57,16 +70,6 @@
 
   <!-- Dashboard -->
   @else {
-
-    <!-- Greeting -->
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold font-headline text-on-surface">
-        {{ greetingKey | translate:{ name: getFirstName() } }}
-      </h1>
-      <p class="text-on-surface-variant font-body mt-1">
-        {{ 'HOME.SUBTITLE' | translate }}
-      </p>
-    </div>
 
     <!-- Stats row -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -113,71 +116,59 @@
       </div>
     </div>
 
-    <!-- Next trip countdown -->
-    @if (nextTrip(); as trip) {
-      <div class="bg-surface-container-lowest rounded-xl p-6 mb-8"
-           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-label text-on-surface-variant mb-1">
-              {{ 'HOME.NEXT_TRIP' | translate }}
-            </p>
-            <h2 class="text-xl font-bold font-headline text-on-surface">
-              {{ trip.name }}
-            </h2>
-            <p class="text-on-surface-variant font-body mt-1">
-              {{ trip.destination }} · {{ trip.startDate | date:'mediumDate' }}
-            </p>
-          </div>
-          @if (daysUntilNextTrip(); as days) {
-            <div class="text-center pl-6">
-              <p class="text-4xl font-bold font-headline text-primary">{{ days }}</p>
-              <p class="text-sm text-on-surface-variant font-label">{{ 'HOME.DAYS_UNTIL' | translate }}</p>
-            </div>
-          }
-        </div>
-      </div>
-    }
-
-    <!-- Recent trips -->
+    <!-- Upcoming Trips -->
     <div class="mb-8">
-      <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
-        {{ 'HOME.RECENT_TRIPS' | translate }}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        @for (trip of recentTrips(); track trip.id) {
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold font-headline text-on-surface">
+          {{ 'HOME.UPCOMING_TRIPS' | translate }}
+        </h2>
+        <a routerLink="/trips"
+           class="text-sm font-label text-primary font-semibold hover:text-primary-dim transition-colors">
+          {{ 'HOME.VIEW_ALL' | translate }}
+        </a>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        @for (trip of upcomingTrips(); track trip.id) {
           <a [routerLink]="['/trips', trip.id]"
-             class="block bg-surface-container-lowest rounded-xl p-5 hover:bg-surface-container-low transition-colors"
+             class="flex bg-surface-container-lowest rounded-xl overflow-hidden hover:bg-surface-container-low transition-colors"
              style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="material-symbols-outlined text-[18px]" [ngClass]="getStatusColor(trip.status)">
-                {{ getStatusIcon(trip.status) }}
-              </span>
-              <span class="text-xs font-label px-2 py-0.5 rounded-full" [ngClass]="getStatusColor(trip.status)">
-                {{ 'HOME.STATUS.' + trip.status | translate }}
-              </span>
+
+            <!-- Image placeholder -->
+            <div class="w-44 min-h-[180px] bg-surface-container-low flex flex-col items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-4xl text-on-surface-variant/30">landscape</span>
+              <p class="text-xs text-on-surface-variant/50 font-label mt-1">{{ 'HOME.NO_IMAGE' | translate }}</p>
             </div>
-            <h3 class="font-bold font-headline text-on-surface mb-1">{{ trip.name }}</h3>
-            <p class="text-sm text-on-surface-variant font-body">{{ trip.destination }}</p>
-            <p class="text-xs text-on-surface-variant font-label mt-2">
-              {{ trip.startDate | date:'mediumDate' }} – {{ trip.endDate | date:'mediumDate' }}
-            </p>
-            @if (trip.budget) {
-              <p class="text-sm font-label text-on-surface mt-2">
-                {{ trip.budget | currency:'EUR' }}
+
+            <!-- Content -->
+            <div class="p-5 flex flex-col justify-center min-w-0">
+              <div class="mb-2">
+                @if (getDaysToGo(trip); as days) {
+                  <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-semibold">
+                    {{ 'HOME.DAYS_TO_GO' | translate:{ count: days } }}
+                  </span>
+                } @else {
+                  <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full font-semibold" [ngClass]="getStatusColor(trip.status)">
+                    {{ 'HOME.STATUS.' + trip.status | translate }}
+                  </span>
+                }
+              </div>
+              <h3 class="text-lg font-bold font-headline text-on-surface mb-1 truncate">{{ trip.name }}</h3>
+              <p class="text-sm text-on-surface-variant font-body truncate">{{ trip.destination }}</p>
+              <p class="text-xs text-on-surface-variant font-label mt-2">
+                {{ trip.startDate | date:'mediumDate' }} – {{ trip.endDate | date:'mediumDate' }}
               </p>
-            }
+            </div>
           </a>
         }
       </div>
     </div>
 
-    <!-- Plan new trip CTA -->
+    <!-- Mobile CTA (visible only on small screens) -->
     <a routerLink="/trips/new"
-       class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-xl font-label font-semibold hover:bg-primary-dim transition-colors"
+       class="sm:hidden inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-xl font-label font-semibold hover:bg-primary-dim transition-colors"
        style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-      <span class="material-symbols-outlined text-[20px]">add</span>
-      {{ 'HOME.PLAN_NEW_TRIP' | translate }}
+      <span class="material-symbols-outlined text-[20px]">add_circle</span>
+      {{ 'HOME.CREATE_NEW_TRIP' | translate }}
     </a>
 
   }

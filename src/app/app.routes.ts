@@ -8,6 +8,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
+      { path: 'trips', redirectTo: 'home' },
       { path: 'trips/new', redirectTo: 'home' },
       { path: 'trips/:id', redirectTo: 'home' },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
