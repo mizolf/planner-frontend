@@ -1,8 +1,10 @@
-import { Component, OnDestroy, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { timer } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 
@@ -17,6 +19,7 @@ export class VerifyEmailComponent implements OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
 
   email = '';
   loading = signal(false);
@@ -57,7 +60,9 @@ export class VerifyEmailComponent implements OnDestroy {
       next: () => {
         this.loading.set(false);
         this.successMessage.set('AUTH.VERIFY.SUCCESS');
-        setTimeout(() => this.router.navigate(['/auth/login']), 2000);
+        timer(2000).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() =>
+          this.router.navigate(['/auth/login'])
+        );
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
@@ -89,7 +94,9 @@ export class VerifyEmailComponent implements OnDestroy {
         this.resendLoading.set(false);
         if (err.status === 409) {
           this.successMessage.set('AUTH.VERIFY.ALREADY_VERIFIED');
-          setTimeout(() => this.router.navigate(['/auth/login']), 2000);
+          timer(2000).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() =>
+            this.router.navigate(['/auth/login'])
+          );
         } else if (err.status === 404) {
           this.errorMessage.set('AUTH.VERIFY.ERROR_NOT_FOUND');
         } else {

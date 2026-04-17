@@ -13,9 +13,8 @@ export class NotFoundComponent {
   private router = inject(Router);
   private location = inject(Location);
 
-  // TODO: Change to home/dashboard route when implemented
   goHome(): void {
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/home']);
   }
 
   // TODO: Change to explore/destinations route when implemented
