@@ -1,19 +1,22 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe, NgClass } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../core/services/user.service';
 import { TripService } from '../core/services/trip.service';
 import { TripResponse, TripStatus } from '../core/models/trip.model';
+import { CreateTripDialogComponent } from '../features/trips/create-trip-dialog/create-trip-dialog.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [TranslateModule, RouterLink, DatePipe, NgClass],
+  imports: [TranslateModule, RouterLink, DatePipe, NgClass, CreateTripDialogComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements OnInit {
+  @ViewChild(CreateTripDialogComponent) dialog!: CreateTripDialogComponent;
+
   private userService = inject(UserService);
   private tripService = inject(TripService);
 
@@ -54,6 +57,10 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.tripService.loadTrips();
+  }
+
+  openCreateTripDialog(): void {
+    this.dialog.open();
   }
 
   retryLoadTrips(): void {

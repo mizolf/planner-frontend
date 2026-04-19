@@ -71,6 +71,15 @@ module.exports = {
         "body": ["Manrope", "sans-serif"],
         "label": ["Manrope", "sans-serif"],
       },
+      keyframes: {
+        'slide-in': {
+          '0%': { opacity: '0', transform: 'translateX(1rem)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'slide-in': 'slide-in 0.25s ease-out',
+      },
       borderRadius: {
         "DEFAULT": "0.25rem",
         "lg": "0.5rem",

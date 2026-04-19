@@ -112,6 +112,48 @@
       "CTA": "Planiraj prvo putovanje"
     }
   },
+  "TRIPS": {
+    "CREATE": {
+      "TITLE": "Novo putovanje",
+      "SUBTITLE": "Isplanirajte svoju sljedeću avanturu",
+      "NAME_LABEL": "Naziv putovanja",
+      "NAME_PLACEHOLDER": "Vikend u Beču",
+      "NAME_REQUIRED": "Naziv putovanja je obavezan.",
+      "NAME_MAX": "Naziv ne smije imati više od 255 znakova.",
+      "DESTINATION_LABEL": "Odredište",
+      "DESTINATION_PLACEHOLDER": "Beč, Austrija",
+      "DESTINATION_REQUIRED": "Odredište je obavezno.",
+      "DESTINATION_MAX": "Odredište ne smije imati više od 255 znakova.",
+      "DESCRIPTION_LABEL": "Opis (Opcionalno)",
+      "DESCRIPTION_PLACEHOLDER": "Kratki izlet za istraživanje grada...",
+      "DESCRIPTION_MAX": "Opis ne smije imati više od 255 znakova.",
+      "START_DATE_LABEL": "Datum početka",
+      "START_DATE_REQUIRED": "Datum početka je obavezan.",
+      "END_DATE_LABEL": "Datum završetka",
+      "END_DATE_REQUIRED": "Datum završetka je obavezan.",
+      "END_BEFORE_START": "Datum završetka mora biti nakon datuma početka.",
+      "BUDGET_LABEL": "Budžet (Opcionalno)",
+      "BUDGET_PLACEHOLDER": "450.00",
+      "BUDGET_MIN": "Budžet mora biti pozitivan broj.",
+      "BUDGET_TOO_LARGE": "Budžet je prevelik (maks. 999.999,99).",
+      "INTERESTS_LABEL": "Interesi (Opcionalno)",
+      "SUBMIT": "Kreiraj putovanje",
+      "CANCEL": "Odustani",
+      "SUCCESS": "Putovanje uspješno kreirano!",
+      "ERROR_VALIDATION": "Provjerite unos i pokušajte ponovo.",
+      "ERROR_GENERIC": "Kreiranje putovanja nije uspjelo. Pokušajte ponovo."
+    },
+    "INTERESTS": {
+      "CULTURE": "Kultura",
+      "FOOD": "Hrana",
+      "ADVENTURE": "Avantura",
+      "NATURE": "Priroda",
+      "NIGHTLIFE": "Noćni život",
+      "SHOPPING": "Kupovina",
+      "RELAXATION": "Opuštanje",
+      "HISTORY": "Povijest"
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "Skrenuli ste s puta",

@@ -10,6 +10,16 @@ export type Interest =
   | 'RELAXATION'
   | 'HISTORY';
 
+export interface CreateTripRequest {
+  name: string;
+  description?: string;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  budget?: number;
+  interests?: Interest[];
+}
+
 export interface TripResponse {
   id: number;
   name: string;

@@ -112,6 +112,48 @@
       "CTA": "Plan your first trip"
     }
   },
+  "TRIPS": {
+    "CREATE": {
+      "TITLE": "Create New Trip",
+      "SUBTITLE": "Plan your next adventure",
+      "NAME_LABEL": "Trip Name",
+      "NAME_PLACEHOLDER": "Weekend in Vienna",
+      "NAME_REQUIRED": "Trip name is required.",
+      "NAME_MAX": "Trip name cannot exceed 255 characters.",
+      "DESTINATION_LABEL": "Destination",
+      "DESTINATION_PLACEHOLDER": "Vienna, Austria",
+      "DESTINATION_REQUIRED": "Destination is required.",
+      "DESTINATION_MAX": "Destination cannot exceed 255 characters.",
+      "DESCRIPTION_LABEL": "Description (Optional)",
+      "DESCRIPTION_PLACEHOLDER": "A short getaway to explore the city...",
+      "DESCRIPTION_MAX": "Description cannot exceed 255 characters.",
+      "START_DATE_LABEL": "Start Date",
+      "START_DATE_REQUIRED": "Start date is required.",
+      "END_DATE_LABEL": "End Date",
+      "END_DATE_REQUIRED": "End date is required.",
+      "END_BEFORE_START": "End date must be after start date.",
+      "BUDGET_LABEL": "Budget (Optional)",
+      "BUDGET_PLACEHOLDER": "450.00",
+      "BUDGET_MIN": "Budget must be a positive number.",
+      "BUDGET_TOO_LARGE": "Budget is too large (max 999,999.99).",
+      "INTERESTS_LABEL": "Interests (Optional)",
+      "SUBMIT": "Create Trip",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Trip created successfully!",
+      "ERROR_VALIDATION": "Please check your input and try again.",
+      "ERROR_GENERIC": "Failed to create trip. Please try again."
+    },
+    "INTERESTS": {
+      "CULTURE": "Culture",
+      "FOOD": "Food",
+      "ADVENTURE": "Adventure",
+      "NATURE": "Nature",
+      "NIGHTLIFE": "Nightlife",
+      "SHOPPING": "Shopping",
+      "RELAXATION": "Relaxation",
+      "HISTORY": "History"
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "You've drifted off course",

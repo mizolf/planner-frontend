@@ -1,0 +1,18 @@
+<div class="space-y-2">
+  <label class="block text-sm font-semibold text-on-surface-variant ml-1">
+    {{ label() | translate }}
+  </label>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    @for (interest of allInterests; track interest) {
+      <button
+        type="button"
+        (click)="toggleInterest(interest)"
+        [ngClass]="isSelected(interest)
+          ? 'bg-primary text-on-primary'
+          : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'"
+        class="px-4 py-2.5 rounded-lg font-label text-sm font-medium transition-colors">
+        {{ 'TRIPS.INTERESTS.' + interest | translate }}
+      </button>
+    }
+  </div>
+</div>

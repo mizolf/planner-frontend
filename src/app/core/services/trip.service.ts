@@ -1,7 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { TripResponse } from '../models/trip.model';
+import { CreateTripRequest, TripResponse } from '../models/trip.model';
 
 @Injectable({ providedIn: 'root' })
 export class TripService {
@@ -30,5 +31,11 @@ export class TripService {
         this._error.set('HOME.ERROR_LOADING_TRIPS');
       },
     });
+  }
+
+  createTrip(request: CreateTripRequest): Observable<TripResponse> {
+    return this.http.post<TripResponse>(this.apiUrl, request).pipe(
+      tap(newTrip => this._trips.update(trips => [newTrip, ...trips])),
+    );
   }
 }
