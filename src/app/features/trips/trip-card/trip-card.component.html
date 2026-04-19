@@ -1,0 +1,30 @@
+<a [routerLink]="['/trips', trip().id]"
+   class="flex bg-surface-container-lowest rounded-xl overflow-hidden hover:bg-surface-container-low transition-colors"
+   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+
+  <!-- Image placeholder -->
+  <div class="w-44 min-h-[180px] bg-surface-container-low flex flex-col items-center justify-center shrink-0">
+    <span class="material-symbols-outlined text-4xl text-on-surface-variant/30">landscape</span>
+    <p class="text-xs text-on-surface-variant/50 font-label mt-1">{{ 'HOME.NO_IMAGE' | translate }}</p>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 flex flex-col justify-center min-w-0">
+    <div class="mb-2">
+      @if (getDaysToGo(); as days) {
+        <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-semibold">
+          {{ 'HOME.DAYS_TO_GO' | translate:{ count: days } }}
+        </span>
+      } @else {
+        <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full font-semibold" [ngClass]="getStatusColor()">
+          {{ 'HOME.STATUS.' + trip().status | translate }}
+        </span>
+      }
+    </div>
+    <h3 class="text-lg font-bold font-headline text-on-surface mb-1 truncate">{{ trip().name }}</h3>
+    <p class="text-sm text-on-surface-variant font-body truncate">{{ trip().destination }}</p>
+    <p class="text-xs text-on-surface-variant font-label mt-2">
+      {{ trip().startDate | date:'mediumDate' }} – {{ trip().endDate | date:'mediumDate' }}
+    </p>
+  </div>
+</a>

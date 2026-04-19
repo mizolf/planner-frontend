@@ -97,6 +97,7 @@
     },
     "UPCOMING_TRIPS": "Nadolazeća putovanja",
     "VIEW_ALL": "Prikaži sve",
+    "SHOW_LESS": "Prikaži manje",
     "CREATE_NEW_TRIP": "Novo putovanje",
     "NO_IMAGE": "Nema slike",
     "DAYS_TO_GO": "još {{count}} dana",

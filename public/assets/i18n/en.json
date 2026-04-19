@@ -97,6 +97,7 @@
     },
     "UPCOMING_TRIPS": "Upcoming Trips",
     "VIEW_ALL": "View All",
+    "SHOW_LESS": "Show Less",
     "CREATE_NEW_TRIP": "Create New Trip",
     "NO_IMAGE": "No image",
     "DAYS_TO_GO": "{{count}} days to go",
