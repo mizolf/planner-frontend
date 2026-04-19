@@ -1,0 +1,59 @@
+<!-- Header -->
+<div class="flex items-center gap-2 mb-5">
+  <span class="material-symbols-outlined text-primary text-[22px]">luggage</span>
+  <h3 class="text-base font-bold font-headline text-on-surface">
+    {{ 'ACTIVITY_FEED.TITLE' | translate }}
+  </h3>
+</div>
+
+<!-- Loading skeleton -->
+@if (loading()) {
+  <div class="space-y-4 animate-pulse">
+    @for (_ of [1, 2, 3, 4]; track $index) {
+      <div class="flex gap-3">
+        <div class="w-9 h-9 rounded-full bg-surface-container-low shrink-0"></div>
+        <div class="flex-1 space-y-2">
+          <div class="h-3 bg-surface-container-low rounded w-full"></div>
+          <div class="h-3 bg-surface-container-low rounded w-2/3"></div>
+          <div class="h-2.5 bg-surface-container-low rounded w-16 mt-1"></div>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+<!-- Empty state -->
+@else if (activities().length === 0) {
+  <div class="text-center py-8">
+    <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-2">history</span>
+    <p class="text-sm text-on-surface-variant font-body">
+      {{ 'ACTIVITY_FEED.EMPTY' | translate }}
+    </p>
+  </div>
+}
+
+<!-- Activity list -->
+@else {
+  <div class="space-y-1">
+    @for (item of activities(); track item.id) {
+      <div class="flex gap-3 p-2 -mx-2 rounded-lg hover:bg-surface-container-low transition-colors animate-fade-in-up"
+           [style.animation-delay]="$index * 80 + 'ms'">
+        <!-- Avatar -->
+        <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-xs font-bold font-label"
+             [class]="getAvatarColor(item.actorName)">
+          {{ getInitial(item.actorName) }}
+        </div>
+
+        <!-- Content -->
+        <div class="min-w-0">
+          <p class="activity-description text-sm font-body text-on-surface leading-snug"
+             [innerHTML]="getTranslationKey(item) | translate:getTranslationParams(item)">
+          </p>
+          <p class="text-xs text-on-surface-variant font-body mt-0.5">
+            {{ item.createdAt | relativeTime }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+}

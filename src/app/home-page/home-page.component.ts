@@ -5,11 +5,12 @@ import { TripService } from '../core/services/trip.service';
 import { TripStatus } from '../core/models/trip.model';
 import { CreateTripDialogComponent } from '../features/trips/create-trip-dialog/create-trip-dialog.component';
 import { TripCardComponent } from '../features/trips/trip-card/trip-card.component';
+import { ActivityFeedComponent } from '../features/activity-feed/activity-feed.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [TranslateModule, CreateTripDialogComponent, TripCardComponent],
+  imports: [TranslateModule, CreateTripDialogComponent, TripCardComponent, ActivityFeedComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })

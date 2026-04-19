@@ -155,6 +155,23 @@
       "HISTORY": "Povijest"
     }
   },
+  "ACTIVITY_FEED": {
+    "TITLE": "Nedavne aktivnosti",
+    "EMPTY": "Nema nedavnih aktivnosti.",
+    "EVENTS": {
+      "TRIP_CREATED": "<strong>{{actor}}</strong> je kreirao/la putovanje <em>{{entity}}</em>.",
+      "TRIP_UPDATED": "<strong>{{actor}}</strong> je ažurirao/la <em>{{entity}}</em>.",
+      "DAY_ADDED": "<strong>{{actor}}</strong> je dodao/la <em>{{entity}}</em> u <em>{{trip}}</em>.",
+      "DAY_UPDATED": "<strong>{{actor}}</strong> je ažurirao/la <em>{{entity}}</em> u <em>{{trip}}</em>.",
+      "DAY_DELETED": "<strong>{{actor}}</strong> je uklonio/la <em>{{entity}}</em> iz <em>{{trip}}</em>.",
+      "ACTIVITY_ADDED": "<strong>{{actor}}</strong> je dodao/la <em>{{entity}}</em> u <em>{{trip}}</em>.",
+      "ACTIVITY_UPDATED": "<strong>{{actor}}</strong> je ažurirao/la <em>{{entity}}</em> u <em>{{trip}}</em>.",
+      "ACTIVITY_DELETED": "<strong>{{actor}}</strong> je uklonio/la <em>{{entity}}</em> iz <em>{{trip}}</em>.",
+      "MEMBER_ADDED": "<strong>{{actor}}</strong> je dodao/la <em>{{member}}</em> u <em>{{trip}}</em>.",
+      "MEMBER_ROLE_CHANGED": "<strong>{{actor}}</strong> je promijenio/la ulogu za <em>{{member}}</em> u <em>{{trip}}</em>.",
+      "MEMBER_REMOVED": "<strong>{{actor}}</strong> je uklonio/la <em>{{member}}</em> iz <em>{{trip}}</em>."
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "Skrenuli ste s puta",

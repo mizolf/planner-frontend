@@ -76,9 +76,14 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateX(1rem)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(0.5rem)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'slide-in': 'slide-in 0.25s ease-out',
+        'fade-in-up': 'fade-in-up 0.3s ease-out both',
       },
       borderRadius: {
         "DEFAULT": "0.25rem",
