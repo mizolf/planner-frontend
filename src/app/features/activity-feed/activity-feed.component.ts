@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivityFeedService } from '../../core/services/activity-feed.service';
 import { ActivityEventType, DashboardActivityItem, EntityType } from '../../core/models/activity.model';
 import { RelativeTimePipe } from '../../shared/pipes/relative-time.pipe';
@@ -42,11 +42,17 @@ const AVATAR_COLORS = [
 })
 export class ActivityFeedComponent implements OnInit {
   private feedService = inject(ActivityFeedService);
+  private translate = inject(TranslateService);
 
   readonly activities = this.feedService.activities;
   readonly loading = this.feedService.loading;
+  readonly error = this.feedService.error;
 
   ngOnInit(): void {
+    this.feedService.loadRecentActivities();
+  }
+
+  retry(): void {
     this.feedService.loadRecentActivities();
   }
 
@@ -56,10 +62,10 @@ export class ActivityFeedComponent implements OnInit {
 
   getTranslationParams(item: DashboardActivityItem): Record<string, string> {
     return {
-      actor: item.actorName.split(' ')[0],
+      actor: this.getActorDisplayName(item),
       entity: item.entityName,
       trip: item.tripName,
-      member: item.targetMemberName ?? item.entityName,
+      member: item.entityName,
     };
   }
 
@@ -67,15 +73,25 @@ export class ActivityFeedComponent implements OnInit {
     return ENTITY_ICONS[item.entityType];
   }
 
-  getInitial(name: string): string {
+  getInitial(item: DashboardActivityItem): string {
+    const name = item.actorName;
+    if (!name) return '?';
     return name.charAt(0).toUpperCase();
   }
 
-  getAvatarColor(name: string): string {
+  getAvatarColor(item: DashboardActivityItem): string {
+    const name = item.actorName ?? 'deleted';
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
     return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+  }
+
+  private getActorDisplayName(item: DashboardActivityItem): string {
+    if (!item.actorName) {
+      return this.translate.instant('ACTIVITY_FEED.DELETED_USER');
+    }
+    return item.actorName.split(' ')[0];
   }
 }

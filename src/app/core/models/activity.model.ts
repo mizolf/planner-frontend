@@ -19,20 +19,24 @@ export interface FieldChange {
   newValue: string;
 }
 
-export interface TripActivityResponse {
+export interface DashboardActivityItem {
   id: number;
   eventType: ActivityEventType;
   entityType: EntityType;
   entityId: number;
   entityName: string;
-  actorName: string;
-  actorId: number;
+  actorName: string | null;
+  actorId: number | null;
   changes: FieldChange[] | null;
-  targetMemberName: string | null;
   createdAt: string;
-}
-
-export interface DashboardActivityItem extends TripActivityResponse {
   tripId: number;
   tripName: string;
+}
+
+export interface PageResponse<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
 }

@@ -22,6 +22,20 @@
   </div>
 }
 
+<!-- Error state -->
+@else if (error()) {
+  <div class="text-center py-6">
+    <span class="material-symbols-outlined text-3xl text-error/60 mb-2">cloud_off</span>
+    <p class="text-sm text-on-surface-variant font-body mb-3">
+      {{ error()! | translate }}
+    </p>
+    <button type="button" (click)="retry()"
+      class="text-sm font-label text-primary font-semibold hover:text-primary-dim transition-colors">
+      {{ 'HOME.RETRY' | translate }}
+    </button>
+  </div>
+}
+
 <!-- Empty state -->
 @else if (activities().length === 0) {
   <div class="text-center py-8">
@@ -40,8 +54,8 @@
            [style.animation-delay]="$index * 80 + 'ms'">
         <!-- Avatar -->
         <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-xs font-bold font-label"
-             [class]="getAvatarColor(item.actorName)">
-          {{ getInitial(item.actorName) }}
+             [class]="getAvatarColor(item)">
+          {{ getInitial(item) }}
         </div>
 
         <!-- Content -->

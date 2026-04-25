@@ -158,6 +158,8 @@
   "ACTIVITY_FEED": {
     "TITLE": "Nedavne aktivnosti",
     "EMPTY": "Nema nedavnih aktivnosti.",
+    "DELETED_USER": "Obrisan korisnik",
+    "ERROR_LOADING": "Učitavanje aktivnosti nije uspjelo.",
     "EVENTS": {
       "TRIP_CREATED": "<strong>{{actor}}</strong> je kreirao/la putovanje <em>{{entity}}</em>.",
       "TRIP_UPDATED": "<strong>{{actor}}</strong> je ažurirao/la <em>{{entity}}</em>.",

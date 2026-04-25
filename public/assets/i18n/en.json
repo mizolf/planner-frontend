@@ -158,6 +158,8 @@
   "ACTIVITY_FEED": {
     "TITLE": "Recent Activity",
     "EMPTY": "No recent activity.",
+    "DELETED_USER": "Deleted user",
+    "ERROR_LOADING": "Failed to load activity.",
     "EVENTS": {
       "TRIP_CREATED": "<strong>{{actor}}</strong> created trip <em>{{entity}}</em>.",
       "TRIP_UPDATED": "<strong>{{actor}}</strong> updated <em>{{entity}}</em>.",
