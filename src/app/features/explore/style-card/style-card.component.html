@@ -1,0 +1,24 @@
+<button type="button" (click)="onClick()"
+   class="group flex flex-col w-64 shrink-0 bg-surface-container-lowest rounded-xl overflow-hidden text-left hover:bg-surface-container-low transition-colors snap-start"
+   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+
+  <!-- Image / placeholder -->
+  <div class="relative h-32 bg-surface-container-low flex items-center justify-center">
+    @if (style().imageUrl) {
+      <img [src]="style().imageUrl" [alt]="style().name" class="w-full h-full object-cover" />
+    } @else {
+      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">landscape</span>
+    }
+    <span class="absolute top-2 right-2 inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-primary/90 text-on-primary font-semibold backdrop-blur-sm">
+      {{ 'EXPLORE.TEMPLATE_COUNT' | translate:{ count: style().templateCount } }}
+    </span>
+  </div>
+
+  <!-- Content -->
+  <div class="p-4 flex flex-col flex-1">
+    <h3 class="text-base font-bold font-headline text-on-surface mb-1 truncate">{{ style().name }}</h3>
+    @if (style().description) {
+      <p class="text-sm text-on-surface-variant font-body line-clamp-2">{{ style().description }}</p>
+    }
+  </div>
+</button>

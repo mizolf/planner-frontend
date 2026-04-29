@@ -38,4 +38,8 @@ export class TripService {
       tap(newTrip => this._trips.update(trips => [newTrip, ...trips])),
     );
   }
+
+  addTrip(trip: TripResponse): void {
+    this._trips.update(trips => [trip, ...trips]);
+  }
 }

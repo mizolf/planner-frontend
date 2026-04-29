@@ -174,6 +174,52 @@
       "MEMBER_REMOVED": "<strong>{{actor}}</strong> je uklonio/la <em>{{member}}</em> iz <em>{{trip}}</em>."
     }
   },
+  "EXPLORE": {
+    "SECTION_TITLE": "Istraži predloške",
+    "SECTION_SUBTITLE": "Inspirirajte se odabranim idejama za putovanja.",
+    "LOADING": "Učitavanje inspiracije...",
+    "EMPTY": "Trenutno nema dostupnih predložaka.",
+    "ERROR_LOADING_STYLES": "Učitavanje sekcije nije uspjelo. Pokušajte ponovo.",
+    "ERROR_LOADING_STYLE": "Učitavanje stila nije uspjelo.",
+    "ERROR_STYLE_NOT_FOUND": "Ovaj stil više nije dostupan.",
+    "ERROR_LOADING_TEMPLATE": "Učitavanje predloška nije uspjelo.",
+    "ERROR_TEMPLATE_NOT_FOUND": "Ovaj predložak više nije dostupan.",
+    "RETRY": "Pokušaj ponovo",
+    "TEMPLATE_COUNT": "{{count}} predložaka",
+    "DAYS": "{{count}} dana",
+    "SEASON": {
+      "SPRING": "Proljeće",
+      "SUMMER": "Ljeto",
+      "AUTUMN": "Jesen",
+      "WINTER": "Zima",
+      "YEAR_ROUND": "Cijela godina"
+    },
+    "BUDGET_ESTIMATED": "Procijenjeni budžet: {{amount}}",
+    "ITINERARY_TITLE": "Plan putovanja",
+    "DAY_LABEL": "Dan {{day}}",
+    "EMPTY_DAYS": "Ovaj predložak još nema dana.",
+    "VIEW_TEMPLATE": "Pogledaj predložak",
+    "APPLY_BUTTON": "Primijeni ovaj predložak",
+    "APPLY": {
+      "TITLE": "Primijeni predložak",
+      "SUBTITLE": "Kreirajte putovanje iz ovog predloška",
+      "START_DATE_LABEL": "Datum početka",
+      "START_DATE_REQUIRED": "Datum početka je obavezan.",
+      "START_DATE_PAST": "Datum početka mora biti danas ili kasnije.",
+      "END_DATE_HINT": "Putovanje će završiti {{date}}",
+      "NAME_LABEL": "Naziv putovanja (Opcionalno)",
+      "NAME_PLACEHOLDER": "Promijeni zadani naziv...",
+      "BUDGET_LABEL": "Promjena budžeta (Opcionalno)",
+      "BUDGET_PLACEHOLDER": "450.00",
+      "SUBMIT": "Primijeni",
+      "CANCEL": "Odustani",
+      "SUCCESS": "Putovanje kreirano iz predloška!",
+      "ERROR_VALIDATION": "Provjerite unos i pokušajte ponovo.",
+      "ERROR_UNAUTHORIZED": "Vaša sesija je istekla. Prijavite se ponovo.",
+      "ERROR_NOT_FOUND": "Ovaj predložak više nije dostupan.",
+      "ERROR_GENERIC": "Primjena predloška nije uspjela. Pokušajte ponovo."
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "Skrenuli ste s puta",

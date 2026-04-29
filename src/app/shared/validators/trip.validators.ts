@@ -12,6 +12,18 @@ export function endDateAfterStartDate(
   };
 }
 
+export function dateNotInPast(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const date = new Date(value);
+    date.setHours(0, 0, 0, 0);
+    return date < today ? { dateInPast: true } : null;
+  };
+}
+
 export function budgetMaxDigits(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;

@@ -66,6 +66,8 @@
         {{ 'HOME.EMPTY.CTA' | translate }}
       </button>
     </div>
+
+    <app-explore-section />
   }
 
   <!-- Dashboard -->
@@ -137,6 +139,9 @@
             }
           </div>
         </div>
+
+        <!-- Explore Templates -->
+        <app-explore-section />
 
         <!-- Mobile CTA (visible only on small screens) -->
         <button type="button" (click)="openCreateTripDialog()"

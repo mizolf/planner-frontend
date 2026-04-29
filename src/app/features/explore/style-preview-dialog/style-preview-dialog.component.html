@@ -1,0 +1,112 @@
+@if (isOpen()) {
+  <div
+    (click)="close()"
+    class="fixed inset-0 bg-inverse-surface/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+
+    <div
+      (click)="$event.stopPropagation()"
+      class="bg-surface-container-lowest rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+      style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
+      role="dialog"
+      aria-modal="true">
+
+      <!-- Header -->
+      <div class="flex items-start justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0 gap-4">
+        <div class="min-w-0">
+          @if (style(); as s) {
+            <h2 class="text-xl font-bold font-headline text-on-surface truncate">{{ s.name }}</h2>
+            @if (s.description) {
+              <p class="text-sm text-on-surface-variant font-body mt-0.5">{{ s.description }}</p>
+            }
+          } @else {
+            <h2 class="text-xl font-bold font-headline text-on-surface">
+              {{ 'EXPLORE.LOADING' | translate }}
+            </h2>
+          }
+        </div>
+        <button
+          type="button"
+          (click)="close()"
+          class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors shrink-0">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="px-6 py-6 overflow-y-auto flex-1">
+
+        <!-- Loading -->
+        @if (loading()) {
+          <div class="space-y-3 animate-pulse">
+            @for (_ of [1, 2, 3]; track $index) {
+              <div class="h-24 bg-surface-container-low rounded-xl"></div>
+            }
+          </div>
+        }
+
+        <!-- Error -->
+        @else if (error()) {
+          <div class="flex flex-col items-center justify-center py-12 text-center">
+            <span class="material-symbols-outlined text-4xl text-error/40 mb-3">cloud_off</span>
+            <p class="text-error font-label mb-3 text-sm">{{ error()! | translate }}</p>
+            <button
+              type="button"
+              (click)="retry()"
+              class="px-5 py-2 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+              {{ 'EXPLORE.RETRY' | translate }}
+            </button>
+          </div>
+        }
+
+        <!-- Empty -->
+        @else if (style() && style()!.templates.length === 0) {
+          <div class="flex items-center justify-center py-12 text-center">
+            <p class="text-on-surface-variant font-label text-sm">{{ 'EXPLORE.EMPTY' | translate }}</p>
+          </div>
+        }
+
+        <!-- Template list -->
+        @else if (style()) {
+          <div class="space-y-3">
+            @for (tpl of style()!.templates; track tpl.slug) {
+              <button
+                type="button"
+                (click)="onTemplateClick(tpl)"
+                class="w-full flex bg-surface-container-low rounded-xl overflow-hidden text-left hover:bg-surface-container-high transition-colors">
+
+                <div class="w-32 min-h-[120px] bg-surface-container flex items-center justify-center shrink-0">
+                  @if (tpl.imageUrl) {
+                    <img [src]="tpl.imageUrl" [alt]="tpl.name" class="w-full h-full object-cover" />
+                  } @else {
+                    <span class="material-symbols-outlined text-3xl text-on-surface-variant/30">landscape</span>
+                  }
+                </div>
+
+                <div class="p-4 flex flex-col justify-center min-w-0 flex-1">
+                  <h3 class="text-base font-bold font-headline text-on-surface mb-1 truncate">{{ tpl.name }}</h3>
+                  <p class="text-sm text-on-surface-variant font-body truncate mb-2">{{ tpl.destination }}</p>
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="inline-flex items-center gap-1 text-xs font-label px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-semibold">
+                      <span class="material-symbols-outlined text-[14px]">calendar_month</span>
+                      {{ 'EXPLORE.DAYS' | translate:{ count: tpl.durationDays } }}
+                    </span>
+                    <span class="inline-flex text-xs font-label px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-semibold">
+                      {{ seasonKey(tpl.recommendedSeason) | translate }}
+                    </span>
+                    @if (tpl.estimatedBudget !== null) {
+                      <span class="inline-flex text-xs font-label px-2 py-0.5 rounded-full bg-primary/10 text-primary font-semibold">
+                        ~{{ tpl.estimatedBudget }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              </button>
+            }
+          </div>
+        }
+
+      </div>
+
+    </div>
+  </div>
+}

@@ -174,6 +174,52 @@
       "MEMBER_REMOVED": "<strong>{{actor}}</strong> removed <em>{{member}}</em> from <em>{{trip}}</em>."
     }
   },
+  "EXPLORE": {
+    "SECTION_TITLE": "Explore Templates",
+    "SECTION_SUBTITLE": "Get inspired by curated trip ideas.",
+    "LOADING": "Loading inspiration...",
+    "EMPTY": "No templates available yet.",
+    "ERROR_LOADING_STYLES": "Failed to load explore section. Please try again.",
+    "ERROR_LOADING_STYLE": "Failed to load this style.",
+    "ERROR_STYLE_NOT_FOUND": "This style is no longer available.",
+    "ERROR_LOADING_TEMPLATE": "Failed to load this template.",
+    "ERROR_TEMPLATE_NOT_FOUND": "This template is no longer available.",
+    "RETRY": "Try again",
+    "TEMPLATE_COUNT": "{{count}} templates",
+    "DAYS": "{{count}} days",
+    "SEASON": {
+      "SPRING": "Spring",
+      "SUMMER": "Summer",
+      "AUTUMN": "Autumn",
+      "WINTER": "Winter",
+      "YEAR_ROUND": "Whole year"
+    },
+    "BUDGET_ESTIMATED": "Estimated budget: {{amount}}",
+    "ITINERARY_TITLE": "Itinerary",
+    "DAY_LABEL": "Day {{day}}",
+    "EMPTY_DAYS": "This template has no days yet.",
+    "VIEW_TEMPLATE": "View template",
+    "APPLY_BUTTON": "Apply this template",
+    "APPLY": {
+      "TITLE": "Apply Template",
+      "SUBTITLE": "Create your trip from this template",
+      "START_DATE_LABEL": "Start Date",
+      "START_DATE_REQUIRED": "Start date is required.",
+      "START_DATE_PAST": "Start date must be today or later.",
+      "END_DATE_HINT": "Trip will end {{date}}",
+      "NAME_LABEL": "Trip Name (Optional)",
+      "NAME_PLACEHOLDER": "Override the default name...",
+      "BUDGET_LABEL": "Budget Override (Optional)",
+      "BUDGET_PLACEHOLDER": "450.00",
+      "SUBMIT": "Apply",
+      "CANCEL": "Cancel",
+      "SUCCESS": "Trip created from template!",
+      "ERROR_VALIDATION": "Please check your input and try again.",
+      "ERROR_UNAUTHORIZED": "Your session has expired. Please log in again.",
+      "ERROR_NOT_FOUND": "This template is no longer available.",
+      "ERROR_GENERIC": "Failed to apply template. Please try again."
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "You've drifted off course",

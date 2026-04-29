@@ -1,0 +1,56 @@
+<section class="mb-8">
+  <!-- Header -->
+  <div class="mb-4">
+    <h2 class="text-xl font-bold font-headline text-on-surface">
+      {{ 'EXPLORE.SECTION_TITLE' | translate }}
+    </h2>
+    <p class="text-sm text-on-surface-variant font-body mt-0.5">
+      {{ 'EXPLORE.SECTION_SUBTITLE' | translate }}
+    </p>
+  </div>
+
+  <!-- Loading skeleton -->
+  @if (loading()) {
+    <div class="flex gap-4 overflow-hidden">
+      @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="w-64 h-56 bg-surface-container-low rounded-xl shrink-0 animate-pulse"></div>
+      }
+    </div>
+  }
+
+  <!-- Error -->
+  @else if (error()) {
+    <div class="flex flex-col items-center justify-center py-12 text-center bg-surface-container-lowest rounded-xl"
+         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+      <span class="material-symbols-outlined text-4xl text-error/40 mb-3">cloud_off</span>
+      <p class="text-error font-label mb-3 text-sm">{{ error()! | translate }}</p>
+      <button
+        type="button"
+        (click)="retry()"
+        class="px-5 py-2 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+        {{ 'EXPLORE.RETRY' | translate }}
+      </button>
+    </div>
+  }
+
+  <!-- Empty -->
+  @else if (styles().length === 0) {
+    <div class="flex items-center justify-center py-12 text-center bg-surface-container-lowest rounded-xl"
+         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+      <p class="text-on-surface-variant font-label text-sm">{{ 'EXPLORE.EMPTY' | translate }}</p>
+    </div>
+  }
+
+  <!-- Styles row -->
+  @else {
+    <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-6 px-6 lg:-mx-10 lg:px-10">
+      @for (style of styles(); track style.slug) {
+        <app-style-card [style]="style" (cardClick)="onStyleClick($event)" />
+      }
+    </div>
+  }
+</section>
+
+<app-style-preview-dialog (templateSelected)="onTemplateSelected($event)" />
+<app-template-preview-dialog (applyClicked)="onApplyClicked($event)" />
+<app-apply-template-dialog (tripCreated)="onTripCreated($event)" />
