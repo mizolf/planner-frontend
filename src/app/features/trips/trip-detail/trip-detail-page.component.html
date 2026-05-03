@@ -1,0 +1,81 @@
+<main class="max-w-4xl mx-auto px-5 sm:px-8 py-10 sm:py-16">
+
+  @if (loading()) {
+    <div class="animate-pulse">
+      <div class="h-3 w-24 bg-surface-container-low rounded-full mb-10"></div>
+      <div class="h-3 w-32 bg-surface-container-low rounded-full mb-3"></div>
+      <div class="h-12 w-3/4 bg-surface-container-low rounded-lg mb-3"></div>
+      <div class="h-12 w-2/3 bg-surface-container-low rounded-lg mb-6"></div>
+      <div class="h-4 w-1/2 bg-surface-container-low rounded mb-2"></div>
+      <div class="h-4 w-2/5 bg-surface-container-low rounded mb-10"></div>
+      <div class="space-y-10 mt-16">
+        @for (n of [1, 2, 3]; track n) {
+          <div class="flex gap-7">
+            <div class="size-12 rounded-full bg-surface-container-low shrink-0"></div>
+            <div class="flex-1 space-y-3">
+              <div class="h-3 w-32 bg-surface-container-low rounded"></div>
+              <div class="h-5 w-1/2 bg-surface-container-low rounded"></div>
+              <div class="h-4 w-2/3 bg-surface-container-low rounded"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    @if (error(); as kind) {
+      <div class="flex flex-col items-center text-center py-20 sm:py-32 max-w-md mx-auto">
+        <span class="material-symbols-outlined text-6xl text-on-surface-variant/30 mb-5">
+          @switch (kind) {
+            @case ('NOT_FOUND') { explore_off }
+            @case ('NO_ACCESS') { lock }
+            @case ('UNAUTHENTICATED') { person_off }
+            @default { cloud_off }
+          }
+        </span>
+        <h1 class="font-headline font-bold text-2xl sm:text-3xl text-on-surface mb-3 tracking-tight">
+          {{ 'TRIPS.DETAIL.ERROR.' + kind + '.TITLE' | translate }}
+        </h1>
+        <p class="text-on-surface-variant font-body leading-relaxed mb-8">
+          {{ 'TRIPS.DETAIL.ERROR.' + kind + '.MESSAGE' | translate }}
+        </p>
+        <a
+          routerLink="/home"
+          class="inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          {{ 'TRIPS.DETAIL.ERROR.BACK_TO_DASHBOARD' | translate }}
+        </a>
+      </div>
+    } @else {
+      @if (trip(); as t) {
+        <app-trip-detail-header [trip]="t" />
+
+        <section class="mt-14 sm:mt-20">
+          <h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight mb-8">
+            {{ 'TRIPS.DETAIL.DAYS.TITLE' | translate }}
+          </h2>
+
+          @if (t.days.length === 0) {
+            <div class="flex flex-col items-center text-center py-16 px-6 bg-surface-container-low rounded-2xl">
+              <span class="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4">event_note</span>
+              <h3 class="font-headline font-bold text-lg text-on-surface mb-2">
+                {{ 'TRIPS.DETAIL.DAYS.EMPTY.TITLE' | translate }}
+              </h3>
+              <p class="text-sm text-on-surface-variant font-body max-w-sm">
+                {{ 'TRIPS.DETAIL.DAYS.EMPTY.MESSAGE' | translate }}
+              </p>
+            </div>
+          } @else {
+            <div>
+              @for (day of t.days; track day.id; let i = $index; let last = $last) {
+                <app-trip-day-card [day]="day" [isLast]="last" [index]="i" />
+              }
+            </div>
+          }
+        </section>
+
+        <app-trip-members-section [members]="t.members" />
+      }
+    }
+  }
+
+</main>

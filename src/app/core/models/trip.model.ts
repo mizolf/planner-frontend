@@ -33,3 +33,37 @@ export interface TripResponse {
   createdAt: string;
   updatedAt: string;
 }
+
+export type MemberRole = 'OWNER' | 'EDITOR' | 'VIEWER';
+
+export interface ActivityResponse {
+  id: number;
+  name: string;
+  description: string | null;
+  location: string | null;
+  startTime: string | null;
+  endTime: string | null;
+}
+
+export interface TripDayResponse {
+  id: number;
+  dayNumber: number;
+  date: string;
+  notes: string | null;
+  activities: ActivityResponse[];
+}
+
+export interface TripMemberResponse {
+  userId: number;
+  fullName: string;
+  email: string;
+  role: MemberRole;
+  joinedAt: string;
+}
+
+export interface TripDetailResponse extends TripResponse {
+  days: TripDayResponse[];
+  members: TripMemberResponse[];
+}
+
+export type TripDetailErrorKind = 'NOT_FOUND' | 'NO_ACCESS' | 'UNAUTHENTICATED' | 'GENERIC';

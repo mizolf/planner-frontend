@@ -153,6 +153,57 @@
       "SHOPPING": "Shopping",
       "RELAXATION": "Relaxation",
       "HISTORY": "History"
+    },
+    "DETAIL": {
+      "BACK": "Dashboard",
+      "DESTINATION_KICKER": "Destination",
+      "DATE_SEPARATOR": "–",
+      "BUDGET_LABEL": "Budget",
+      "DESCRIPTION_FALLBACK": "No description.",
+      "INTERESTS_TITLE": "Interests",
+      "ROLE": {
+        "OWNER": "Owner",
+        "EDITOR": "Editor",
+        "VIEWER": "Viewer"
+      },
+      "MEMBERS": {
+        "TITLE": "Travelers",
+        "SUBTITLE": "Who's coming on this trip",
+        "JOINED_AT": "Joined {{date}}",
+        "OVERFLOW": "+{{count}}",
+        "EMPTY": "No travelers yet."
+      },
+      "DAYS": {
+        "TITLE": "Itinerary",
+        "LABEL": "Day {{number}}",
+        "NOTES_LABEL": "Notes",
+        "NO_ACTIVITIES": "No activities planned for this day.",
+        "EMPTY": {
+          "TITLE": "No days planned yet",
+          "MESSAGE": "Days and activities will appear here once they're added to this trip."
+        }
+      },
+      "LOADING": "Loading trip…",
+      "ERROR": {
+        "BACK_TO_DASHBOARD": "Back to dashboard",
+        "RETRY": "Try again",
+        "NOT_FOUND": {
+          "TITLE": "Trip not found",
+          "MESSAGE": "We couldn't find a trip with this id. It may have been removed."
+        },
+        "NO_ACCESS": {
+          "TITLE": "No access to this trip",
+          "MESSAGE": "You're not a member of this trip. Ask the owner to invite you."
+        },
+        "UNAUTHENTICATED": {
+          "TITLE": "Please sign in",
+          "MESSAGE": "Your session expired. Sign in again to view this trip."
+        },
+        "GENERIC": {
+          "TITLE": "Something went wrong",
+          "MESSAGE": "We couldn't load this trip. Please try again."
+        }
+      }
     }
   },
   "ACTIVITY_FEED": {

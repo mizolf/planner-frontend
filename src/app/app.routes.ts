@@ -10,7 +10,12 @@ export const routes: Routes = [
       { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
       { path: 'trips', redirectTo: 'home' },
       { path: 'trips/new', redirectTo: 'home' },
-      { path: 'trips/:id', redirectTo: 'home' },
+      {
+        path: 'trips/:id',
+        loadComponent: () =>
+          import('./features/trips/trip-detail/trip-detail-page.component')
+            .then(m => m.TripDetailPageComponent),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

@@ -153,6 +153,57 @@
       "SHOPPING": "Kupovina",
       "RELAXATION": "Opuštanje",
       "HISTORY": "Povijest"
+    },
+    "DETAIL": {
+      "BACK": "Početna",
+      "DESTINATION_KICKER": "Odredište",
+      "DATE_SEPARATOR": "–",
+      "BUDGET_LABEL": "Budžet",
+      "DESCRIPTION_FALLBACK": "Nema opisa.",
+      "INTERESTS_TITLE": "Interesi",
+      "ROLE": {
+        "OWNER": "Vlasnik",
+        "EDITOR": "Urednik",
+        "VIEWER": "Gledatelj"
+      },
+      "MEMBERS": {
+        "TITLE": "Suputnici",
+        "SUBTITLE": "Tko ide na ovo putovanje",
+        "JOINED_AT": "Pridružio/la se {{date}}",
+        "OVERFLOW": "+{{count}}",
+        "EMPTY": "Još nema suputnika."
+      },
+      "DAYS": {
+        "TITLE": "Plan putovanja",
+        "LABEL": "Dan {{number}}",
+        "NOTES_LABEL": "Bilješke",
+        "NO_ACTIVITIES": "Nema aktivnosti za ovaj dan.",
+        "EMPTY": {
+          "TITLE": "Još nema isplaniranih dana",
+          "MESSAGE": "Dani i aktivnosti pojavit će se ovdje čim budu dodani na ovo putovanje."
+        }
+      },
+      "LOADING": "Učitavanje putovanja…",
+      "ERROR": {
+        "BACK_TO_DASHBOARD": "Natrag na početnu",
+        "RETRY": "Pokušaj ponovo",
+        "NOT_FOUND": {
+          "TITLE": "Putovanje nije pronađeno",
+          "MESSAGE": "Nismo pronašli putovanje s ovim ID-om. Možda je obrisano."
+        },
+        "NO_ACCESS": {
+          "TITLE": "Nemate pristup ovom putovanju",
+          "MESSAGE": "Niste član ovog putovanja. Zatražite od vlasnika da vas pozove."
+        },
+        "UNAUTHENTICATED": {
+          "TITLE": "Prijavite se",
+          "MESSAGE": "Vaša sesija je istekla. Prijavite se ponovo za prikaz ovog putovanja."
+        },
+        "GENERIC": {
+          "TITLE": "Nešto je pošlo po krivu",
+          "MESSAGE": "Nismo uspjeli učitati ovo putovanje. Pokušajte ponovo."
+        }
+      }
     }
   },
   "ACTIVITY_FEED": {

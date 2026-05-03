@@ -1,0 +1,80 @@
+<article
+  class="relative flex gap-5 sm:gap-7 animate-fade-in-up"
+  [style.animation-delay.ms]="index() * 60">
+
+  <div class="relative shrink-0 hidden sm:flex w-14 justify-center">
+    @if (!isLast()) {
+      <div class="absolute top-14 bottom-0 left-1/2 -translate-x-1/2 w-px bg-tertiary/25"></div>
+    }
+    <div
+      class="relative z-10 size-12 rounded-full bg-tertiary text-on-tertiary font-headline font-bold flex items-center justify-center text-base tracking-tight"
+      style="box-shadow: 0 6px 20px rgba(153, 65, 0, 0.18);">
+      {{ day().dayNumber }}
+    </div>
+  </div>
+
+  <div class="flex-1 min-w-0 pb-12">
+    <div class="sm:hidden inline-flex items-center gap-2.5 mb-3">
+      <span class="inline-flex size-8 rounded-full bg-tertiary text-on-tertiary font-headline font-bold text-xs items-center justify-center">
+        {{ day().dayNumber }}
+      </span>
+      <span class="text-[11px] font-label text-on-surface-variant uppercase tracking-[0.18em]">
+        {{ 'TRIPS.DETAIL.DAYS.LABEL' | translate:{ number: day().dayNumber } }}
+      </span>
+    </div>
+
+    <p class="hidden sm:block text-[11px] font-label text-on-surface-variant uppercase tracking-[0.2em] mb-1">
+      {{ 'TRIPS.DETAIL.DAYS.LABEL' | translate:{ number: day().dayNumber } }}
+      <span class="text-on-surface-variant/40 mx-1.5">·</span>
+      {{ day().date | date:'fullDate' }}
+    </p>
+    <p class="sm:hidden text-xs font-label text-on-surface-variant/80 mb-3">
+      {{ day().date | date:'fullDate' }}
+    </p>
+
+    @if (day().notes) {
+      <p class="font-headline italic text-lg sm:text-xl text-on-surface/85 leading-snug mb-5 max-w-[60ch]">
+        {{ day().notes }}
+      </p>
+    }
+
+    @if (day().activities.length === 0) {
+      <p class="text-sm font-label text-on-surface-variant/60 italic py-2">
+        {{ 'TRIPS.DETAIL.DAYS.NO_ACTIVITIES' | translate }}
+      </p>
+    } @else {
+      <ul class="space-y-4">
+        @for (activity of day().activities; track activity.id) {
+          <li class="flex items-start gap-4 sm:gap-5">
+            <div class="shrink-0 w-14 sm:w-20 pt-0.5">
+              @if (activity.startTime) {
+                <p class="text-sm font-label font-bold text-tertiary tabular-nums">
+                  {{ formatTime(activity.startTime) }}
+                </p>
+                @if (activity.endTime) {
+                  <p class="text-[10px] font-label text-on-surface-variant/60 tabular-nums mt-0.5">
+                    {{ formatTime(activity.endTime) }}
+                  </p>
+                }
+              } @else {
+                <p class="text-xs font-label text-on-surface-variant/40">—</p>
+              }
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="font-headline font-semibold text-on-surface text-base leading-snug">{{ activity.name }}</p>
+              @if (activity.location) {
+                <p class="flex items-center gap-1 text-xs text-on-surface-variant font-body mt-1">
+                  <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">place</span>
+                  {{ activity.location }}
+                </p>
+              }
+              @if (activity.description) {
+                <p class="text-sm text-on-surface-variant font-body mt-1.5 leading-relaxed">{{ activity.description }}</p>
+              }
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</article>

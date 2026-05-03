@@ -1,0 +1,78 @@
+<header class="relative">
+  <a
+    routerLink="/home"
+    class="inline-flex items-center gap-1.5 text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-[0.15em] mb-10">
+    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+    {{ 'TRIPS.DETAIL.BACK' | translate }}
+  </a>
+
+  <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start mb-8">
+    <div class="min-w-0">
+      <p class="text-[11px] font-label font-semibold text-tertiary uppercase tracking-[0.25em] mb-3">
+        {{ 'TRIPS.DETAIL.DESTINATION_KICKER' | translate }}
+        <span class="text-on-surface-variant/40 mx-2">·</span>
+        <span class="text-on-surface">{{ trip().destination }}</span>
+      </p>
+      <h1 class="font-headline font-bold text-on-surface tracking-tight leading-[1.05] text-[clamp(2.5rem,5vw,4rem)]">
+        {{ trip().name }}
+      </h1>
+      @if (trip().description) {
+        <p class="font-headline italic text-on-surface/75 text-lg sm:text-xl leading-snug mt-5 max-w-[60ch]">
+          {{ trip().description }}
+        </p>
+      }
+    </div>
+
+    <div class="lg:pt-2">
+      @if (visibleMembers().length > 0) {
+        <div class="flex -space-x-2">
+          @for (member of visibleMembers(); track member.userId) {
+            <div
+              class="size-11 rounded-full ring-2 ring-surface bg-primary-container text-on-primary-container font-headline font-bold flex items-center justify-center text-sm tracking-tight"
+              [title]="member.fullName + ' — ' + member.role">
+              {{ initialsOf(member.fullName) }}
+            </div>
+          }
+          @if (overflowCount() > 0) {
+            <div class="size-11 rounded-full ring-2 ring-surface bg-surface-container-high text-on-surface-variant font-label font-semibold flex items-center justify-center text-xs">
+              {{ 'TRIPS.DETAIL.MEMBERS.OVERFLOW' | translate:{ count: overflowCount() } }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-x-5 gap-y-3 mb-5 text-sm font-label text-on-surface-variant">
+    <span class="inline-flex items-center gap-2">
+      <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">calendar_month</span>
+      <span class="text-on-surface font-semibold">{{ trip().startDate | date:'mediumDate' }}</span>
+      <span class="text-on-surface-variant/50">{{ 'TRIPS.DETAIL.DATE_SEPARATOR' | translate }}</span>
+      <span class="text-on-surface font-semibold">{{ trip().endDate | date:'mediumDate' }}</span>
+    </span>
+
+    <span
+      class="inline-flex text-xs font-label px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider"
+      [ngClass]="getStatusColor()">
+      {{ 'HOME.STATUS.' + trip().status | translate }}
+    </span>
+
+    @if (trip().budget !== null && trip().budget !== undefined) {
+      <span class="inline-flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">payments</span>
+        <span class="text-on-surface-variant">{{ 'TRIPS.DETAIL.BUDGET_LABEL' | translate }}</span>
+        <span class="text-on-surface font-semibold tabular-nums">{{ trip().budget | number:'1.0-2' }}</span>
+      </span>
+    }
+  </div>
+
+  @if (trip().interests.length > 0) {
+    <div class="flex flex-wrap gap-1.5">
+      @for (interest of trip().interests; track interest) {
+        <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-medium">
+          {{ 'TRIPS.INTERESTS.' + interest | translate }}
+        </span>
+      }
+    </div>
+  }
+</header>
