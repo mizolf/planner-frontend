@@ -65,9 +65,14 @@
               </p>
             </div>
           } @else {
-            <div>
-              @for (day of t.days; track day.id; let i = $index; let last = $last) {
-                <app-trip-day-card [day]="day" [isLast]="last" [index]="i" />
+            <app-trip-day-picker
+              [days]="t.days"
+              [selectedDayId]="selectedDayId()"
+              (selectDay)="selectDay($event)" />
+
+            <div class="mt-8">
+              @if (selectedDay(); as d) {
+                <app-trip-day-card [day]="d" />
               }
             </div>
           }

@@ -1,0 +1,26 @@
+<div
+  role="tablist"
+  [attr.aria-label]="'TRIPS.DETAIL.DAYS.PICKER.ARIA_LABEL' | translate"
+  class="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1 scroll-smooth">
+  @for (day of days(); track day.id) {
+    <button
+      type="button"
+      role="tab"
+      [attr.aria-pressed]="day.id === selectedDayId()"
+      [attr.aria-selected]="day.id === selectedDayId()"
+      [title]="day.title ?? ''"
+      (click)="onSelect(day.id)"
+      class="snap-start shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full font-label text-sm transition-colors"
+      [class.bg-primary]="day.id === selectedDayId()"
+      [class.text-on-primary]="day.id === selectedDayId()"
+      [class.shadow-sm]="day.id === selectedDayId()"
+      [class.bg-surface-container-low]="day.id !== selectedDayId()"
+      [class.text-on-surface]="day.id !== selectedDayId()"
+      [class.hover:bg-surface-container]="day.id !== selectedDayId()">
+      <span class="font-semibold">{{ 'TRIPS.DETAIL.DAYS.LABEL' | translate:{ number: day.dayNumber } }}</span>
+      @if (day.title) {
+        <span class="opacity-80 truncate max-w-[16ch]">{{ day.title }}</span>
+      }
+    </button>
+  }
+</div>

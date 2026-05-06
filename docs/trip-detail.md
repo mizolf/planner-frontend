@@ -443,12 +443,143 @@ TripDetailPageComponent
 
 Activity rows stay inline in `trip-day-card.component.html` for Phase 1; they get extracted in Phase 2 because edit / delete affordances and per-row state push them past the "premature abstraction" threshold.
 
-## Open Questions
+## Resolved Decisions
 
-1. **Reorder days / move activities** — both need backend support. Add `PATCH /trips/{id}/days/reorder` and `PATCH /trips/{id}/days/{srcDayId}/activities/{actId}/move?targetDayId=N`? Or accept the chatty multi-PUT path?
-2. **Inline edit interaction model** — click-to-edit vs hover-pencil vs always-on inputs in an "edit mode" toggle? Click-to-edit is the most common Notion-like pattern; needs careful focus / esc / blur handling.
-3. **Locking dates** — when trip startDate/endDate change, days outside the new range become orphaned. Block the date change, warn-and-prune, or accept orphaned days and surface them visually?
-4. **Status auto-advancement** — should `status` flip to `IN_PROGRESS` automatically on `startDate`, and to `COMPLETED` on `endDate + 1`? If yes, that's a backend concern (cron) but the UI should reflect it without a manual reload.
-5. **Currency** — `budget` is currently rendered as a bare number with `1.0-2` formatting. Add a per-trip currency code? Currently every trip is implicitly EUR-shaped.
-6. **Conflict resolution** — two editors saving simultaneously, last write wins. Add ETag / `If-Match` later if it becomes a real problem.
-7. **Activity icons / categories** — currently activities have no type. Adding `category` (e.g., FOOD, MUSEUM, TRANSPORT) would let us decorate rows with iconography.
+The following decisions cover the design questions that surfaced while planning Phase 2. They are
+not yet implemented — they're the contract we'll follow when Phase 2 work starts.
+
+### 1. Reorder days and move activities — add dedicated backend endpoints
+
+Add two new endpoints:
+
+| Method | Path | Body | Purpose |
+|--------|------|------|---------|
+| `PATCH` | `/trips/{tripId}/days/reorder` | `{ "dayIds": [12, 7, 9, 4] }` | Reorder days; backend renumbers `dayNumber` in the sent order |
+| `PATCH` | `/trips/{tripId}/days/{srcDayId}/activities/{activityId}/move` | `{ "targetDayId": 17 }` | Move an activity to a different day |
+
+**Why not multi-PUT from the frontend:** atomicity. If the third of N PUT calls fails, the trip
+is left in an inconsistent state with mixed `dayNumber` values, and the frontend has to either
+roll back manually (more PUTs that can also fail) or leave the user to fix it. A single endpoint
+runs in one transaction — either all changes apply or none do.
+
+**Frontend impact:** drag-and-drop sends one ordered list of ids on drop end. No client-side
+transaction logic.
+
+### 2. Inline edit interaction model — click-to-edit for text, dialog for complex fields
+
+Hybrid approach driven by the field's validation and preview needs:
+
+| Field | Pattern |
+|-------|---------|
+| `name`, `description`, `destination`, `budget`, `notes` (day) | Click-to-edit inline |
+| `startDate` / `endDate` | Dialog (needs date-range validation + orphaned-days warning — see #3) |
+| `status` | Dropdown on the pill (single click → menu) — but see #4, this may go away |
+| `interests` | Dialog (multi-select with chip preview) |
+
+**Why not hover-pencil:** doesn't work on touch devices — there's no hover. Mobile users have
+to long-press or guess where the affordance is.
+
+**Why not "edit mode" toggle for the whole page:** users have to remember to "save" the page,
+and a draft of unsaved edits across the whole page becomes a coordination problem (what if
+they navigate away?).
+
+**Caveat:** click-to-edit needs careful UX work — Esc cancels and reverts, blur saves with
+inline spinner, focus moves to the input on click, network errors revert the value and toast.
+Build a small `<app-inline-edit>` directive once and reuse it; don't reinvent for each field.
+
+### 3. Date locking — warn-and-prune on shrink, allow extension freely
+
+When the user changes trip dates and existing days fall outside the new range:
+
+| Direction | Behavior |
+|-----------|----------|
+| Extend (`endDate` later, `startDate` earlier) | Save immediately, no prompt |
+| Shrink, no orphans | Save immediately |
+| Shrink, would orphan N days | Modal: "This will delete Day 6, Day 7 and their N activities. Continue?" → on confirm, save dates and cascade-delete orphaned days |
+
+**Why not block:** forces a two-step flow (delete days, then change dates) for a goal the user
+already has in mind. Modal asks once, gets explicit consent, does it in one shot.
+
+**Why not accept orphans:** orphaned days create surprising bugs downstream — calendar views,
+activity counts, "next trip" logic on the dashboard. Saving the user from a bug they'll hit
+in a week is worth the modal friction now.
+
+**Backend support:** the cascade delete should happen server-side in the same `PUT /trips/{id}`
+transaction. Frontend sends new dates; backend either succeeds (with deletes) or rejects with
+a `409 Conflict` carrying the affected day count if we ever want to re-confirm server-side.
+For Phase 2, server-side cascade with frontend warning is the simpler split.
+
+### 4. Status auto-advancement — compute on backend from dates, drop manual status (mostly)
+
+Status is a function of dates, not a piece of state to maintain:
+
+```
+today < startDate           → UPCOMING
+startDate ≤ today ≤ endDate → IN_PROGRESS
+today > endDate             → COMPLETED
+```
+
+`PLANNING` is the one genuinely manual state — it means "the user is still drafting and the
+dates may be tentative." Keep it as a stored field; treat the other three as derived in the
+DTO mapper at read time.
+
+**Schema change:** `status` column stays, but only ever holds `PLANNING` (when set manually) or
+is `null`/derived. The DTO returns the resolved value so the frontend never has to compute it.
+
+**Why not a cron job:** cron is fragile — if it fails to run, trips get stuck `UPCOMING` past
+their start date. Computing on read is deterministic and self-healing. There's also no "good"
+time to run a cron for users in different timezones.
+
+**Frontend impact:** read-only — the dropdown for editing status only shows `PLANNING` ↔
+"Ready / non-PLANNING" toggle, not all four states. The current four-color status pill keeps
+working unchanged.
+
+### 5. Currency — defer; EUR-only is fine for the thesis scope
+
+Keep the current behavior: `budget` is a bare number, displayed with currency formatting that
+assumes EUR.
+
+**Why defer:** multi-currency is deceptively expensive — conversion rates (hard-coded? live API?),
+display formatting per locale, aggregation across trips with mixed currencies, sorting, exchange
+rate snapshots at trip-creation time vs. now... it's a feature, not a config flag.
+
+**Future work (documented for awareness, not committed):** add `currency: string` (ISO 4217,
+default `'EUR'`) to the Trip entity and use `Intl.NumberFormat(locale, { style: 'currency', currency })`
+in the frontend. No conversion — every trip displays in its own currency.
+
+### 6. Conflict resolution — accept last-write-wins; document the limit
+
+If two members edit the same trip simultaneously, the second `PUT` overwrites the first.
+This is acceptable for the realistic concurrency profile of a trip planner (1–2 active
+editors, rarely on the same field at the same second).
+
+**Why not ETags / If-Match:** roughly 3–4× complexity for every mutation:
+- Backend tracks a version per entity, returns it in every read, validates it on every write.
+- Frontend has to remember the version it last loaded, attach it on PUT, handle `412
+  Precondition Failed` by refetching and surfacing a "the trip was edited by someone else,
+  see latest" prompt.
+
+For a thesis project, recognizing the trade-off is more valuable than implementing the
+solution. Re-evaluate only if real conflict bugs surface in usage.
+
+### 7. Activity categories — add a `category` enum in Phase 2
+
+Add a `category` field to `Activity`:
+
+```
+TRANSPORT      — flights, trains, transfers
+ACCOMMODATION  — hotels, hostels, rentals
+FOOD           — restaurants, cafés, bars
+SIGHTSEEING    — museums, landmarks, tours
+ENTERTAINMENT  — concerts, events, nightlife
+OTHER          — fallback / uncategorized
+```
+
+**Why:** small backend change (one enum column, defaulted to `OTHER` for backfill), large UX
+win — visual scanning of a day at a glance becomes much faster when "two museum stops + lunch
++ check-in" is communicated by icons rather than read line-by-line. Standard pattern in every
+mature trip planner.
+
+**Frontend impact:** activity row gets a small leading icon from `material-symbols-outlined`
+(`flight`, `hotel`, `restaurant`, `museum`, `celebration`, `place`). The activity edit dialog
+gains a single category select. No layout overhaul needed.

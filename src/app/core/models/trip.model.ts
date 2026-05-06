@@ -49,6 +49,7 @@ export interface TripDayResponse {
   id: number;
   dayNumber: number;
   date: string;
+  title: string | null;
   notes: string | null;
   activities: ActivityResponse[];
 }

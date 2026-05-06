@@ -12,8 +12,6 @@ import { formatTime } from '../../../shared/utils/format-time';
 })
 export class TripDayCardComponent {
   readonly day = input.required<TripDayResponse>();
-  readonly isLast = input(false);
-  readonly index = input(0);
 
   formatTime = formatTime;
 }

@@ -181,6 +181,9 @@
         "EMPTY": {
           "TITLE": "No days planned yet",
           "MESSAGE": "Days and activities will appear here once they're added to this trip."
+        },
+        "PICKER": {
+          "ARIA_LABEL": "Select a day"
         }
       },
       "LOADING": "Loading trip…",
