@@ -1,25 +1,40 @@
-import { Component, computed, OnDestroy, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { TripService } from '../../../core/services/trip.service';
-import { TripDayCardComponent } from './trip-day-card.component';
-import { TripDayPickerComponent } from './trip-day-picker.component';
-import { TripDetailHeaderComponent } from './trip-detail-header.component';
-import { TripMembersSectionComponent } from './trip-members-section.component';
+import {
+  Component,
+  computed,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+  signal,
+} from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { Subscription } from "rxjs";
+import { TripDayResponse } from "../../../core/models/trip.model";
+import { TripService } from "../../../core/services/trip.service";
+import { AddDayDialogComponent } from "./add-day-dialog.component";
+import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
+import { AddActivityDialogComponent } from "./add-activity-dialog.component";
+import { TripDayCardComponent } from "./trip-day-card.component";
+import { TripDayPickerComponent } from "./trip-day-picker.component";
+import { TripDetailHeaderComponent } from "./trip-detail-header.component";
+import { TripMembersSectionComponent } from "./trip-members-section.component";
 
 @Component({
-  selector: 'app-trip-detail-page',
+  selector: "app-trip-detail-page",
   standalone: true,
   imports: [
     RouterLink,
     TranslateModule,
+    AddDayDialogComponent,
+    AddActivityDialogComponent,
+    DeleteDayDialogComponent,
     TripDayCardComponent,
     TripDayPickerComponent,
     TripDetailHeaderComponent,
     TripMembersSectionComponent,
   ],
-  templateUrl: './trip-detail-page.component.html',
+  templateUrl: "./trip-detail-page.component.html",
 })
 export class TripDetailPageComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
@@ -31,13 +46,22 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   private readonly userSelectedDayId = signal<number | null>(null);
 
+  @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
+  @ViewChild(DeleteDayDialogComponent)
+  deleteDayDialog?: DeleteDayDialogComponent;
+
+  @ViewChild(AddActivityDialogComponent)
+  addActivityDialog?: AddActivityDialogComponent;
+
+  private paramSub?: Subscription;
+
   readonly selectedDay = computed(() => {
     const t = this.trip();
     if (!t || t.days.length === 0) return null;
     const sorted = [...t.days].sort((a, b) => a.dayNumber - b.dayNumber);
     const explicit = this.userSelectedDayId();
     if (explicit !== null) {
-      const found = t.days.find(d => d.id === explicit);
+      const found = t.days.find((d) => d.id === explicit);
       if (found) return found;
     }
     return sorted[0];
@@ -45,11 +69,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   readonly selectedDayId = computed(() => this.selectedDay()?.id ?? null);
 
-  private paramSub?: Subscription;
-
   ngOnInit(): void {
-    this.paramSub = this.route.paramMap.subscribe(params => {
-      const raw = params.get('id');
+    this.paramSub = this.route.paramMap.subscribe((params) => {
+      const raw = params.get("id");
       const id = Number(raw);
       if (raw === null || !Number.isFinite(id) || id <= 0) {
         return;
@@ -66,5 +88,21 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   selectDay(id: number): void {
     this.userSelectedDayId.set(id);
+  }
+
+  openAddDay(): void {
+    this.addDayDialog?.open();
+  }
+
+  openAddActivity(day: TripDayResponse): void {
+    const trip = this.trip();
+    if (!trip) return;
+    this.addActivityDialog?.open(trip.id, day.id);
+  }
+
+  openDeleteDay(day: TripDayResponse): void {
+    const t = this.trip();
+    if (!t) return;
+    this.deleteDayDialog?.open(t.id, day);
   }
 }

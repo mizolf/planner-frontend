@@ -184,6 +184,57 @@
         },
         "PICKER": {
           "ARIA_LABEL": "Odaberi dan"
+        },
+        "ADD": {
+          "CTA": "Dan",
+          "TITLE": "Dodaj dan",
+          "SUBTITLE": "Daj mu kratak naslov i datum.",
+          "TITLE_LABEL": "Naslov",
+          "TITLE_PLACEHOLDER": "npr. Dolazak i prva večera",
+          "TITLE_MAX": "Naslov može imati najviše 255 znakova.",
+          "DATE_LABEL": "Datum",
+          "DATE_REQUIRED": "Odaberi datum.",
+          "DATE_OUT_OF_RANGE": "Datum mora biti unutar trajanja putovanja.",
+          "CANCEL": "Odustani",
+          "SUBMIT": "Dodaj dan",
+          "SUCCESS": "Dan dodan.",
+          "ERROR_VALIDATION": "Provjeri označena polja.",
+          "ERROR_GENERIC": "Dodavanje dana nije uspjelo. Pokušaj ponovno."
+        },
+        "DELETE": {
+          "CTA": "Obriši dan",
+          "TITLE": "Obrisati Dan {{number}}?",
+          "MESSAGE_WITH_ACTIVITIES": "Ovaj dan i njegovih {{count}} aktivnosti će biti uklonjeno. Ovo se ne može poništiti.",
+          "MESSAGE_NO_ACTIVITIES": "Ovaj dan će biti uklonjen. Ovo se ne može poništiti.",
+          "CONFIRM": "Obriši",
+          "CANCEL": "Odustani",
+          "SUCCESS": "Dan obrisan.",
+          "ERROR_GENERIC": "Brisanje dana nije uspjelo. Pokušaj ponovno."
+        }
+      },
+      "ACTIVITIES": {
+        "ADD": {
+          "CTA": "Aktivnost",
+          "TITLE": "Dodaj aktivnost",
+          "SUBTITLE": "Isplaniraj nešto za ovaj dan.",
+          "NAME_LABEL": "Naziv",
+          "NAME_PLACEHOLDER": "npr. Šetnja Starim gradom",
+          "NAME_REQUIRED": "Unesi naziv.",
+          "NAME_MAX": "Naziv može imati najviše 255 znakova.",
+          "LOCATION_LABEL": "Lokacija",
+          "LOCATION_PLACEHOLDER": "npr. Glavni trg",
+          "LOCATION_MAX": "Lokacija može imati najviše 255 znakova.",
+          "DESCRIPTION_LABEL": "Opis",
+          "DESCRIPTION_PLACEHOLDER": "O čemu se radi u ovoj aktivnosti?",
+          "DESCRIPTION_MAX": "Opis može imati najviše 255 znakova.",
+          "START_TIME_LABEL": "Početak",
+          "START_TIME_REQUIRED": "Odaberi vrijeme početka.",
+          "END_TIME_LABEL": "Kraj",
+          "CANCEL": "Odustani",
+          "SUBMIT": "Dodaj aktivnost",
+          "SUCCESS": "Aktivnost dodana.",
+          "ERROR_VALIDATION": "Provjeri označena polja.",
+          "ERROR_GENERIC": "Dodavanje aktivnosti nije uspjelo. Pokušaj ponovno."
         }
       },
       "LOADING": "Učitavanje putovanja…",

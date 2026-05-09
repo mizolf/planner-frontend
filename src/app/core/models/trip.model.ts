@@ -1,14 +1,14 @@
-export type TripStatus = 'PLANNING' | 'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED';
+export type TripStatus = "PLANNING" | "UPCOMING" | "IN_PROGRESS" | "COMPLETED";
 
 export type Interest =
-  | 'CULTURE'
-  | 'FOOD'
-  | 'ADVENTURE'
-  | 'NATURE'
-  | 'NIGHTLIFE'
-  | 'SHOPPING'
-  | 'RELAXATION'
-  | 'HISTORY';
+  | "CULTURE"
+  | "FOOD"
+  | "ADVENTURE"
+  | "NATURE"
+  | "NIGHTLIFE"
+  | "SHOPPING"
+  | "RELAXATION"
+  | "HISTORY";
 
 export interface CreateTripRequest {
   name: string;
@@ -34,9 +34,33 @@ export interface TripResponse {
   updatedAt: string;
 }
 
-export type MemberRole = 'OWNER' | 'EDITOR' | 'VIEWER';
+export interface CreateTripDayRequest {
+  dayNumber: number;
+  date: string;
+  title?: string;
+  notes?: string;
+}
+
+export type MemberRole = "OWNER" | "EDITOR" | "VIEWER";
 
 export interface ActivityResponse {
+  id: number;
+  name: string;
+  description: string | null;
+  location: string | null;
+  startTime: string | null;
+  endTime: string | null;
+}
+
+export interface CreateTripActivityRequest {
+  name: string;
+  description?: string;
+  location?: string;
+  startTime?: string;
+  endTime?: string;
+}
+
+export interface TripActivityResponse {
   id: number;
   name: string;
   description: string | null;
@@ -67,4 +91,8 @@ export interface TripDetailResponse extends TripResponse {
   members: TripMemberResponse[];
 }
 
-export type TripDetailErrorKind = 'NOT_FOUND' | 'NO_ACCESS' | 'UNAUTHENTICATED' | 'GENERIC';
+export type TripDetailErrorKind =
+  | "NOT_FOUND"
+  | "NO_ACCESS"
+  | "UNAUTHENTICATED"
+  | "GENERIC";

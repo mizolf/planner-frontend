@@ -184,6 +184,57 @@
         },
         "PICKER": {
           "ARIA_LABEL": "Select a day"
+        },
+        "ADD": {
+          "CTA": "Day",
+          "TITLE": "Add a day",
+          "SUBTITLE": "Give it a short title and a date.",
+          "TITLE_LABEL": "Title",
+          "TITLE_PLACEHOLDER": "e.g. Arrival & first dinner",
+          "TITLE_MAX": "Title can be at most 255 characters.",
+          "DATE_LABEL": "Date",
+          "DATE_REQUIRED": "Pick a date.",
+          "DATE_OUT_OF_RANGE": "Date must fall within the trip dates.",
+          "CANCEL": "Cancel",
+          "SUBMIT": "Add day",
+          "SUCCESS": "Day added.",
+          "ERROR_VALIDATION": "Please check the highlighted fields.",
+          "ERROR_GENERIC": "Couldn't add the day. Please try again."
+        },
+        "DELETE": {
+          "CTA": "Delete day",
+          "TITLE": "Delete Day {{number}}?",
+          "MESSAGE_WITH_ACTIVITIES": "This day and its {{count}} activities will be removed. This cannot be undone.",
+          "MESSAGE_NO_ACTIVITIES": "This day will be removed. This cannot be undone.",
+          "CONFIRM": "Delete",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Day deleted.",
+          "ERROR_GENERIC": "Couldn't delete the day. Please try again."
+        }
+      },
+      "ACTIVITIES": {
+        "ADD": {
+          "CTA": "Activity",
+          "TITLE": "Add activity",
+          "SUBTITLE": "Plan something for this day.",
+          "NAME_LABEL": "Name",
+          "NAME_PLACEHOLDER": "e.g. Old Town Square walk",
+          "NAME_REQUIRED": "Pick a name.",
+          "NAME_MAX": "Name can be at most 255 characters.",
+          "LOCATION_LABEL": "Location",
+          "LOCATION_PLACEHOLDER": "e.g. Old Town Square",
+          "LOCATION_MAX": "Location can be at most 255 characters.",
+          "DESCRIPTION_LABEL": "Description",
+          "DESCRIPTION_PLACEHOLDER": "What's this activity about?",
+          "DESCRIPTION_MAX": "Description can be at most 255 characters.",
+          "START_TIME_LABEL": "Start",
+          "START_TIME_REQUIRED": "Pick a start time.",
+          "END_TIME_LABEL": "End",
+          "CANCEL": "Cancel",
+          "SUBMIT": "Add activity",
+          "SUCCESS": "Activity added.",
+          "ERROR_VALIDATION": "Please check the highlighted fields.",
+          "ERROR_GENERIC": "Couldn't add the activity. Please try again."
         }
       },
       "LOADING": "Loading trip…",

@@ -11,9 +11,15 @@ import { TripDayResponse } from '../../../core/models/trip.model';
 export class TripDayPickerComponent {
   readonly days = input.required<TripDayResponse[]>();
   readonly selectedDayId = input<number | null>(null);
+  readonly canAddDay = input(false);
   readonly selectDay = output<number>();
+  readonly addDay = output<void>();
 
   onSelect(id: number): void {
     this.selectDay.emit(id);
+  }
+
+  onAdd(): void {
+    this.addDay.emit();
   }
 }

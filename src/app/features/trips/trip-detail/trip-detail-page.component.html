@@ -60,25 +60,49 @@
               <h3 class="font-headline font-bold text-lg text-on-surface mb-2">
                 {{ 'TRIPS.DETAIL.DAYS.EMPTY.TITLE' | translate }}
               </h3>
-              <p class="text-sm text-on-surface-variant font-body max-w-sm">
+              <p class="text-sm text-on-surface-variant font-body max-w-sm mb-6">
                 {{ 'TRIPS.DETAIL.DAYS.EMPTY.MESSAGE' | translate }}
               </p>
+              <button
+                type="button"
+                (click)="openAddDay()"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                {{ 'TRIPS.DETAIL.DAYS.ADD.CTA' | translate }}
+              </button>
             </div>
           } @else {
             <app-trip-day-picker
               [days]="t.days"
               [selectedDayId]="selectedDayId()"
-              (selectDay)="selectDay($event)" />
+              [canAddDay]="true"
+              (selectDay)="selectDay($event)"
+              (addDay)="openAddDay()" />
 
             <div class="mt-8">
               @if (selectedDay(); as d) {
-                <app-trip-day-card [day]="d" />
+                <app-trip-day-card
+                  [day]="d"
+                  [canDelete]="true"
+                  (deleteDay)="openDeleteDay(d)"
+                  [canAddActivity]="true"
+                  (addActivity)="openAddActivity(d)"/>
               }
             </div>
           }
         </section>
 
         <app-trip-members-section [members]="t.members" />
+
+        <app-add-day-dialog
+          [tripId]="t.id"
+          [tripStartDate]="t.startDate"
+          [tripEndDate]="t.endDate"
+          [existingDays]="t.days" />
+
+        <app-add-activity-dialog />
+
+        <app-delete-day-dialog />
       }
     }
   }

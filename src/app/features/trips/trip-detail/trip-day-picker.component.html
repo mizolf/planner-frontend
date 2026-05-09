@@ -23,4 +23,15 @@
       }
     </button>
   }
+
+  @if (canAddDay()) {
+    <button
+      type="button"
+      (click)="onAdd()"
+      [attr.aria-label]="'TRIPS.DETAIL.DAYS.ADD.CTA' | translate"
+      class="snap-start shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-label text-sm font-semibold text-on-surface-variant border border-dashed border-outline-variant hover:border-on-surface hover:text-on-surface hover:bg-surface-container-low transition-colors">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      {{ 'TRIPS.DETAIL.DAYS.ADD.CTA' | translate }}
+    </button>
+  }
 </div>

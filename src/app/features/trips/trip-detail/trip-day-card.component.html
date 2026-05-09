@@ -1,13 +1,36 @@
 <article class="animate-fade-in-up">
-  <header class="mb-6 sm:mb-8">
-    <h3 class="font-headline font-bold text-2xl sm:text-3xl text-on-surface tracking-tight leading-tight">
-      {{ 'TRIPS.DETAIL.DAYS.LABEL' | translate:{ number: day().dayNumber } }}@if (day().title) {
-        <span class="text-on-surface"> — {{ day().title }}</span>
+  <header class="mb-6 sm:mb-8 flex items-start justify-between gap-4">
+    <div class="min-w-0">
+      <h3 class="font-headline font-bold text-2xl sm:text-3xl text-on-surface tracking-tight leading-tight">
+        {{ 'TRIPS.DETAIL.DAYS.LABEL' | translate:{ number: day().dayNumber } }}@if (day().title) {
+          <span class="text-on-surface"> — {{ day().title }}</span>
+        }
+      </h3>
+      <p class="mt-1 text-sm font-label text-on-surface-variant">
+        {{ day().date | date:'fullDate' }}
+      </p>
+    </div>
+
+    <div class="shrink-0 flex items-center gap-1">
+      @if (canAddActivity()) {
+        <button
+          type="button"
+          (click)="addActivity.emit()"
+          [attr.aria-label]="'TRIPS.DETAIL.ACTIVITIES.ADD.TITLE' | translate"
+          class="p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+          <span class="material-symbols-outlined text-[20px]">add</span>
+        </button>
       }
-    </h3>
-    <p class="mt-1 text-sm font-label text-on-surface-variant">
-      {{ day().date | date:'fullDate' }}
-    </p>
+      @if (canDelete()) {
+        <button
+          type="button"
+          (click)="deleteDay.emit()"
+          [attr.aria-label]="'TRIPS.DETAIL.DAYS.DELETE.CTA' | translate"
+          class="p-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
+          <span class="material-symbols-outlined text-[20px]">delete</span>
+        </button>
+      }
+    </div>
   </header>
 
   @if (day().notes) {
@@ -17,9 +40,20 @@
   }
 
   @if (day().activities.length === 0) {
-    <p class="text-sm font-label text-on-surface-variant/60 italic py-2">
-      {{ 'TRIPS.DETAIL.DAYS.NO_ACTIVITIES' | translate }}
-    </p>
+    <div class="flex flex-col items-start gap-3 py-2">
+      <p class="text-sm font-label text-on-surface-variant/60 italic">
+        {{ 'TRIPS.DETAIL.DAYS.NO_ACTIVITIES' | translate }}
+      </p>
+      @if (canAddActivity()) {
+        <button
+          type="button"
+          (click)="addActivity.emit()"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary-container font-label text-sm font-semibold hover:bg-primary-container/80 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          {{ 'TRIPS.DETAIL.ACTIVITIES.ADD.SUBMIT' | translate }}
+        </button>
+      }
+    </div>
   } @else {
     <ul class="space-y-4">
       @for (activity of day().activities; track activity.id) {
