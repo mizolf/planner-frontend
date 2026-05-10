@@ -11,6 +11,7 @@ import {
   TripResponse,
   CreateTripActivityRequest,
   TripActivityResponse,
+  UpdateTripActivityRequest,
 } from "../models/trip.model";
 
 @Injectable({ providedIn: "root" })
@@ -133,6 +134,53 @@ export class TripService {
           });
         }),
       );
+  }
+
+  updateActivityInDay(
+    tripId: number, dayId: number, activityId: number, request: UpdateTripActivityRequest): Observable<TripActivityResponse> {
+    return this.http.put<TripActivityResponse>(
+      `${this.apiUrl}/${tripId}/days/${dayId}/activities/${activityId}`,
+      request
+    ).pipe(
+      tap((updatedActivity)=>{
+        this._tripDetail.update((detail) => {
+          if (!detail) return detail;
+          return {
+            ...detail,
+            days: detail.days.map((d) => {
+              if (d.id !== dayId) return d;
+              return {
+                ...d,
+                activities: d.activities.map(a => a.id === activityId ? updatedActivity : a).sort(
+                  compareByStartTime,
+                ),
+              };
+            }),
+          };
+        });
+      })
+    );
+  }
+
+  deleteActivityFromDay(tripId: number, dayId: number, activityId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${tripId}/days/${dayId}/activities/${activityId}`)
+    .pipe(
+      tap(() => {
+        this._tripDetail.update((detail) => {
+          if (!detail) return detail;
+          return {
+            ...detail,
+            days: detail.days.map((d) => {
+              if (d.id !== dayId) return d;
+              return {
+                ...d,
+                activities: d.activities.filter(a => a.id !== activityId),
+              };
+            }),
+          };
+        });
+      })
+    );
   }
 
   deleteDayFromTrip(tripId: number, dayId: number): Observable<void> {

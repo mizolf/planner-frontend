@@ -69,6 +69,14 @@ export interface TripActivityResponse {
   endTime: string | null;
 }
 
+export interface UpdateTripActivityRequest {
+  name?: string;
+  description?: string;
+  location?: string;
+  startTime?: string;
+  endTime?: string;
+}
+
 export interface TripDayResponse {
   id: number;
   dayNumber: number;
