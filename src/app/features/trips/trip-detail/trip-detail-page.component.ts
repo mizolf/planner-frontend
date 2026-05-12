@@ -10,11 +10,15 @@ import {
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
-import { TripDayResponse } from "../../../core/models/trip.model";
+import {
+  TripActivityResponse,
+  TripDayResponse,
+} from "../../../core/models/trip.model";
 import { TripService } from "../../../core/services/trip.service";
 import { AddDayDialogComponent } from "./add-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
 import { AddActivityDialogComponent } from "./add-activity-dialog.component";
+import { EditActivityDialogComponent } from "./edit-activity-dialog.component";
 import { TripDayCardComponent } from "./trip-day-card.component";
 import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
@@ -28,6 +32,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     TranslateModule,
     AddDayDialogComponent,
     AddActivityDialogComponent,
+    EditActivityDialogComponent,
     DeleteDayDialogComponent,
     TripDayCardComponent,
     TripDayPickerComponent,
@@ -52,6 +57,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(AddActivityDialogComponent)
   addActivityDialog?: AddActivityDialogComponent;
+
+  @ViewChild(EditActivityDialogComponent)
+  editActivityDialog?: EditActivityDialogComponent;
 
   private paramSub?: Subscription;
 
@@ -98,6 +106,12 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     const trip = this.trip();
     if (!trip) return;
     this.addActivityDialog?.open(trip.id, day.id);
+  }
+
+  openEditActivity(day: TripDayResponse, activity: TripActivityResponse): void {
+    const trip = this.trip();
+    if (!trip) return;
+    this.editActivityDialog?.open(trip.id, day.id, activity);
   }
 
   openDeleteDay(day: TripDayResponse): void {

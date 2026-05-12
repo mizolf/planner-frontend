@@ -235,6 +235,22 @@
           "SUCCESS": "Aktivnost dodana.",
           "ERROR_VALIDATION": "Provjeri označena polja.",
           "ERROR_GENERIC": "Dodavanje aktivnosti nije uspjelo. Pokušaj ponovno."
+        },
+        "EDIT": {
+          "TITLE": "Uredi aktivnost",
+          "SUBTITLE": "Uredi detalje aktivnosti.",
+          "CANCEL": "Odustani",
+          "SUBMIT": "Spremi promjene",
+          "SUCCESS": "Aktivnost ažurirana.",
+          "ERROR_GENERIC": "Ažuriranje aktivnosti nije uspjelo. Pokušaj ponovno."
+        },
+        "DELETE": {
+          "CTA": "Obriši aktivnost",
+          "MESSAGE": "Obrisati ovu aktivnost? Ovo se ne može poništiti.",
+          "CONFIRM": "Da, obriši",
+          "CANCEL": "Odustani",
+          "SUCCESS": "Aktivnost obrisana.",
+          "ERROR_GENERIC": "Brisanje aktivnosti nije uspjelo. Pokušaj ponovno."
         }
       },
       "LOADING": "Učitavanje putovanja…",

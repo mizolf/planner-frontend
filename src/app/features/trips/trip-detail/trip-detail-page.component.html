@@ -86,7 +86,9 @@
                   [canDelete]="true"
                   (deleteDay)="openDeleteDay(d)"
                   [canAddActivity]="true"
-                  (addActivity)="openAddActivity(d)"/>
+                  (addActivity)="openAddActivity(d)"
+                  [canEditActivity]="true"
+                  (editActivity)="openEditActivity(d, $event)"/>
               }
             </div>
           }
@@ -101,6 +103,8 @@
           [existingDays]="t.days" />
 
         <app-add-activity-dialog />
+
+        <app-edit-activity-dialog />
 
         <app-delete-day-dialog />
       }

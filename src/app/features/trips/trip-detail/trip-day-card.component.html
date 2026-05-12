@@ -57,7 +57,19 @@
   } @else {
     <ul class="space-y-4">
       @for (activity of day().activities; track activity.id) {
-        <li class="flex items-start gap-4 sm:gap-5">
+        <li
+          [class.cursor-pointer]="canEditActivity()"
+          [attr.role]="canEditActivity() ? 'button' : null"
+          [attr.tabindex]="canEditActivity() ? 0 : null"
+          [attr.aria-label]="canEditActivity() ? (('TRIPS.DETAIL.ACTIVITIES.EDIT.TITLE' | translate) + ': ' + activity.name) : null"
+          (click)="canEditActivity() && editActivity.emit(activity)"
+          (keydown.enter)="canEditActivity() && editActivity.emit(activity)"
+          (keydown.space)="canEditActivity() && editActivity.emit(activity); canEditActivity() && $event.preventDefault()"
+          class="flex items-start gap-4 sm:gap-5 -mx-2 px-2 py-1.5 rounded-lg transition-colors"
+          [class.hover:bg-surface-container-low]="canEditActivity()"
+          [class.focus-visible:ring-2]="canEditActivity()"
+          [class.focus-visible:ring-primary]="canEditActivity()"
+          [class.focus-visible:outline-none]="canEditActivity()">
           <div class="shrink-0 w-14 sm:w-20 pt-0.5">
             @if (activity.startTime) {
               <p class="text-sm font-label font-bold text-tertiary tabular-nums">

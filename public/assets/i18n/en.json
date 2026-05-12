@@ -235,6 +235,22 @@
           "SUCCESS": "Activity added.",
           "ERROR_VALIDATION": "Please check the highlighted fields.",
           "ERROR_GENERIC": "Couldn't add the activity. Please try again."
+        },
+        "EDIT": {
+          "TITLE": "Edit activity",
+          "SUBTITLE": "Update the activity details.",
+          "CANCEL": "Cancel",
+          "SUBMIT": "Save changes",
+          "SUCCESS": "Activity updated.",
+          "ERROR_GENERIC": "Couldn't update the activity. Please try again."
+        },
+        "DELETE": {
+          "CTA": "Delete activity",
+          "MESSAGE": "Delete this activity? This can't be undone.",
+          "CONFIRM": "Yes, delete",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Activity deleted.",
+          "ERROR_GENERIC": "Couldn't delete the activity. Please try again."
         }
       },
       "LOADING": "Loading trip…",

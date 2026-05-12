@@ -1,7 +1,10 @@
 import { Component, input, output } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
-import { TripDayResponse } from "../../../core/models/trip.model";
+import {
+  TripActivityResponse,
+  TripDayResponse,
+} from "../../../core/models/trip.model";
 import { formatTime } from "../../../shared/utils/format-time";
 
 @Component({
@@ -18,6 +21,9 @@ export class TripDayCardComponent {
 
   readonly canAddActivity = input(false);
   readonly addActivity = output<void>();
+
+  readonly canEditActivity = input(false);
+  readonly editActivity = output<TripActivityResponse>();
 
   formatTime = formatTime;
 }
