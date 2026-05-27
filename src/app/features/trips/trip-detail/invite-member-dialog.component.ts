@@ -41,6 +41,8 @@ export class InviteMemberDialogComponent {
 
   readonly invited = output<TripInviteResponse>();
 
+  private previouslyFocused: HTMLElement | null = null;
+
   readonly form = this.fb.nonNullable.group({
     email: [
       "",
@@ -57,11 +59,16 @@ export class InviteMemberDialogComponent {
   }
 
   open(tripId: number): void {
+    this.previouslyFocused = document.activeElement as HTMLElement | null;
     this._tripId.set(tripId);
     this.form.reset({ email: "", role: "EDITOR" });
     this.errorMessage.set(null);
     this.isOpen.set(true);
     document.body.style.overflow = "hidden";
+    queueMicrotask(() => {
+      const input = document.getElementById("email") as HTMLInputElement | null;
+      input?.focus();
+    });
   }
 
   close(): void {
@@ -70,6 +77,8 @@ export class InviteMemberDialogComponent {
     this.isOpen.set(false);
     this.errorMessage.set(null);
     document.body.style.overflow = "";
+    this.previouslyFocused?.focus();
+    this.previouslyFocused = null;
   }
 
   onSubmit(): void {

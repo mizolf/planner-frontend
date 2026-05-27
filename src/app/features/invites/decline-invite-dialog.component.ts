@@ -1,6 +1,8 @@
 import {
   Component,
+  ElementRef,
   HostListener,
+  ViewChild,
   computed,
   inject,
   signal,
@@ -28,20 +30,27 @@ export class DeclineInviteDialogComponent {
   readonly isOpen = computed(() => this._invite() !== null);
   readonly loading = signal(false);
 
+  @ViewChild("cancelBtn") cancelBtn?: ElementRef<HTMLButtonElement>;
+  private previouslyFocused: HTMLElement | null = null;
+
   @HostListener("document:keydown.escape")
   onEscapeKey(): void {
     if (this.isOpen()) this.close();
   }
 
   open(invite: MyInviteResponse): void {
+    this.previouslyFocused = document.activeElement as HTMLElement | null;
     this._invite.set(invite);
     document.body.style.overflow = "hidden";
+    queueMicrotask(() => this.cancelBtn?.nativeElement.focus());
   }
 
   close(): void {
     if (this.loading()) return;
     this._invite.set(null);
     document.body.style.overflow = "";
+    this.previouslyFocused?.focus();
+    this.previouslyFocused = null;
   }
 
   confirm(): void {

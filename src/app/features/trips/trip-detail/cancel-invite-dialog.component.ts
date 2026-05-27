@@ -1,6 +1,8 @@
 import {
   Component,
+  ElementRef,
   HostListener,
+  ViewChild,
   computed,
   inject,
   output,
@@ -35,15 +37,20 @@ export class CancelInviteDialogComponent {
 
   readonly cancelled = output<number>();
 
+  @ViewChild("cancelBtn") cancelBtn?: ElementRef<HTMLButtonElement>;
+  private previouslyFocused: HTMLElement | null = null;
+
   @HostListener("document:keydown.escape")
   onEscapeKey(): void {
     if (this.isOpen()) this.close();
   }
 
   open(tripId: number, invite: TripInviteResponse): void {
+    this.previouslyFocused = document.activeElement as HTMLElement | null;
     this._tripId.set(tripId);
     this._invite.set(invite);
     document.body.style.overflow = "hidden";
+    queueMicrotask(() => this.cancelBtn?.nativeElement.focus());
   }
 
   close(): void {
@@ -51,6 +58,8 @@ export class CancelInviteDialogComponent {
     this._invite.set(null);
     this._tripId.set(null);
     document.body.style.overflow = "";
+    this.previouslyFocused?.focus();
+    this.previouslyFocused = null;
   }
 
   confirm(): void {

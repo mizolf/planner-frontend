@@ -72,13 +72,20 @@ export class InvitesPageComponent {
       (err.status === 409 &&
         (code === "INVITE_NOT_PENDING" || code === "INVITE_EXPIRED"));
 
-    this.toastService.show({
-      message: this.inviteService.mapToErrorKind(err),
-      type: "error",
-    });
+    const messageKey = this.isVerifyEmailError(err)
+      ? "INVITES.ERRORS.VERIFY_EMAIL"
+      : this.inviteService.mapToErrorKind(err);
+
+    this.toastService.show({ message: messageKey, type: "error" });
 
     if (shouldRefresh) {
       this.inviteService.loadMyInvites();
     }
+  }
+
+  private isVerifyEmailError(err: HttpErrorResponse): boolean {
+    if (err.status !== 403) return false;
+    const message = (err.error?.message ?? "") as string;
+    return message.toLowerCase().includes("verify");
   }
 }

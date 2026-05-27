@@ -415,6 +415,7 @@
       "VALIDATION": "Provjeri označena polja.",
       "NO_PERMISSION": "Nemaš dopuštenje za ovu radnju.",
       "NOT_FOUND": "Nismo pronašli ono što tražiš.",
+      "VERIFY_EMAIL": "Verificiraj svoj email prije prihvaćanja poziva.",
       "GENERIC": "Nešto je pošlo po krivu. Pokušaj ponovo."
     }
   },

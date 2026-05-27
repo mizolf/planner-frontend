@@ -415,6 +415,7 @@
       "VALIDATION": "Please check the highlighted fields.",
       "NO_PERMISSION": "You don't have permission to do that.",
       "NOT_FOUND": "We couldn't find what you were looking for.",
+      "VERIFY_EMAIL": "Verify your email before accepting invites.",
       "GENERIC": "Something went wrong. Please try again."
     }
   },
