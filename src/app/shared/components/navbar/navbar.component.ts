@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../core/services/user.service';
+import { InviteService } from '../../../core/services/invite.service';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
@@ -13,8 +14,10 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class NavbarComponent {
   private authService = inject(AuthService);
   private userService = inject(UserService);
+  private inviteService = inject(InviteService);
 
   user = this.userService.currentUser;
+  pendingCount = this.inviteService.pendingCount;
   profileOpen = signal(false);
   mobileOpen = signal(false);
 

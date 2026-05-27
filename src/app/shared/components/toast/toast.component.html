@@ -7,6 +7,14 @@
           [ngClass]="t.type === 'success' ? 'text-primary' : 'text-error'">
       {{ t.type === 'success' ? 'check_circle' : 'error' }}
     </span>
-    <p class="text-sm font-label font-medium">{{ t.message | translate }}</p>
+    <p class="text-sm font-label font-medium flex-1">{{ t.message | translate }}</p>
+    @if (t.action; as a) {
+      <button
+        type="button"
+        (click)="runAction(a.onClick)"
+        class="text-sm font-label font-semibold text-primary hover:underline shrink-0">
+        {{ a.label | translate }}
+      </button>
+    }
   </div>
 }

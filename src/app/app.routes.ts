@@ -16,6 +16,12 @@ export const routes: Routes = [
           import('./features/trips/trip-detail/trip-detail-page.component')
             .then(m => m.TripDetailPageComponent),
       },
+      {
+        path: 'invites',
+        loadComponent: () =>
+          import('./features/invites/invites-page.component')
+            .then(m => m.InvitesPageComponent),
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

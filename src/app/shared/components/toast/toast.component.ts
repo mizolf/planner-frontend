@@ -12,4 +12,9 @@ import { ToastService } from '../../services/toast.service';
 export class ToastComponent {
   private toastService = inject(ToastService);
   readonly toast = this.toastService.toast;
+
+  runAction(onClick: () => void): void {
+    onClick();
+    this.toastService.dismiss();
+  }
 }

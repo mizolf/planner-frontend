@@ -99,6 +99,12 @@
           [isOwner]="isOwner()"
           (invite)="openInviteMember()" />
 
+        @if (isOwner()) {
+          <app-pending-invites-section
+            [tripId]="t.id"
+            [isOwner]="true" />
+        }
+
         <app-add-day-dialog
           [tripId]="t.id"
           [tripStartDate]="t.startDate"
@@ -111,7 +117,7 @@
 
         <app-delete-day-dialog />
 
-        <app-invite-member-dialog />
+        <app-invite-member-dialog (invited)="onInvited($event)" />
       }
     }
   }

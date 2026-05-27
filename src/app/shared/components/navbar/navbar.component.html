@@ -31,13 +31,21 @@
       <!-- Right: Bell + Avatar + Hamburger -->
       <div class="flex items-center gap-2">
         <!-- Notification bell -->
-        <button
-          type="button"
-          class="p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
-          aria-label="Notifications"
+        <a
+          routerLink="/invites"
+          [attr.aria-label]="'NAVBAR.NOTIFICATIONS_ARIA' | translate:{ count: pendingCount() }"
+          class="relative p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
         >
           <span class="material-symbols-outlined text-[22px]">notifications</span>
-        </button>
+          @if (pendingCount() > 0) {
+            <span
+              role="status"
+              aria-live="polite"
+              class="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-error text-on-error text-[10px] font-label font-bold flex items-center justify-center leading-none">
+              {{ pendingCount() }}
+            </span>
+          }
+        </a>
 
         <!-- Profile avatar + dropdown -->
         <div class="relative">

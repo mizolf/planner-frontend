@@ -81,6 +81,9 @@
     "MY_PROFILE": "My Profile",
     "LOGOUT": "Logout"
   },
+  "NAVBAR": {
+    "NOTIFICATIONS_ARIA": "Notifications, {{count}} pending"
+  },
   "HOME": {
     "LOADING": "Loading your data...",
     "ERROR_LOADING_USER": "Failed to load user data. Please try again.",
@@ -361,8 +364,46 @@
       "EDITOR": "Editor",
       "VIEWER": "Viewer"
     },
+    "PENDING": {
+      "TITLE": "Pending invites",
+      "SUBTITLE": "Invites that haven't been accepted yet.",
+      "EXPIRES_TODAY": "Expires today",
+      "EXPIRES_IN": "Expires in {{count}} days",
+      "CANCEL": {
+        "TITLE": "Cancel invite?",
+        "MESSAGE": "The invite to {{email}} will be revoked. They won't be able to accept it anymore.",
+        "ARIA": "Cancel invite to {{email}}",
+        "CONFIRM": "Cancel invite",
+        "CANCEL": "Keep"
+      }
+    },
+    "MINE": {
+      "TITLE": "Your invites",
+      "SUBTITLE": "Trips you've been invited to.",
+      "LOADING": "Loading invites...",
+      "DESTINATION_FALLBACK": "Destination not specified",
+      "INVITER": "Invited by {{name}}",
+      "EXPIRES_TODAY": "Expires today",
+      "EXPIRES_IN": "Expires in {{count}} days",
+      "ACCEPT": "Accept",
+      "DECLINE": "Decline",
+      "VIEW_TRIP": "View trip",
+      "EMPTY": {
+        "TITLE": "No pending invites",
+        "MESSAGE": "When someone invites you to a trip, it will show up here."
+      },
+      "DECLINE_DIALOG": {
+        "TITLE": "Decline invite?",
+        "MESSAGE": "Are you sure you want to decline the invite to {{trip}}? You can ask the owner to invite you again later.",
+        "CONFIRM": "Decline",
+        "CANCEL": "Cancel"
+      }
+    },
     "SUCCESS": {
-      "SENT": "Invite sent."
+      "SENT": "Invite sent.",
+      "CANCELLED": "Invite cancelled.",
+      "ACCEPTED": "Invite accepted.",
+      "DECLINED": "Invite declined."
     },
     "ERRORS": {
       "SELF_INVITE": "You can't invite yourself.",

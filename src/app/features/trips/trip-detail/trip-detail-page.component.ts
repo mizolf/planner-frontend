@@ -21,6 +21,8 @@ import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
 import { AddActivityDialogComponent } from "./add-activity-dialog.component";
 import { EditActivityDialogComponent } from "./edit-activity-dialog.component";
 import { InviteMemberDialogComponent } from "./invite-member-dialog.component";
+import { PendingInvitesSectionComponent } from "./pending-invites-section.component";
+import { TripInviteResponse } from "../../../core/models/invite.model";
 import { TripDayCardComponent } from "./trip-day-card.component";
 import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
@@ -37,6 +39,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     EditActivityDialogComponent,
     DeleteDayDialogComponent,
     InviteMemberDialogComponent,
+    PendingInvitesSectionComponent,
     TripDayCardComponent,
     TripDayPickerComponent,
     TripDetailHeaderComponent,
@@ -76,6 +79,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(InviteMemberDialogComponent)
   inviteMemberDialog?: InviteMemberDialogComponent;
+
+  @ViewChild(PendingInvitesSectionComponent)
+  pendingInvitesSection?: PendingInvitesSectionComponent;
 
   private paramSub?: Subscription;
 
@@ -140,5 +146,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     const t = this.trip();
     if (!t) return;
     this.inviteMemberDialog?.open(t.id);
+  }
+
+  onInvited(created: TripInviteResponse): void {
+    this.pendingInvitesSection?.addInvite(created);
   }
 }

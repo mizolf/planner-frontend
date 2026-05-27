@@ -1,0 +1,96 @@
+<main class="max-w-4xl mx-auto px-5 sm:px-8 py-10 sm:py-16">
+
+  <header class="mb-10">
+    <h1 class="text-3xl sm:text-4xl font-bold font-headline text-on-surface tracking-tight">
+      {{ 'INVITES.MINE.TITLE' | translate }}
+    </h1>
+    <p class="text-sm font-body text-on-surface-variant mt-2">
+      {{ 'INVITES.MINE.SUBTITLE' | translate }}
+    </p>
+  </header>
+
+  @if (loading()) {
+    <div class="space-y-3 animate-pulse" [attr.aria-label]="'INVITES.MINE.LOADING' | translate" role="status">
+      @for (n of [1, 2, 3]; track n) {
+        <div class="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/10">
+          <div class="size-12 shrink-0 rounded-full bg-surface-container-low"></div>
+          <div class="flex-1 space-y-2">
+            <div class="h-4 w-2/5 bg-surface-container-low rounded"></div>
+            <div class="h-3 w-1/3 bg-surface-container-low rounded"></div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (invites().length === 0) {
+    <div class="flex flex-col items-center text-center py-16 px-6 bg-surface-container-low rounded-2xl">
+      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4">mark_email_read</span>
+      <h2 class="font-headline font-bold text-lg text-on-surface mb-2">
+        {{ 'INVITES.MINE.EMPTY.TITLE' | translate }}
+      </h2>
+      <p class="text-sm text-on-surface-variant font-body max-w-sm">
+        {{ 'INVITES.MINE.EMPTY.MESSAGE' | translate }}
+      </p>
+    </div>
+  } @else {
+    <ul class="space-y-3">
+      @for (inv of invites(); track inv.id) {
+        <li class="flex flex-col sm:flex-row sm:items-center gap-4 bg-surface-container-lowest rounded-xl p-5 border border-outline-variant/10">
+          <div class="size-12 shrink-0 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[22px]">luggage</span>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <p class="font-headline font-semibold text-on-surface truncate">{{ inv.tripName }}</p>
+              <span
+                class="inline-flex text-[10px] uppercase tracking-wider font-label px-2 py-0.5 rounded-full font-semibold shrink-0"
+                [class]="getMemberRoleColor(inv.role)">
+                {{ 'INVITES.ROLES.' + inv.role | translate }}
+              </span>
+            </div>
+            <p class="text-xs text-on-surface-variant font-body truncate">
+              {{ inv.tripDestination ?? ('INVITES.MINE.DESTINATION_FALLBACK' | translate) }}
+            </p>
+            <div class="flex items-center gap-3 mt-2 flex-wrap">
+              <p class="text-[11px] text-on-surface-variant/70 font-label">
+                {{ 'INVITES.MINE.INVITER' | translate:{ name: inv.inviterName } }}
+              </p>
+              <span class="text-on-surface-variant/30 text-[11px]">•</span>
+              <p class="text-[11px] text-on-surface-variant/70 font-label">
+                @if (daysUntil(inv.expiresAt) === 0) {
+                  {{ 'INVITES.MINE.EXPIRES_TODAY' | translate }}
+                } @else {
+                  {{ 'INVITES.MINE.EXPIRES_IN' | translate:{ count: daysUntil(inv.expiresAt) } }}
+                }
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0 sm:ml-2">
+            <button
+              type="button"
+              (click)="decline(inv)"
+              [disabled]="accepting.has(inv.id)"
+              class="px-4 py-2 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50">
+              {{ 'INVITES.MINE.DECLINE' | translate }}
+            </button>
+            <button
+              type="button"
+              (click)="accept(inv)"
+              [disabled]="accepting.has(inv.id)"
+              class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (accepting.has(inv.id)) {
+                {{ 'AUTH.COMMON.LOADING' | translate }}
+              } @else {
+                {{ 'INVITES.MINE.ACCEPT' | translate }}
+              }
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+
+  <app-decline-invite-dialog />
+
+</main>

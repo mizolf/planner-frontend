@@ -81,6 +81,9 @@
     "MY_PROFILE": "Moj profil",
     "LOGOUT": "Odjava"
   },
+  "NAVBAR": {
+    "NOTIFICATIONS_ARIA": "Obavijesti, {{count}} na čekanju"
+  },
   "HOME": {
     "LOADING": "Učitavanje podataka...",
     "ERROR_LOADING_USER": "Učitavanje podataka nije uspjelo. Pokušajte ponovo.",
@@ -361,8 +364,46 @@
       "EDITOR": "Urednik",
       "VIEWER": "Gledatelj"
     },
+    "PENDING": {
+      "TITLE": "Pozivi na čekanju",
+      "SUBTITLE": "Pozivi koji još nisu prihvaćeni.",
+      "EXPIRES_TODAY": "Ističe danas",
+      "EXPIRES_IN": "Ističe za {{count}} dana",
+      "CANCEL": {
+        "TITLE": "Otkazati poziv?",
+        "MESSAGE": "Poziv za {{email}} bit će povučen. Više ga neće moći prihvatiti.",
+        "ARIA": "Otkaži poziv za {{email}}",
+        "CONFIRM": "Otkaži poziv",
+        "CANCEL": "Zadrži"
+      }
+    },
+    "MINE": {
+      "TITLE": "Tvoji pozivi",
+      "SUBTITLE": "Putovanja na koja si pozvan.",
+      "LOADING": "Učitavanje poziva...",
+      "DESTINATION_FALLBACK": "Odredište nije navedeno",
+      "INVITER": "Pozvao te {{name}}",
+      "EXPIRES_TODAY": "Ističe danas",
+      "EXPIRES_IN": "Ističe za {{count}} dana",
+      "ACCEPT": "Prihvati",
+      "DECLINE": "Odbij",
+      "VIEW_TRIP": "Otvori putovanje",
+      "EMPTY": {
+        "TITLE": "Nema aktivnih poziva",
+        "MESSAGE": "Kad te netko pozove na putovanje, ovdje će se pojaviti."
+      },
+      "DECLINE_DIALOG": {
+        "TITLE": "Odbiti poziv?",
+        "MESSAGE": "Jesi li siguran da želiš odbiti poziv za {{trip}}? Vlasnik te može pozvati ponovo kasnije.",
+        "CONFIRM": "Odbij",
+        "CANCEL": "Odustani"
+      }
+    },
     "SUCCESS": {
-      "SENT": "Poziv je poslan."
+      "SENT": "Poziv je poslan.",
+      "CANCELLED": "Poziv je otkazan.",
+      "ACCEPTED": "Poziv prihvaćen.",
+      "DECLINED": "Poziv odbijen."
     },
     "ERRORS": {
       "SELF_INVITE": "Ne možeš pozvati samog sebe.",

@@ -1,0 +1,52 @@
+@if (visible()) {
+  <section class="mt-12">
+    <header class="mb-6">
+      <h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight">
+        {{ 'INVITES.PENDING.TITLE' | translate }}
+      </h2>
+      <p class="text-sm font-body text-on-surface-variant mt-1">
+        {{ 'INVITES.PENDING.SUBTITLE' | translate }}
+      </p>
+    </header>
+
+    <ul class="space-y-3">
+      @for (inv of invites(); track inv.id) {
+        <li class="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/10">
+          <div class="size-10 shrink-0 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">mail</span>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <p class="font-headline font-semibold text-on-surface truncate">{{ inv.email }}</p>
+              <span
+                class="inline-flex text-[10px] uppercase tracking-wider font-label px-2 py-0.5 rounded-full font-semibold shrink-0"
+                [class]="getMemberRoleColor(inv.role)">
+                {{ 'INVITES.ROLES.' + inv.role | translate }}
+              </span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant/70 font-label mt-1">
+              @if (daysUntil(inv.expiresAt) === 0) {
+                {{ 'INVITES.PENDING.EXPIRES_TODAY' | translate }}
+              } @else {
+                {{ 'INVITES.PENDING.EXPIRES_IN' | translate:{ count: daysUntil(inv.expiresAt) } }}
+              }
+            </p>
+          </div>
+          <button
+            type="button"
+            (click)="openCancel(inv)"
+            [attr.aria-label]="'INVITES.PENDING.CANCEL.ARIA' | translate:{ email: inv.email }"
+            class="shrink-0 p-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+}
+
+@if (error(); as err) {
+  <p class="mt-4 text-sm text-error font-label">{{ err | translate }}</p>
+}
+
+<app-cancel-invite-dialog (cancelled)="onCancelled($event)" />
