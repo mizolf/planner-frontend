@@ -341,6 +341,42 @@
       "ERROR_GENERIC": "Primjena predloška nije uspjela. Pokušajte ponovo."
     }
   },
+  "INVITES": {
+    "DIALOG": {
+      "CTA": "Pozovi člana",
+      "TITLE": "Pozovi člana",
+      "SUBTITLE": "Pošalji poziv emailom — primatelj ga prihvaća iz svoje nadzorne ploče.",
+      "CLOSE": "Zatvori",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "ime@primjer.com",
+      "EMAIL_REQUIRED": "Email je obavezan.",
+      "EMAIL_INVALID": "Unesi valjanu email adresu.",
+      "EMAIL_MAX": "Email može imati najviše 255 znakova.",
+      "ROLE_LABEL": "Uloga",
+      "ROLE_HINT": "Urednici mogu uređivati putovanje; gledatelji ga samo čitaju.",
+      "CANCEL": "Odustani",
+      "SUBMIT": "Pošalji poziv"
+    },
+    "ROLES": {
+      "EDITOR": "Urednik",
+      "VIEWER": "Gledatelj"
+    },
+    "SUCCESS": {
+      "SENT": "Poziv je poslan."
+    },
+    "ERRORS": {
+      "SELF_INVITE": "Ne možeš pozvati samog sebe.",
+      "ALREADY_MEMBER": "Ovaj korisnik je već član putovanja.",
+      "NOT_FOUND_USER": "Ne postoji registrirani korisnik s ovim emailom.",
+      "NOT_PENDING": "Ovaj poziv više nije aktivan.",
+      "EXPIRED": "Ovaj poziv je istekao.",
+      "RETRY": "Nešto se promijenilo u međuvremenu — pokušaj ponovo.",
+      "VALIDATION": "Provjeri označena polja.",
+      "NO_PERMISSION": "Nemaš dopuštenje za ovu radnju.",
+      "NOT_FOUND": "Nismo pronašli ono što tražiš.",
+      "GENERIC": "Nešto je pošlo po krivu. Pokušaj ponovo."
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "Skrenuli ste s puta",

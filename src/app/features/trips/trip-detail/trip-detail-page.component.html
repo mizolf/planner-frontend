@@ -94,7 +94,10 @@
           }
         </section>
 
-        <app-trip-members-section [members]="t.members" />
+        <app-trip-members-section
+          [members]="t.members"
+          [isOwner]="isOwner()"
+          (invite)="openInviteMember()" />
 
         <app-add-day-dialog
           [tripId]="t.id"
@@ -107,6 +110,8 @@
         <app-edit-activity-dialog />
 
         <app-delete-day-dialog />
+
+        <app-invite-member-dialog />
       }
     }
   }

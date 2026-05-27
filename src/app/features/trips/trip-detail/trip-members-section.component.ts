@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { TripMemberResponse } from '../../../core/models/trip.model';
@@ -13,6 +13,8 @@ import { getMemberRoleColor } from '../../../shared/utils/member-role-color';
 })
 export class TripMembersSectionComponent {
   readonly members = input.required<TripMemberResponse[]>();
+  readonly isOwner = input(false);
+  readonly invite = output<void>();
 
   initialsOf = initialsOf;
   getMemberRoleColor = getMemberRoleColor;

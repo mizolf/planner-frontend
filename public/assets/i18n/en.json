@@ -341,6 +341,42 @@
       "ERROR_GENERIC": "Failed to apply template. Please try again."
     }
   },
+  "INVITES": {
+    "DIALOG": {
+      "CTA": "Invite member",
+      "TITLE": "Invite a member",
+      "SUBTITLE": "Send an invite by email — they'll accept it from their dashboard.",
+      "CLOSE": "Close",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "name@example.com",
+      "EMAIL_REQUIRED": "Email is required.",
+      "EMAIL_INVALID": "Please enter a valid email address.",
+      "EMAIL_MAX": "Email can be at most 255 characters.",
+      "ROLE_LABEL": "Role",
+      "ROLE_HINT": "Editors can edit the trip; viewers can only read it.",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Send invite"
+    },
+    "ROLES": {
+      "EDITOR": "Editor",
+      "VIEWER": "Viewer"
+    },
+    "SUCCESS": {
+      "SENT": "Invite sent."
+    },
+    "ERRORS": {
+      "SELF_INVITE": "You can't invite yourself.",
+      "ALREADY_MEMBER": "This user is already a member of the trip.",
+      "NOT_FOUND_USER": "No registered user with this email.",
+      "NOT_PENDING": "This invite is no longer pending.",
+      "EXPIRED": "This invite has expired.",
+      "RETRY": "Something changed in the meantime — please try again.",
+      "VALIDATION": "Please check the highlighted fields.",
+      "NO_PERMISSION": "You don't have permission to do that.",
+      "NOT_FOUND": "We couldn't find what you were looking for.",
+      "GENERIC": "Something went wrong. Please try again."
+    }
+  },
   "NOT_FOUND": {
     "ERROR_CODE": "404",
     "TITLE": "You've drifted off course",

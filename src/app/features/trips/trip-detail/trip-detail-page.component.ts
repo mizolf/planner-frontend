@@ -15,10 +15,12 @@ import {
   TripDayResponse,
 } from "../../../core/models/trip.model";
 import { TripService } from "../../../core/services/trip.service";
+import { UserService } from "../../../core/services/user.service";
 import { AddDayDialogComponent } from "./add-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
 import { AddActivityDialogComponent } from "./add-activity-dialog.component";
 import { EditActivityDialogComponent } from "./edit-activity-dialog.component";
+import { InviteMemberDialogComponent } from "./invite-member-dialog.component";
 import { TripDayCardComponent } from "./trip-day-card.component";
 import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
@@ -34,6 +36,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     AddActivityDialogComponent,
     EditActivityDialogComponent,
     DeleteDayDialogComponent,
+    InviteMemberDialogComponent,
     TripDayCardComponent,
     TripDayPickerComponent,
     TripDetailHeaderComponent,
@@ -44,10 +47,20 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
 export class TripDetailPageComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly tripService = inject(TripService);
+  private readonly userService = inject(UserService);
 
   readonly trip = this.tripService.tripDetail;
   readonly loading = this.tripService.detailLoading;
   readonly error = this.tripService.detailError;
+
+  readonly currentUserRole = computed(() => {
+    const t = this.trip();
+    const user = this.userService.currentUser();
+    if (!t || !user) return null;
+    return t.members.find((m) => m.userId === user.id)?.role ?? null;
+  });
+
+  readonly isOwner = computed(() => this.currentUserRole() === "OWNER");
 
   private readonly userSelectedDayId = signal<number | null>(null);
 
@@ -60,6 +73,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(EditActivityDialogComponent)
   editActivityDialog?: EditActivityDialogComponent;
+
+  @ViewChild(InviteMemberDialogComponent)
+  inviteMemberDialog?: InviteMemberDialogComponent;
 
   private paramSub?: Subscription;
 
@@ -118,5 +134,11 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     const t = this.trip();
     if (!t) return;
     this.deleteDayDialog?.open(t.id, day);
+  }
+
+  openInviteMember(): void {
+    const t = this.trip();
+    if (!t) return;
+    this.inviteMemberDialog?.open(t.id);
   }
 }

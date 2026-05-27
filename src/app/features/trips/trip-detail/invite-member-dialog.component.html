@@ -1,0 +1,111 @@
+@if (isOpen()) {
+  <div
+    (click)="close()"
+    class="fixed inset-0 bg-inverse-surface/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+
+    <div
+      (click)="$event.stopPropagation()"
+      class="bg-surface-container-lowest rounded-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
+      style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
+      role="dialog"
+      aria-modal="true">
+
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+        <div>
+          <h2 class="text-xl font-bold font-headline text-on-surface">
+            {{ 'INVITES.DIALOG.TITLE' | translate }}
+          </h2>
+          <p class="text-sm text-on-surface-variant font-body mt-0.5">
+            {{ 'INVITES.DIALOG.SUBTITLE' | translate }}
+          </p>
+        </div>
+        <button
+          type="button"
+          (click)="close()"
+          [attr.aria-label]="'INVITES.DIALOG.CLOSE' | translate"
+          class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Server error banner -->
+      @if (errorMessage()) {
+        <div class="mx-6 mt-4 flex items-center gap-2 p-3 rounded-lg bg-error-container text-on-error-container text-sm font-label font-medium">
+          <span class="material-symbols-outlined text-[18px]">error</span>
+          {{ errorMessage()! | translate }}
+        </div>
+      }
+
+      <!-- Form body -->
+      <div class="px-6 py-6 overflow-y-auto flex-1">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" id="inviteMemberForm" class="space-y-5">
+
+          <app-form-field
+            label="INVITES.DIALOG.EMAIL_LABEL"
+            icon="mail"
+            type="email"
+            controlName="email"
+            placeholder="INVITES.DIALOG.EMAIL_PLACEHOLDER"
+            [errors]="{
+              required: 'INVITES.DIALOG.EMAIL_REQUIRED',
+              email: 'INVITES.DIALOG.EMAIL_INVALID',
+              maxlength: 'INVITES.DIALOG.EMAIL_MAX',
+              serverNotFound: 'INVITES.ERRORS.NOT_FOUND_USER',
+              serverSelfInvite: 'INVITES.ERRORS.SELF_INVITE',
+              serverAlreadyMember: 'INVITES.ERRORS.ALREADY_MEMBER',
+              serverValidation: 'INVITES.ERRORS.VALIDATION'
+            }"
+          />
+
+          <div class="space-y-1.5">
+            <label for="inviteRole" class="block text-sm font-semibold text-on-surface-variant ml-1">
+              {{ 'INVITES.DIALOG.ROLE_LABEL' | translate }}
+            </label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg pointer-events-none">
+                shield_person
+              </span>
+              <select
+                id="inviteRole"
+                formControlName="role"
+                class="w-full pl-12 pr-10 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface text-sm transition-all shadow-sm outline-none appearance-none cursor-pointer">
+                <option value="EDITOR">{{ 'INVITES.ROLES.EDITOR' | translate }}</option>
+                <option value="VIEWER">{{ 'INVITES.ROLES.VIEWER' | translate }}</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg pointer-events-none">
+                expand_more
+              </span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant/70 font-label mt-1 ml-1">
+              {{ 'INVITES.DIALOG.ROLE_HINT' | translate }}
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Footer with action buttons -->
+      <div class="px-6 py-4 border-t border-outline-variant/10 bg-surface-container-low shrink-0 flex items-center justify-end gap-3">
+        <button
+          type="button"
+          (click)="close()"
+          [disabled]="loading()"
+          class="px-5 py-2.5 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50">
+          {{ 'INVITES.DIALOG.CANCEL' | translate }}
+        </button>
+        <button
+          type="submit"
+          form="inviteMemberForm"
+          [disabled]="loading()"
+          class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (loading()) {
+            {{ 'AUTH.COMMON.LOADING' | translate }}
+          } @else {
+            {{ 'INVITES.DIALOG.SUBMIT' | translate }}
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}
