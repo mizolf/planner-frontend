@@ -4,7 +4,7 @@
 
 Backend već provodi role-based authorizaciju (OWNER / EDITOR / VIEWER) i odbija write requeste s 403 za nedovoljne ovlasti. UI to trenutno ne reflektira — vieweri i editori vide iste buttone i dialoge kao owner, kliknu ih, ispune formu, pošalju i tek tada saznaju da nemaju pravo. Ovaj spec polira frontend tako da svaki user vidi samo akcije koje smije izvršiti.
 
-Scope je isključivo **trip detail stranica i njene child komponente** + cancel-invite handler. Backend, service sloj, dialog komponente i `/invites` (accept/decline) flow ostaju nepromijenjeni.
+Scope je isključivo **trip detail stranica i njene child komponente**. Backend, service sloj, dialog komponente i `/invites` (accept/decline) flow ostaju nepromijenjeni.
 
 ## Permission matrix
 
@@ -27,9 +27,10 @@ Scope je isključivo **trip detail stranica i njene child komponente** + cancel-
 |---|---|
 | Vizualna strategija | Potpuno sakriti buttone na koje user nema pristup — bez disable + tooltip, bez info banera. Konzistentno s postojećim `@if (isOwner())` patternom za invite member. |
 | Empty-state za viewera (trip bez dana) | Prikazati read-only poruku `TRIPS.DETAIL.DAYS.EMPTY_READONLY` ("Organizator još nije dodao dane na ovaj put.") umjesto Add Day buttona. |
-| Defense-in-depth u handlerima | Svaki `open*` handler u `trip-detail-page.component.ts` dobiva early-return guard (`if (!this.canEditContent()) return;`) kao safety net za buduće dodatke. |
-| Cancel invite | Sekcija je već owner-only kroz `@if (isOwner())` nad cijelim sekcijskim wrapper-om; ipak dodajemo eksplicitni guard u handler radi konzistentnosti. |
-| Toast na permission denial | Ne koristimo. Buttoni su skriveni; defensive guard branch se okida samo ako user nije ništa kliknuo → ništa za notificirati. |
+| Defensive guardovi u handlerima | **Ne dodajemo.** Buttoni su skriveni, pa su `open*` handleri nedohvatljivi za nedovoljne role — guard (`if (!this.canEditContent()) return;`) bio bi mrtav kod koji se nikad ne izvrši. Pravu autorizaciju radi backend (403). Postojeći `if (!trip) return;` null-checkovi ostaju netaknuti. |
+| Backend 403 na write | Već pokriven postojećim `ERROR_GENERIC` branchom u dialozima (rubni slučaj: role promijenjena u stale tabu → submit vrati 403 → dialog pokaže generičku grešku, spinner stane). Ne dodajemo permission-specifičnu poruku — dialozi su izvan opsega, slučaj je rijedak. |
+| Cancel invite | Sekcija je već owner-only kroz `@if (isOwner())` nad cijelim sekcijskim wrapper-om — handler je nedohvatljiv za non-ownere. Bez dodatnog guarda. |
+| Toast na permission denial | Ne koristimo. Buttoni su skriveni → user nedovoljne role nikad ne pokrene write akciju. Pravi 403 sa servera (stale tab) pokriva generička dialog poruka (vidi red iznad). |
 | Apstrakcija | `canEditContent` je 4-linijski `computed` direktno u `trip-detail-page.component.ts`. Bez novog `PermissionsService` ili helper file-a — YAGNI. |
 | Reuse postojećeg | Sve child komponente (`trip-day-picker`, `trip-day-card`) već primaju gating inpute (`canAddDay`, `canDelete`, `canAddActivity`, `canEditActivity`). Gateiramo na call-site (parent template), child komponente se ne diraju. |
 
@@ -39,7 +40,7 @@ Scope je isključivo **trip detail stranica i njene child komponente** + cancel-
 |---|---|---|
 | Invite member button | `trip-detail-page.html` + `trip-members-section.html` — `@if (isOwner())` ✓ | bez promjene |
 | Pending invites sekcija | `pending-invites-section.ts` — `computed visible = isOwner() && length > 0` ✓ | bez promjene |
-| Cancel invite handler | `pending-invites-section.ts:openCancel()` — nema guarda | dodati `if (!this.isOwner()) return;` |
+| Cancel invite handler | `pending-invites-section.ts:openCancel()` — sekcija već owner-only kroz `@if (isOwner())` | bez promjene |
 | Add day (picker) | `[canAddDay]="true"` — hardkodirano ❌ | `[canAddDay]="canEditContent()"` |
 | Add day (empty state) | bez gate-a ❌ | wrappati u `@if (canEditContent()) { ... } @else { <readonly empty> }` |
 | Delete day | `[canDelete]="true"` — hardkodirano ❌ | `[canDelete]="canEditContent()"` |
@@ -84,60 +85,35 @@ Zamijeniti hardkodirane vrijednosti (linije ~78–90):
 [canEditActivity]="canEditContent()"
 ```
 
-Empty-state "Add Day" button (linije ~66–72) — wrappati cijeli button u `@if (canEditContent())` i dodati `@else` block s read-only porukom (vidi korak 6 za i18n key).
+Empty-state "Add Day" button (linije ~66–72) — wrappati cijeli button u `@if (canEditContent())` i dodati `@else` block s read-only porukom (vidi korak 4 za i18n key).
 
-### 3. Defensive guardovi u handler metodama
-
-**File:** `src/app/features/trips/trip-detail/trip-detail-page.component.ts` (linije ~123–149)
-
-Na vrhu svake handler metode (`openAddDay`, `openAddActivity`, `openEditActivity`, `openDeleteDay`) dodati:
-
-```ts
-if (!this.canEditContent()) return;
-```
-
-Za `openInviteMember`:
-
-```ts
-if (!this.isOwner()) return;
-```
-
-### 4. Cancel invite guard
-
-**File:** `src/app/features/trips/trip-detail/pending-invites-section.component.ts`
-
-U `openCancel(inv)` handleru (linija ~63 područje) dodati na vrh:
-
-```ts
-if (!this.isOwner()) return;
-```
-
-Cijela sekcija je već owner-only, ovo je čisto za konzistentnost s ostalim handlerima.
-
-### 5. Activity card cursor verifikacija (no code change očekivan)
+### 3. Activity card cursor verifikacija (no code change očekivan)
 
 **File:** `src/app/features/trips/trip-detail/trip-day-card.component.html`
 
 Activity item već koristi `[class.cursor-pointer]="canEditActivity()"` i `(click)="canEditActivity() && editActivity.emit(activity)"`. Kad `canEditActivity` postane `false` (viewer), cursor i klik već su correctno disable-ani. Verificirati u browseru — bez izmjena ako se ponaša točno.
 
-### 6. i18n key za read-only empty state
+### 4. i18n key za read-only empty state
 
-**Files:** `src/app/core/i18n/*.json` (sve postojeće locale datoteke)
+**Files:** `public/assets/i18n/en.json` i `public/assets/i18n/hr.json` (učitavaju se preko `provideTranslateHttpLoader`, default jezik `en`)
 
-Dodati pod `TRIPS.DETAIL.DAYS`:
+Dodati pod `TRIPS.DETAIL.DAYS` kao ravni susjedni ključ uz postojeći `EMPTY` objekt:
 
 ```json
+// hr.json
 "EMPTY_READONLY": "Organizator još nije dodao dane na ovaj put."
+
+// en.json
+"EMPTY_READONLY": "The organizer hasn't added any days to this trip yet."
 ```
 
-(I odgovarajući prijevod u ostalim locale-ima — slijediti postojeću strukturu pod `TRIPS.DETAIL.DAYS`.)
+Engleski je fallback za sve jezike, pa ga obavezno dodati uz hrvatski.
 
 ## Files koji se mijenjaju
 
-- `src/app/features/trips/trip-detail/trip-detail-page.component.ts` — dodati `canEditContent` computed + 5 defensive guardova
+- `src/app/features/trips/trip-detail/trip-detail-page.component.ts` — dodati `canEditContent` computed (bez novih guardova)
 - `src/app/features/trips/trip-detail/trip-detail-page.component.html` — zamijeniti 4 hardkodirana `true` + wrappati empty-state Add Day + dodati `@else` s read-only porukom
-- `src/app/features/trips/trip-detail/pending-invites-section.component.ts` — guard u `openCancel`
-- `src/app/core/i18n/*.json` — novi `TRIPS.DETAIL.DAYS.EMPTY_READONLY` key
+- `public/assets/i18n/en.json` i `public/assets/i18n/hr.json` — novi `TRIPS.DETAIL.DAYS.EMPTY_READONLY` key
 
 ## Što SE NE mijenja (eksplicitno)
 

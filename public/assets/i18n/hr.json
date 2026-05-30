@@ -185,6 +185,7 @@
           "TITLE": "Još nema isplaniranih dana",
           "MESSAGE": "Dani i aktivnosti pojavit će se ovdje čim budu dodani na ovo putovanje."
         },
+        "EMPTY_READONLY": "Organizator još nije dodao dane na ovaj put.",
         "PICKER": {
           "ARIA_LABEL": "Odaberi dan"
         },

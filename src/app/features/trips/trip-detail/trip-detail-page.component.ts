@@ -65,6 +65,11 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   readonly isOwner = computed(() => this.currentUserRole() === "OWNER");
 
+  readonly canEditContent = computed(() => {
+    const role = this.currentUserRole();
+    return role === "OWNER" || role === "EDITOR";
+  });
+
   private readonly userSelectedDayId = signal<number | null>(null);
 
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;

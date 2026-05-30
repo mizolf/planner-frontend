@@ -63,19 +63,25 @@
               <p class="text-sm text-on-surface-variant font-body max-w-sm mb-6">
                 {{ 'TRIPS.DETAIL.DAYS.EMPTY.MESSAGE' | translate }}
               </p>
-              <button
-                type="button"
-                (click)="openAddDay()"
-                class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
-                <span class="material-symbols-outlined text-[18px]">add</span>
-                {{ 'TRIPS.DETAIL.DAYS.ADD.CTA' | translate }}
-              </button>
+              @if (canEditContent()) {
+                <button
+                  type="button"
+                  (click)="openAddDay()"
+                  class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                  {{ 'TRIPS.DETAIL.DAYS.ADD.CTA' | translate }}
+                </button>
+              } @else {
+                <p class="text-sm text-on-surface-variant/70 font-body italic">
+                  {{ 'TRIPS.DETAIL.DAYS.EMPTY_READONLY' | translate }}
+                </p>
+              }
             </div>
           } @else {
             <app-trip-day-picker
               [days]="t.days"
               [selectedDayId]="selectedDayId()"
-              [canAddDay]="true"
+              [canAddDay]="canEditContent()"
               (selectDay)="selectDay($event)"
               (addDay)="openAddDay()" />
 
@@ -83,11 +89,11 @@
               @if (selectedDay(); as d) {
                 <app-trip-day-card
                   [day]="d"
-                  [canDelete]="true"
+                  [canDelete]="canEditContent()"
                   (deleteDay)="openDeleteDay(d)"
-                  [canAddActivity]="true"
+                  [canAddActivity]="canEditContent()"
                   (addActivity)="openAddActivity(d)"
-                  [canEditActivity]="true"
+                  [canEditActivity]="canEditContent()"
                   (editActivity)="openEditActivity(d, $event)"/>
               }
             </div>

@@ -185,6 +185,7 @@
           "TITLE": "No days planned yet",
           "MESSAGE": "Days and activities will appear here once they're added to this trip."
         },
+        "EMPTY_READONLY": "The organizer hasn't added any days to this trip yet.",
         "PICKER": {
           "ARIA_LABEL": "Select a day"
         },
