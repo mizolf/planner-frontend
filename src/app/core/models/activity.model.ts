@@ -9,9 +9,14 @@ export type ActivityEventType =
   | 'ACTIVITY_DELETED'
   | 'MEMBER_ADDED'
   | 'MEMBER_ROLE_CHANGED'
-  | 'MEMBER_REMOVED';
+  | 'MEMBER_REMOVED'
+  | 'INVITE_SENT'
+  | 'INVITE_ACCEPTED'
+  | 'INVITE_DECLINED'
+  | 'INVITE_CANCELLED'
+  | 'INVITE_EXPIRED';
 
-export type EntityType = 'TRIP' | 'TRIP_DAY' | 'ACTIVITY' | 'MEMBER';
+export type EntityType = 'TRIP' | 'TRIP_DAY' | 'ACTIVITY' | 'MEMBER' | 'INVITE';
 
 export interface FieldChange {
   field: string;

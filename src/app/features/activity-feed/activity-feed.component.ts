@@ -1,10 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivityFeedService } from '../../core/services/activity-feed.service';
 import { ActivityEventType, DashboardActivityItem, EntityType } from '../../core/models/activity.model';
 import { RelativeTimePipe } from '../../shared/pipes/relative-time.pipe';
 
-const EVENT_TRANSLATION_KEYS: Record<ActivityEventType, string> = {
+// Only events with an entry here are rendered. The 4 hidden invite events
+// (ACCEPTED/DECLINED/CANCELLED/EXPIRED) and any unknown future event type are
+// intentionally absent, so `visibleActivities` filters them out instead of
+// rendering a blank row.
+const EVENT_TRANSLATION_KEYS: Partial<Record<ActivityEventType, string>> = {
   TRIP_CREATED: 'ACTIVITY_FEED.EVENTS.TRIP_CREATED',
   TRIP_UPDATED: 'ACTIVITY_FEED.EVENTS.TRIP_UPDATED',
   DAY_ADDED: 'ACTIVITY_FEED.EVENTS.DAY_ADDED',
@@ -16,13 +20,19 @@ const EVENT_TRANSLATION_KEYS: Record<ActivityEventType, string> = {
   MEMBER_ADDED: 'ACTIVITY_FEED.EVENTS.MEMBER_ADDED',
   MEMBER_ROLE_CHANGED: 'ACTIVITY_FEED.EVENTS.MEMBER_ROLE_CHANGED',
   MEMBER_REMOVED: 'ACTIVITY_FEED.EVENTS.MEMBER_REMOVED',
+  INVITE_SENT: 'ACTIVITY_FEED.EVENTS.INVITE_SENT',
 };
+
+// Synthetic key (not a backend event type): a MEMBER_ADDED event where the actor
+// added themselves reads better as "X joined" than "X added X".
+const MEMBER_JOINED_KEY = 'ACTIVITY_FEED.EVENTS.MEMBER_JOINED';
 
 const ENTITY_ICONS: Record<EntityType, string> = {
   TRIP: 'luggage',
   TRIP_DAY: 'calendar_today',
   ACTIVITY: 'place',
   MEMBER: 'group',
+  INVITE: 'forward_to_inbox',
 };
 
 const AVATAR_COLORS = [
@@ -48,6 +58,12 @@ export class ActivityFeedComponent implements OnInit {
   readonly loading = this.feedService.loading;
   readonly error = this.feedService.error;
 
+  // Drops events we don't render (hidden invite events, unknown future types),
+  // so they never reach the template as blank rows.
+  readonly visibleActivities = computed(() =>
+    this.activities().filter((a) => EVENT_TRANSLATION_KEYS[a.eventType] != null),
+  );
+
   ngOnInit(): void {
     this.feedService.loadRecentActivities();
   }
@@ -57,7 +73,12 @@ export class ActivityFeedComponent implements OnInit {
   }
 
   getTranslationKey(item: DashboardActivityItem): string {
-    return EVENT_TRANSLATION_KEYS[item.eventType];
+    // A self-add (actor added themselves — i.e. accepting an invite) reads as "joined".
+    if (item.eventType === 'MEMBER_ADDED' && item.actorId != null && item.actorId === item.entityId) {
+      return MEMBER_JOINED_KEY;
+    }
+    // Safe: the template only renders items from visibleActivities(), which guarantees a key exists.
+    return EVENT_TRANSLATION_KEYS[item.eventType]!;
   }
 
   getTranslationParams(item: DashboardActivityItem): Record<string, string> {

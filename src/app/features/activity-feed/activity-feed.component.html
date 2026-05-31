@@ -37,7 +37,7 @@
 }
 
 <!-- Empty state -->
-@else if (activities().length === 0) {
+@else if (visibleActivities().length === 0) {
   <div class="text-center py-8">
     <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-2">history</span>
     <p class="text-sm text-on-surface-variant font-body">
@@ -49,7 +49,7 @@
 <!-- Activity list -->
 @else {
   <div class="space-y-1 max-h-[38rem] overflow-y-auto overflow-x-hidden">
-    @for (item of activities(); track item.id) {
+    @for (item of visibleActivities(); track item.id) {
       <div class="flex gap-3 p-2 -mx-2 rounded-lg hover:bg-surface-container-low transition-colors animate-fade-in-up"
            [style.animation-delay]="$index * 80 + 'ms'">
         <!-- Avatar -->

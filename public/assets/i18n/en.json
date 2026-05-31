@@ -316,7 +316,9 @@
       "ACTIVITY_DELETED": "<strong>{{actor}}</strong> removed <em>{{entity}}</em> from <em>{{trip}}</em>.",
       "MEMBER_ADDED": "<strong>{{actor}}</strong> added <em>{{member}}</em> to <em>{{trip}}</em>.",
       "MEMBER_ROLE_CHANGED": "<strong>{{actor}}</strong> changed <em>{{member}}</em>'s role in <em>{{trip}}</em>.",
-      "MEMBER_REMOVED": "<strong>{{actor}}</strong> removed <em>{{member}}</em> from <em>{{trip}}</em>."
+      "MEMBER_REMOVED": "<strong>{{actor}}</strong> removed <em>{{member}}</em> from <em>{{trip}}</em>.",
+      "MEMBER_JOINED": "<strong>{{actor}}</strong> joined <em>{{trip}}</em>.",
+      "INVITE_SENT": "<strong>{{actor}}</strong> invited <em>{{entity}}</em> to <em>{{trip}}</em>."
     }
   },
   "EXPLORE": {

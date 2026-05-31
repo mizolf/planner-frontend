@@ -316,7 +316,9 @@
       "ACTIVITY_DELETED": "<strong>{{actor}}</strong> je uklonio/la <em>{{entity}}</em> iz <em>{{trip}}</em>.",
       "MEMBER_ADDED": "<strong>{{actor}}</strong> je dodao/la <em>{{member}}</em> u <em>{{trip}}</em>.",
       "MEMBER_ROLE_CHANGED": "<strong>{{actor}}</strong> je promijenio/la ulogu za <em>{{member}}</em> u <em>{{trip}}</em>.",
-      "MEMBER_REMOVED": "<strong>{{actor}}</strong> je uklonio/la <em>{{member}}</em> iz <em>{{trip}}</em>."
+      "MEMBER_REMOVED": "<strong>{{actor}}</strong> je uklonio/la <em>{{member}}</em> iz <em>{{trip}}</em>.",
+      "MEMBER_JOINED": "<strong>{{actor}}</strong> se pridružio/la putovanju <em>{{trip}}</em>.",
+      "INVITE_SENT": "<strong>{{actor}}</strong> je pozvao/la <em>{{entity}}</em> na <em>{{trip}}</em>."
     }
   },
   "EXPLORE": {
