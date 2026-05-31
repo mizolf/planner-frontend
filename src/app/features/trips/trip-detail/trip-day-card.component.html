@@ -21,6 +21,15 @@
           <span class="material-symbols-outlined text-[20px]">add</span>
         </button>
       }
+      @if (canEditDay()) {
+        <button
+          type="button"
+          (click)="editDay.emit()"
+          [attr.aria-label]="'TRIPS.DETAIL.DAYS.EDIT.CTA' | translate"
+          class="p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+          <span class="material-symbols-outlined text-[20px]">edit</span>
+        </button>
+      }
       @if (canDelete()) {
         <button
           type="button"

@@ -51,6 +51,13 @@ export interface CreateTripDayRequest {
   notes?: string;
 }
 
+export interface UpdateTripDayRequest {
+  dayNumber?: number;
+  date?: string;
+  title?: string;
+  notes?: string;
+}
+
 export type MemberRole = "OWNER" | "EDITOR" | "VIEWER";
 
 export interface ActivityResponse {

@@ -1,27 +1,27 @@
-import { Component, HostListener, inject, input, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
-import { CreateTripDayRequest, TripDayResponse } from '../../../core/models/trip.model';
+import { TripDayResponse, UpdateTripDayRequest } from '../../../core/models/trip.model';
 import { TripService } from '../../../core/services/trip.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 
 @Component({
-  selector: 'app-add-day-dialog',
+  selector: 'app-edit-day-dialog',
   standalone: true,
   imports: [ReactiveFormsModule, TranslateModule, FormFieldComponent],
-  templateUrl: './add-day-dialog.component.html',
+  templateUrl: './edit-day-dialog.component.html',
 })
-export class AddDayDialogComponent {
+export class EditDayDialogComponent {
   private readonly fb = inject(FormBuilder);
   private readonly tripService = inject(TripService);
   private readonly toastService = inject(ToastService);
 
-  readonly tripId = input.required<number>();
-  readonly tripStartDate = input.required<string>();
-  readonly tripEndDate = input.required<string>();
-  readonly existingDays = input.required<TripDayResponse[]>();
+  private readonly _tripId = signal<number | null>(null);
+  private readonly _dayId = signal<number | null>(null);
+  private readonly _tripStartDate = signal<string | null>(null);
+  private readonly _tripEndDate = signal<string | null>(null);
 
   readonly isOpen = signal(false);
   readonly loading = signal(false);
@@ -38,8 +38,16 @@ export class AddDayDialogComponent {
     if (this.isOpen()) this.close();
   }
 
-  open(): void {
-    this.form.reset({ title: '', date: this.suggestNextDate(), notes: '' });
+  open(tripId: number, day: TripDayResponse, tripStartDate: string, tripEndDate: string): void {
+    this._tripId.set(tripId);
+    this._dayId.set(day.id);
+    this._tripStartDate.set(tripStartDate);
+    this._tripEndDate.set(tripEndDate);
+    this.form.reset({
+      title: day.title ?? '',
+      date: day.date,
+      notes: day.notes ?? '',
+    });
     this.errorMessage.set(null);
     this.isOpen.set(true);
     document.body.style.overflow = 'hidden';
@@ -47,6 +55,10 @@ export class AddDayDialogComponent {
 
   close(): void {
     if (this.loading()) return;
+    this._tripId.set(null);
+    this._dayId.set(null);
+    this._tripStartDate.set(null);
+    this._tripEndDate.set(null);
     this.isOpen.set(false);
     this.errorMessage.set(null);
     document.body.style.overflow = '';
@@ -58,24 +70,25 @@ export class AddDayDialogComponent {
       return;
     }
 
+    const tripId = this._tripId();
+    const dayId = this._dayId();
+    if (tripId === null || dayId === null) return;
+
     this.loading.set(true);
     this.errorMessage.set(null);
 
     const v = this.form.getRawValue();
-    const request: CreateTripDayRequest = {
-      dayNumber: this.suggestNextDayNumber(),
+    const request: UpdateTripDayRequest = {
       date: v.date,
+      title: v.title.trim(),
+      notes: v.notes.trim(),
     };
-    const trimmedTitle = v.title.trim();
-    if (trimmedTitle) request.title = trimmedTitle;
-    const trimmedNotes = v.notes.trim();
-    if (trimmedNotes) request.notes = trimmedNotes;
 
-    this.tripService.addDayToTrip(this.tripId(), request).subscribe({
+    this.tripService.updateDay(tripId, dayId, request).subscribe({
       next: () => {
         this.loading.set(false);
         this.close();
-        this.toastService.show({ message: 'TRIPS.DETAIL.DAYS.ADD.SUCCESS', type: 'success' });
+        this.toastService.show({ message: 'TRIPS.DETAIL.DAYS.EDIT.SUCCESS', type: 'success' });
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
@@ -84,32 +97,11 @@ export class AddDayDialogComponent {
     });
   }
 
-  private suggestNextDayNumber(): number {
-    const days = this.existingDays();
-    if (days.length === 0) return 1;
-    return Math.max(...days.map(d => d.dayNumber)) + 1;
-  }
-
-  private suggestNextDate(): string {
-    const days = this.existingDays();
-    const start = this.tripStartDate();
-    const end = this.tripEndDate();
-
-    if (days.length === 0) return start;
-
-    const lastDate = days
-      .map(d => d.date)
-      .sort()
-      .at(-1)!;
-    const next = addOneDay(lastDate);
-    return next > end ? end : next;
-  }
-
   private dateInRange(control: AbstractControl): ValidationErrors | null {
     const value = control.value as string;
     if (!value) return null;
-    const start = this.tripStartDate?.();
-    const end = this.tripEndDate?.();
+    const start = this._tripStartDate();
+    const end = this._tripEndDate();
     if (!start || !end) return null;
     if (value < start || value > end) {
       return { dateOutOfRange: true };
@@ -124,22 +116,15 @@ export class AddDayDialogComponent {
       for (const [name, _msg] of Object.entries(fieldErrors)) {
         const control = this.form.get(name);
         if (control) {
-          control.setErrors({ server: 'TRIPS.DETAIL.DAYS.ADD.ERROR_VALIDATION' });
+          control.setErrors({ server: 'TRIPS.DETAIL.DAYS.EDIT.ERROR_VALIDATION' });
           mapped = true;
         }
       }
-      if (!mapped) this.errorMessage.set('TRIPS.DETAIL.DAYS.ADD.ERROR_VALIDATION');
+      if (!mapped) this.errorMessage.set('TRIPS.DETAIL.DAYS.EDIT.ERROR_VALIDATION');
     } else if (err.status === 400) {
-      this.errorMessage.set('TRIPS.DETAIL.DAYS.ADD.ERROR_VALIDATION');
+      this.errorMessage.set('TRIPS.DETAIL.DAYS.EDIT.ERROR_VALIDATION');
     } else {
-      this.errorMessage.set('TRIPS.DETAIL.DAYS.ADD.ERROR_GENERIC');
+      this.errorMessage.set('TRIPS.DETAIL.DAYS.EDIT.ERROR_GENERIC');
     }
   }
-}
-
-function addOneDay(iso: string): string {
-  const [y, m, d] = iso.split('-').map(Number);
-  const date = new Date(Date.UTC(y, m - 1, d));
-  date.setUTCDate(date.getUTCDate() + 1);
-  return date.toISOString().slice(0, 10);
 }

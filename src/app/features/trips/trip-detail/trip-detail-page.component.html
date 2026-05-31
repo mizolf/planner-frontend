@@ -94,6 +94,8 @@
               @if (selectedDay(); as d) {
                 <app-trip-day-card
                   [day]="d"
+                  [canEditDay]="canEditContent()"
+                  (editDay)="openEditDay(d)"
                   [canDelete]="canEditContent()"
                   (deleteDay)="openDeleteDay(d)"
                   [canAddActivity]="canEditContent()"
@@ -121,6 +123,8 @@
           [tripStartDate]="t.startDate"
           [tripEndDate]="t.endDate"
           [existingDays]="t.days" />
+
+        <app-edit-day-dialog />
 
         <app-add-activity-dialog />
 

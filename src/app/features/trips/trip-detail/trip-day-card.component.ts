@@ -16,6 +16,9 @@ import { formatTime } from "../../../shared/utils/format-time";
 export class TripDayCardComponent {
   readonly day = input.required<TripDayResponse>();
 
+  readonly canEditDay = input(false);
+  readonly editDay = output<void>();
+
   readonly canDelete = input(false);
   readonly deleteDay = output<void>();
 

@@ -17,6 +17,7 @@ import {
 import { TripService } from "../../../core/services/trip.service";
 import { UserService } from "../../../core/services/user.service";
 import { AddDayDialogComponent } from "./add-day-dialog.component";
+import { EditDayDialogComponent } from "./edit-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
 import { EditTripDialogComponent } from "./edit-trip-dialog.component";
 import { DeleteTripDialogComponent } from "./delete-trip-dialog.component";
@@ -37,6 +38,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     RouterLink,
     TranslateModule,
     AddDayDialogComponent,
+    EditDayDialogComponent,
     AddActivityDialogComponent,
     EditActivityDialogComponent,
     DeleteDayDialogComponent,
@@ -77,6 +79,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   private readonly userSelectedDayId = signal<number | null>(null);
 
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
+  @ViewChild(EditDayDialogComponent) editDayDialog?: EditDayDialogComponent;
   @ViewChild(DeleteDayDialogComponent)
   deleteDayDialog?: DeleteDayDialogComponent;
 
@@ -148,6 +151,12 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   openAddDay(): void {
     this.addDayDialog?.open();
+  }
+
+  openEditDay(day: TripDayResponse): void {
+    const t = this.trip();
+    if (!t) return;
+    this.editDayDialog?.open(t.id, day, t.startDate, t.endDate);
   }
 
   openAddActivity(day: TripDayResponse): void {

@@ -12,6 +12,7 @@ import {
   CreateTripActivityRequest,
   TripActivityResponse,
   UpdateTripActivityRequest,
+  UpdateTripDayRequest,
   UpdateTripRequest,
 } from "../models/trip.model";
 
@@ -190,6 +191,26 @@ export class TripService {
         });
       })
     );
+  }
+
+  updateDay(
+    tripId: number,
+    dayId: number,
+    request: UpdateTripDayRequest,
+  ): Observable<TripDayResponse> {
+    return this.http
+      .put<TripDayResponse>(`${this.apiUrl}/${tripId}/days/${dayId}`, request)
+      .pipe(
+        tap((updatedDay) => {
+          this._tripDetail.update((detail) => {
+            if (!detail) return detail;
+            const days = detail.days
+              .map((d) => (d.id === dayId ? updatedDay : d))
+              .sort((a, b) => a.dayNumber - b.dayNumber);
+            return { ...detail, days };
+          });
+        }),
+      );
   }
 
   deleteActivityFromDay(tripId: number, dayId: number, activityId: number): Observable<void> {
