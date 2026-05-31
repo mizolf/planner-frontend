@@ -10,6 +10,7 @@ export type ActivityEventType =
   | 'MEMBER_ADDED'
   | 'MEMBER_ROLE_CHANGED'
   | 'MEMBER_REMOVED'
+  | 'MEMBER_LEFT'
   | 'INVITE_SENT'
   | 'INVITE_ACCEPTED'
   | 'INVITE_DECLINED'

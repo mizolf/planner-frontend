@@ -51,8 +51,10 @@
           [trip]="t"
           [canEdit]="canEditContent()"
           [canDelete]="isOwner()"
+          [canLeave]="canLeaveTrip()"
           (edit)="openEditTrip()"
-          (delete)="openDeleteTrip()" />
+          (delete)="openDeleteTrip()"
+          (leave)="openLeaveTrip()" />
 
         <section class="mt-14 sm:mt-20">
           <h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight mb-8">
@@ -135,6 +137,8 @@
         <app-edit-trip-dialog />
 
         <app-delete-trip-dialog />
+
+        <app-leave-trip-dialog />
 
         <app-invite-member-dialog (invited)="onInvited($event)" />
       }

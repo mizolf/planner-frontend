@@ -21,6 +21,7 @@ import { EditDayDialogComponent } from "./edit-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
 import { EditTripDialogComponent } from "./edit-trip-dialog.component";
 import { DeleteTripDialogComponent } from "./delete-trip-dialog.component";
+import { LeaveTripDialogComponent } from "./leave-trip-dialog.component";
 import { AddActivityDialogComponent } from "./add-activity-dialog.component";
 import { EditActivityDialogComponent } from "./edit-activity-dialog.component";
 import { InviteMemberDialogComponent } from "./invite-member-dialog.component";
@@ -44,6 +45,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     DeleteDayDialogComponent,
     EditTripDialogComponent,
     DeleteTripDialogComponent,
+    LeaveTripDialogComponent,
     InviteMemberDialogComponent,
     PendingInvitesSectionComponent,
     TripDayCardComponent,
@@ -76,6 +78,11 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     return role === "OWNER" || role === "EDITOR";
   });
 
+  readonly canLeaveTrip = computed(() => {
+    const role = this.currentUserRole();
+    return role !== null && role !== "OWNER";
+  });
+
   private readonly userSelectedDayId = signal<number | null>(null);
 
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
@@ -87,6 +94,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(DeleteTripDialogComponent)
   deleteTripDialog?: DeleteTripDialogComponent;
+
+  @ViewChild(LeaveTripDialogComponent)
+  leaveTripDialog?: LeaveTripDialogComponent;
 
   @ViewChild(AddActivityDialogComponent)
   addActivityDialog?: AddActivityDialogComponent;
@@ -147,6 +157,12 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     const t = this.trip();
     if (!t) return;
     this.deleteTripDialog?.open(t);
+  }
+
+  openLeaveTrip(): void {
+    const t = this.trip();
+    if (!t) return;
+    this.leaveTripDialog?.open(t);
   }
 
   openAddDay(): void {

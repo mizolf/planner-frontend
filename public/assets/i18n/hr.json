@@ -165,6 +165,7 @@
       "INTERESTS_TITLE": "Interesi",
       "EDIT_CTA": "Uredi",
       "DELETE_CTA": "Obriši put",
+      "LEAVE_CTA": "Napusti putovanje",
       "MENU_ARIA": "Radnje putovanja",
       "ROLE": {
         "OWNER": "Vlasnik",
@@ -299,6 +300,15 @@
         "SUCCESS": "Put obrisan.",
         "ERROR_GENERIC": "Brisanje putovanja nije uspjelo. Pokušaj ponovno."
       },
+      "LEAVE": {
+        "TITLE": "Napustiti \"{{name}}\"?",
+        "MESSAGE": "Izgubit ćeš pristup ovom putovanju. Vlasnik te kasnije može ponovno pozvati.",
+        "CONFIRM": "Napusti putovanje",
+        "CANCEL": "Odustani",
+        "SUCCESS": "Napustio/la si putovanje.",
+        "ERROR_OWNER": "Kao vlasnik ne možeš napustiti — umjesto toga obriši putovanje.",
+        "ERROR_GENERIC": "Napuštanje putovanja nije uspjelo. Pokušaj ponovno."
+      },
       "LOADING": "Učitavanje putovanja…",
       "ERROR": {
         "BACK_TO_DASHBOARD": "Natrag na početnu",
@@ -340,6 +350,7 @@
       "MEMBER_ROLE_CHANGED": "<strong>{{actor}}</strong> je promijenio/la ulogu za <em>{{member}}</em> u <em>{{trip}}</em>.",
       "MEMBER_REMOVED": "<strong>{{actor}}</strong> je uklonio/la <em>{{member}}</em> iz <em>{{trip}}</em>.",
       "MEMBER_JOINED": "<strong>{{actor}}</strong> se pridružio/la putovanju <em>{{trip}}</em>.",
+      "MEMBER_LEFT": "<strong>{{actor}}</strong> je napustio/la putovanje <em>{{trip}}</em>.",
       "INVITE_SENT": "<strong>{{actor}}</strong> je pozvao/la <em>{{entity}}</em> na <em>{{trip}}</em>."
     }
   },

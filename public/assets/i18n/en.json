@@ -165,6 +165,7 @@
       "INTERESTS_TITLE": "Interests",
       "EDIT_CTA": "Edit",
       "DELETE_CTA": "Delete trip",
+      "LEAVE_CTA": "Leave trip",
       "MENU_ARIA": "Trip actions",
       "ROLE": {
         "OWNER": "Owner",
@@ -299,6 +300,15 @@
         "SUCCESS": "Trip deleted.",
         "ERROR_GENERIC": "Couldn't delete the trip. Please try again."
       },
+      "LEAVE": {
+        "TITLE": "Leave \"{{name}}\"?",
+        "MESSAGE": "You'll lose access to this trip. The owner can invite you again later.",
+        "CONFIRM": "Leave trip",
+        "CANCEL": "Cancel",
+        "SUCCESS": "You left the trip.",
+        "ERROR_OWNER": "As the owner you can't leave — delete the trip instead.",
+        "ERROR_GENERIC": "Couldn't leave the trip. Please try again."
+      },
       "LOADING": "Loading trip…",
       "ERROR": {
         "BACK_TO_DASHBOARD": "Back to dashboard",
@@ -340,6 +350,7 @@
       "MEMBER_ROLE_CHANGED": "<strong>{{actor}}</strong> changed <em>{{member}}</em>'s role in <em>{{trip}}</em>.",
       "MEMBER_REMOVED": "<strong>{{actor}}</strong> removed <em>{{member}}</em> from <em>{{trip}}</em>.",
       "MEMBER_JOINED": "<strong>{{actor}}</strong> joined <em>{{trip}}</em>.",
+      "MEMBER_LEFT": "<strong>{{actor}}</strong> left <em>{{trip}}</em>.",
       "INVITE_SENT": "<strong>{{actor}}</strong> invited <em>{{entity}}</em> to <em>{{trip}}</em>."
     }
   },

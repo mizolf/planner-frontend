@@ -94,6 +94,17 @@ export class TripService {
       );
   }
 
+  leaveTrip(tripId: number): Observable<void> {
+    return this.http
+      .delete<void>(`${this.apiUrl}/${tripId}/members/me`)
+      .pipe(
+        tap(() => {
+          this._trips.update((trips) => trips.filter((t) => t.id !== tripId));
+          this.clearTripDetail();
+        }),
+      );
+  }
+
   loadTripDetail(id: number): void {
     this._detailLoading.set(true);
     this._detailError.set(null);
