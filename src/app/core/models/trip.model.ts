@@ -60,6 +60,10 @@ export interface UpdateTripDayRequest {
 
 export type MemberRole = "OWNER" | "EDITOR" | "VIEWER";
 
+export interface UpdateMemberRoleRequest {
+  role: MemberRole;
+}
+
 export interface ActivityResponse {
   id: number;
   name: string;

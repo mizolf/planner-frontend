@@ -177,7 +177,25 @@
         "SUBTITLE": "Who's coming on this trip",
         "JOINED_AT": "Joined {{date}}",
         "OVERFLOW": "+{{count}}",
-        "EMPTY": "No travelers yet."
+        "EMPTY": "No travelers yet.",
+        "MANAGE": {
+          "ROLE_LABEL": "Change role for {{name}}",
+          "REMOVE_ARIA": "Remove {{name}} from the trip"
+        },
+        "ROLE_CHANGE": {
+          "SUCCESS": "Role updated.",
+          "ERROR_FORBIDDEN": "You don't have permission to change this member's role.",
+          "ERROR_GENERIC": "Couldn't update the role. Please try again."
+        },
+        "REMOVE": {
+          "TITLE": "Remove {{name}}?",
+          "MESSAGE": "They'll lose access to this trip. You can invite them again later.",
+          "CONFIRM": "Remove",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Member removed.",
+          "ERROR_FORBIDDEN": "You don't have permission to remove this member.",
+          "ERROR_GENERIC": "Couldn't remove the member. Please try again."
+        }
       },
       "DAYS": {
         "TITLE": "Itinerary",

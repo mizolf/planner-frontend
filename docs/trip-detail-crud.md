@@ -4,11 +4,11 @@
 
 Trip detail stranica je nakon Phase 1 (read-only) + invite flowa i dalje velikim dijelom read-only. Backend već podržava niz operacija koje frontend ne koristi. Ovaj spec dovršava write funkcionalnost:
 
-1. **Uredi / obriši trip** — `PUT` / `DELETE /trips/{id}`
-2. **Uredi dan + notes** — `PUT /trips/{id}/days/{dayId}` (notes se trenutno prikazuju ali se nikako ne mogu unijeti)
+1. **Uredi / obriši trip** — `PUT` / `DELETE /trips/{id}` [odrađeno]
+2. **Uredi dan + notes** — `PUT /trips/{id}/days/{dayId}` (notes se trenutno prikazuju ali se nikako ne mogu unijeti) [odrađeno]
 3. **Upravljanje članovima** — promjena role + izbacivanje (`PUT` / `DELETE /trips/{id}/members/{userId}`)
 4. **Povijest tripa (aside feed)** — `GET /trips/{id}/activity-feed`
-5. **Leave trip** — član sam napušta trip; **traži novi backend endpoint**
+5. **Leave trip** — član sam napušta trip; **traži novi backend endpoint** [odrađeno]
 
 Ishod: OWNER/EDITOR uređuju trip i dane, OWNER upravlja timom, svi članovi vide povijest izmjena, a ne-vlasnici mogu napustiti trip.
 

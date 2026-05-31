@@ -177,7 +177,25 @@
         "SUBTITLE": "Tko ide na ovo putovanje",
         "JOINED_AT": "Pridružio/la se {{date}}",
         "OVERFLOW": "+{{count}}",
-        "EMPTY": "Još nema suputnika."
+        "EMPTY": "Još nema suputnika.",
+        "MANAGE": {
+          "ROLE_LABEL": "Promijeni ulogu za {{name}}",
+          "REMOVE_ARIA": "Izbaci {{name}} s putovanja"
+        },
+        "ROLE_CHANGE": {
+          "SUCCESS": "Uloga ažurirana.",
+          "ERROR_FORBIDDEN": "Nemate ovlasti za promjenu uloge ovog člana.",
+          "ERROR_GENERIC": "Ažuriranje uloge nije uspjelo. Pokušajte ponovno."
+        },
+        "REMOVE": {
+          "TITLE": "Izbaciti {{name}}?",
+          "MESSAGE": "Izgubit će pristup ovom putovanju. Možete ga ponovno pozvati kasnije.",
+          "CONFIRM": "Izbaci",
+          "CANCEL": "Odustani",
+          "SUCCESS": "Član izbačen.",
+          "ERROR_FORBIDDEN": "Nemate ovlasti za izbacivanje ovog člana.",
+          "ERROR_GENERIC": "Izbacivanje člana nije uspjelo. Pokušajte ponovno."
+        }
       },
       "DAYS": {
         "TITLE": "Plan putovanja",

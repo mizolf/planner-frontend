@@ -8,12 +8,14 @@ import {
   TripDayResponse,
   TripDetailErrorKind,
   TripDetailResponse,
+  TripMemberResponse,
   TripResponse,
   CreateTripActivityRequest,
   TripActivityResponse,
   UpdateTripActivityRequest,
   UpdateTripDayRequest,
   UpdateTripRequest,
+  MemberRole,
 } from "../models/trip.model";
 
 @Injectable({ providedIn: "root" })
@@ -101,6 +103,46 @@ export class TripService {
         tap(() => {
           this._trips.update((trips) => trips.filter((t) => t.id !== tripId));
           this.clearTripDetail();
+        }),
+      );
+  }
+
+  updateMemberRole(
+    tripId: number,
+    userId: number,
+    role: MemberRole,
+  ): Observable<TripMemberResponse> {
+    return this.http
+      .put<TripMemberResponse>(`${this.apiUrl}/${tripId}/members/${userId}`, {
+        role,
+      })
+      .pipe(
+        tap((updatedMember) => {
+          this._tripDetail.update((detail) => {
+            if (!detail) return detail;
+            return {
+              ...detail,
+              members: detail.members.map((m) =>
+                m.userId === userId ? updatedMember : m,
+              ),
+            };
+          });
+        }),
+      );
+  }
+
+  removeMember(tripId: number, userId: number): Observable<void> {
+    return this.http
+      .delete<void>(`${this.apiUrl}/${tripId}/members/${userId}`)
+      .pipe(
+        tap(() => {
+          this._tripDetail.update((detail) => {
+            if (!detail) return detail;
+            return {
+              ...detail,
+              members: detail.members.filter((m) => m.userId !== userId),
+            };
+          });
         }),
       );
   }

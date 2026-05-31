@@ -110,8 +110,10 @@
         </section>
 
         <app-trip-members-section
+          [tripId]="t.id"
           [members]="t.members"
           [isOwner]="isOwner()"
+          [currentUserId]="currentUserId()"
           (invite)="openInviteMember()" />
 
         @if (isOwner()) {

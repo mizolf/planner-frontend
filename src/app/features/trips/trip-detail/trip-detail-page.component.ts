@@ -83,6 +83,10 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     return role !== null && role !== "OWNER";
   });
 
+  readonly currentUserId = computed(
+    () => this.userService.currentUser()?.id ?? null,
+  );
+
   private readonly userSelectedDayId = signal<number | null>(null);
 
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
