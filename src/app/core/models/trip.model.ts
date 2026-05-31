@@ -20,6 +20,16 @@ export interface CreateTripRequest {
   interests?: Interest[];
 }
 
+export interface UpdateTripRequest {
+  name?: string;
+  description?: string;
+  destination?: string;
+  startDate?: string;
+  endDate?: string;
+  budget?: number;
+  interests?: Interest[];
+}
+
 export interface TripResponse {
   id: number;
   name: string;

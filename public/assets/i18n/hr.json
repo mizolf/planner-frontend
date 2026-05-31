@@ -164,6 +164,9 @@
       "BUDGET_LABEL": "Budžet",
       "DESCRIPTION_FALLBACK": "Nema opisa.",
       "INTERESTS_TITLE": "Interesi",
+      "EDIT_CTA": "Uredi",
+      "DELETE_CTA": "Obriši put",
+      "MENU_ARIA": "Radnje putovanja",
       "ROLE": {
         "OWNER": "Vlasnik",
         "EDITOR": "Urednik",
@@ -256,6 +259,24 @@
           "SUCCESS": "Aktivnost obrisana.",
           "ERROR_GENERIC": "Brisanje aktivnosti nije uspjelo. Pokušaj ponovno."
         }
+      },
+      "EDIT": {
+        "TITLE": "Uredi put",
+        "SUBTITLE": "Ažuriraj detalje svog putovanja.",
+        "ORPHAN_WARNING": "{{count}} dan(a) ispada izvan novih datuma i bit će obrisano.",
+        "CANCEL": "Odustani",
+        "SUBMIT": "Spremi promjene",
+        "SUCCESS": "Put ažuriran.",
+        "ERROR_VALIDATION": "Provjeri označena polja.",
+        "ERROR_GENERIC": "Ažuriranje putovanja nije uspjelo. Pokušaj ponovno."
+      },
+      "DELETE": {
+        "TITLE": "Obrisati \"{{name}}\"?",
+        "MESSAGE": "Ovaj put i svi njegovi dani i aktivnosti bit će trajno uklonjeni. Ovo se ne može poništiti.",
+        "CONFIRM": "Obriši put",
+        "CANCEL": "Odustani",
+        "SUCCESS": "Put obrisan.",
+        "ERROR_GENERIC": "Brisanje putovanja nije uspjelo. Pokušaj ponovno."
       },
       "LOADING": "Učitavanje putovanja…",
       "ERROR": {

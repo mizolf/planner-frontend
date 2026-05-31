@@ -164,6 +164,9 @@
       "BUDGET_LABEL": "Budget",
       "DESCRIPTION_FALLBACK": "No description.",
       "INTERESTS_TITLE": "Interests",
+      "EDIT_CTA": "Edit",
+      "DELETE_CTA": "Delete trip",
+      "MENU_ARIA": "Trip actions",
       "ROLE": {
         "OWNER": "Owner",
         "EDITOR": "Editor",
@@ -256,6 +259,24 @@
           "SUCCESS": "Activity deleted.",
           "ERROR_GENERIC": "Couldn't delete the activity. Please try again."
         }
+      },
+      "EDIT": {
+        "TITLE": "Edit trip",
+        "SUBTITLE": "Update your trip details.",
+        "ORPHAN_WARNING": "{{count}} day(s) fall outside the new dates and will be removed.",
+        "CANCEL": "Cancel",
+        "SUBMIT": "Save changes",
+        "SUCCESS": "Trip updated.",
+        "ERROR_VALIDATION": "Please check the highlighted fields.",
+        "ERROR_GENERIC": "Couldn't update the trip. Please try again."
+      },
+      "DELETE": {
+        "TITLE": "Delete \"{{name}}\"?",
+        "MESSAGE": "This trip and all of its days and activities will be permanently removed. This cannot be undone.",
+        "CONFIRM": "Delete trip",
+        "CANCEL": "Cancel",
+        "SUCCESS": "Trip deleted.",
+        "ERROR_GENERIC": "Couldn't delete the trip. Please try again."
       },
       "LOADING": "Loading trip…",
       "ERROR": {

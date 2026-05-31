@@ -12,6 +12,7 @@ import {
   CreateTripActivityRequest,
   TripActivityResponse,
   UpdateTripActivityRequest,
+  UpdateTripRequest,
 } from "../models/trip.model";
 
 @Injectable({ providedIn: "root" })
@@ -61,6 +62,35 @@ export class TripService {
 
   addTrip(trip: TripResponse): void {
     this._trips.update((trips) => [trip, ...trips]);
+  }
+
+  updateTrip(
+    tripId: number,
+    request: UpdateTripRequest,
+  ): Observable<TripResponse> {
+    return this.http
+      .put<TripResponse>(`${this.apiUrl}/${tripId}`, request)
+      .pipe(
+        tap((updated) => {
+          this._tripDetail.update((detail) =>
+            detail ? { ...detail, ...updated } : detail,
+          );
+          this._trips.update((trips) =>
+            trips.map((t) => (t.id === tripId ? { ...t, ...updated } : t)),
+          );
+        }),
+      );
+  }
+
+  deleteTrip(tripId: number): Observable<void> {
+    return this.http
+      .delete<void>(`${this.apiUrl}/${tripId}`)
+      .pipe(
+        tap(() => {
+          this._trips.update((trips) => trips.filter((t) => t.id !== tripId));
+          this.clearTripDetail();
+        }),
+      );
   }
 
   loadTripDetail(id: number): void {

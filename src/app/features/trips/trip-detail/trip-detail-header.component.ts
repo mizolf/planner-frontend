@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,10 +16,25 @@ const MAX_AVATARS = 4;
 })
 export class TripDetailHeaderComponent {
   readonly trip = input.required<TripDetailResponse>();
+  readonly canEdit = input(false);
+  readonly canDelete = input(false);
+
+  readonly edit = output<void>();
+  readonly delete = output<void>();
+
+  readonly menuOpen = signal(false);
 
   readonly visibleMembers = computed(() => this.trip().members.slice(0, MAX_AVATARS));
   readonly overflowCount = computed(() => Math.max(0, this.trip().members.length - MAX_AVATARS));
 
   initialsOf = initialsOf;
   getStatusColor = (): string => getTripStatusColor(this.trip().status);
+
+  toggleMenu(): void {
+    this.menuOpen.update((open) => !open);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
 }

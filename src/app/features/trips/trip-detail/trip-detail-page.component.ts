@@ -18,6 +18,8 @@ import { TripService } from "../../../core/services/trip.service";
 import { UserService } from "../../../core/services/user.service";
 import { AddDayDialogComponent } from "./add-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
+import { EditTripDialogComponent } from "./edit-trip-dialog.component";
+import { DeleteTripDialogComponent } from "./delete-trip-dialog.component";
 import { AddActivityDialogComponent } from "./add-activity-dialog.component";
 import { EditActivityDialogComponent } from "./edit-activity-dialog.component";
 import { InviteMemberDialogComponent } from "./invite-member-dialog.component";
@@ -38,6 +40,8 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     AddActivityDialogComponent,
     EditActivityDialogComponent,
     DeleteDayDialogComponent,
+    EditTripDialogComponent,
+    DeleteTripDialogComponent,
     InviteMemberDialogComponent,
     PendingInvitesSectionComponent,
     TripDayCardComponent,
@@ -75,6 +79,11 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
   @ViewChild(DeleteDayDialogComponent)
   deleteDayDialog?: DeleteDayDialogComponent;
+
+  @ViewChild(EditTripDialogComponent) editTripDialog?: EditTripDialogComponent;
+
+  @ViewChild(DeleteTripDialogComponent)
+  deleteTripDialog?: DeleteTripDialogComponent;
 
   @ViewChild(AddActivityDialogComponent)
   addActivityDialog?: AddActivityDialogComponent;
@@ -123,6 +132,18 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   selectDay(id: number): void {
     this.userSelectedDayId.set(id);
+  }
+
+  openEditTrip(): void {
+    const t = this.trip();
+    if (!t) return;
+    this.editTripDialog?.open(t);
+  }
+
+  openDeleteTrip(): void {
+    const t = this.trip();
+    if (!t) return;
+    this.deleteTripDialog?.open(t);
   }
 
   openAddDay(): void {

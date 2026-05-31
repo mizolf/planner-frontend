@@ -6,6 +6,51 @@
     {{ 'TRIPS.DETAIL.BACK' | translate }}
   </a>
 
+  <!-- Write actions (gated by role) -->
+  @if (canEdit() || canDelete()) {
+    <div class="absolute top-0 right-0 flex items-center gap-2">
+      @if (canEdit()) {
+        <button
+          type="button"
+          (click)="edit.emit()"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[18px]">edit</span>
+          {{ 'TRIPS.DETAIL.EDIT_CTA' | translate }}
+        </button>
+      }
+
+      @if (canDelete()) {
+        <div class="relative">
+          <button
+            type="button"
+            (click)="toggleMenu(); $event.stopPropagation()"
+            [attr.aria-label]="'TRIPS.DETAIL.MENU_ARIA' | translate"
+            [attr.aria-expanded]="menuOpen()"
+            class="inline-flex items-center justify-center size-9 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+          </button>
+
+          @if (menuOpen()) {
+            <!-- Invisible backdrop closes the menu on outside click -->
+            <div class="fixed inset-0 z-40" (click)="closeMenu()"></div>
+
+            <div
+              (click)="$event.stopPropagation()"
+              class="absolute right-0 mt-1 z-50 min-w-[12rem] py-1.5 rounded-xl bg-surface-container-lowest border border-outline-variant/10 shadow-lg">
+              <button
+                type="button"
+                (click)="delete.emit(); closeMenu()"
+                class="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm font-label font-semibold text-error hover:bg-error-container/40 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">delete</span>
+                {{ 'TRIPS.DETAIL.DELETE_CTA' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+
   <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start mb-8">
     <div class="min-w-0">
       <p class="text-[11px] font-label font-semibold text-tertiary uppercase tracking-[0.25em] mb-3">
