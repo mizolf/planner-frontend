@@ -48,7 +48,7 @@
 
 <!-- Activity list -->
 @else {
-  <div class="space-y-1">
+  <div class="space-y-1 max-h-[38rem] overflow-y-auto overflow-x-hidden">
     @for (item of activities(); track item.id) {
       <div class="flex gap-3 p-2 -mx-2 rounded-lg hover:bg-surface-container-low transition-colors animate-fade-in-up"
            [style.animation-delay]="$index * 80 + 'ms'">
