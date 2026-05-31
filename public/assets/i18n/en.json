@@ -105,7 +105,6 @@
     "NO_IMAGE": "No image",
     "DAYS_TO_GO": "{{count}} days to go",
     "STATUS": {
-      "PLANNING": "Planning",
       "UPCOMING": "Upcoming",
       "IN_PROGRESS": "In Progress",
       "COMPLETED": "Completed"

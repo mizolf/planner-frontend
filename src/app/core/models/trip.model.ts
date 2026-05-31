@@ -1,4 +1,4 @@
-export type TripStatus = "PLANNING" | "UPCOMING" | "IN_PROGRESS" | "COMPLETED";
+export type TripStatus = "UPCOMING" | "IN_PROGRESS" | "COMPLETED";
 
 export type Interest =
   | "CULTURE"

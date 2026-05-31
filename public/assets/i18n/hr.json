@@ -105,7 +105,6 @@
     "NO_IMAGE": "Nema slike",
     "DAYS_TO_GO": "još {{count}} dana",
     "STATUS": {
-      "PLANNING": "Planiranje",
       "UPCOMING": "Nadolazeće",
       "IN_PROGRESS": "U tijeku",
       "COMPLETED": "Završeno"

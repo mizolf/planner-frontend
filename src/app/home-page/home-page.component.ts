@@ -38,8 +38,7 @@ export class HomePageComponent implements OnInit {
     const statusOrder: Record<TripStatus, number> = {
       IN_PROGRESS: 0,
       UPCOMING: 1,
-      PLANNING: 2,
-      COMPLETED: 3,
+      COMPLETED: 2,
     };
     return [...this.trips()]
       .filter(t => t.status !== 'COMPLETED')
