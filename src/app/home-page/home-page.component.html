@@ -126,23 +126,17 @@
             <h2 class="text-xl font-bold font-headline text-on-surface">
               {{ 'HOME.UPCOMING_TRIPS' | translate }}
             </h2>
-            @if (hasTrips()) {
-              <div class="flex items-center gap-2">
-                @if (moreTripsCount() > 0) {
-                  <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-label font-semibold">
-                    +{{ moreTripsCount() }}
-                  </span>
-                }
-                <a routerLink="/my-trips"
-                   class="text-sm font-label text-primary font-semibold hover:text-primary-dim transition-colors">
-                  {{ 'HOME.VIEW_ALL' | translate }}
-                </a>
-              </div>
-            }
           </div>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
             @for (trip of previewTrips(); track trip.id) {
               <app-trip-card [trip]="trip" />
+            }
+            @if (moreTripsCount() > 0) {
+              <a routerLink="/my-trips"
+                 class="flex flex-col items-center justify-center gap-1 min-h-[180px] rounded-xl border-none text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
+                <span class="text-3xl font-bold font-headline">+{{ moreTripsCount() }}</span>
+                <span class="text-sm font-label font-semibold">{{ 'HOME.VIEW_ALL' | translate }}</span>
+              </a>
             }
           </div>
         </div>
