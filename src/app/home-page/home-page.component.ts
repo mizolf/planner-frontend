@@ -51,6 +51,7 @@ export class HomePageComponent implements OnInit {
   });
 
   readonly previewTrips = computed(() => this.sortedTrips().slice(0, 3));
+  readonly moreTripsCount = computed(() => this.sortedTrips().length - this.previewTrips().length);
 
   readonly hasTrips = computed(() => this.trips().length > 0);
 
