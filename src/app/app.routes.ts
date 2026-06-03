@@ -8,8 +8,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
-      { path: 'trips', redirectTo: 'home' },
-      { path: 'trips/new', redirectTo: 'home' },
+      { path: 'my-trips', loadComponent: () => import('./features/my-trips/my-trips-page.component').then(m => m.MyTripsPageComponent) },
       {
         path: 'trips/:id',
         loadComponent: () =>

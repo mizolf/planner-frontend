@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, inject, OnInit, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../core/services/user.service';
 import { TripService } from '../core/services/trip.service';
@@ -11,7 +12,7 @@ import { ExploreSectionComponent } from '../features/explore/explore-section/exp
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [TranslateModule, CreateTripDialogComponent, TripCardComponent, ActivityFeedComponent, ExploreSectionComponent],
+  imports: [TranslateModule, RouterLink, CreateTripDialogComponent, TripCardComponent, ActivityFeedComponent, ExploreSectionComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
@@ -49,11 +50,7 @@ export class HomePageComponent implements OnInit {
       });
   });
 
-  readonly showAllTrips = signal(false);
-  readonly hasMoreTrips = computed(() => this.sortedTrips().length > 4);
-  readonly displayedTrips = computed(() =>
-    this.showAllTrips() ? this.sortedTrips() : this.sortedTrips().slice(0, 4),
-  );
+  readonly previewTrips = computed(() => this.sortedTrips().slice(0, 3));
 
   readonly hasTrips = computed(() => this.trips().length > 0);
 
@@ -69,10 +66,6 @@ export class HomePageComponent implements OnInit {
 
   retryLoadTrips(): void {
     this.tripService.loadTrips();
-  }
-
-  toggleShowAll(): void {
-    this.showAllTrips.update(v => !v);
   }
 
   getFirstName(): string {

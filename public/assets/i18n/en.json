@@ -115,6 +115,19 @@
       "CTA": "Plan your first trip"
     }
   },
+  "MY_TRIPS": {
+    "TITLE": "My Trips",
+    "SUBTITLE": "All your trips in one place.",
+    "TABS": {
+      "ALL": "All",
+      "UPCOMING": "Upcoming",
+      "IN_PROGRESS": "In Progress",
+      "COMPLETED": "Completed"
+    },
+    "EMPTY_UPCOMING": "No upcoming trips.",
+    "EMPTY_IN_PROGRESS": "No trips in progress.",
+    "EMPTY_COMPLETED": "No completed trips yet."
+  },
   "TRIPS": {
     "CREATE": {
       "TITLE": "Create New Trip",

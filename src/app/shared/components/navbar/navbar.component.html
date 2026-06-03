@@ -18,11 +18,12 @@
            class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.DASHBOARD' | translate }}
         </a>
-        <a routerLink="/home"
+        <a routerLink="/my-trips"
+           routerLinkActive="bg-primary/10 text-primary"
            class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.MY_TRIPS' | translate }}
         </a>
-        <a routerLink="/home"
+        <a routerLink="/explore"
            class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.EXPLORE' | translate }}
         </a>
@@ -128,13 +129,14 @@
         <span class="material-symbols-outlined text-[20px]">dashboard</span>
         {{ 'NAV.DASHBOARD' | translate }}
       </a>
-      <a routerLink="/home"
+      <a routerLink="/my-trips"
+         routerLinkActive="bg-primary/10 text-primary"
          (click)="closeMobile()"
          class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">luggage</span>
         {{ 'NAV.MY_TRIPS' | translate }}
       </a>
-      <a routerLink="/home"
+      <a routerLink="/explore"
          (click)="closeMobile()"
          class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">explore</span>

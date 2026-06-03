@@ -115,6 +115,19 @@
       "CTA": "Planiraj prvo putovanje"
     }
   },
+  "MY_TRIPS": {
+    "TITLE": "Moja putovanja",
+    "SUBTITLE": "Sva vaša putovanja na jednom mjestu.",
+    "TABS": {
+      "ALL": "Sva",
+      "UPCOMING": "Nadolazeća",
+      "IN_PROGRESS": "U tijeku",
+      "COMPLETED": "Završena"
+    },
+    "EMPTY_UPCOMING": "Nema nadolazećih putovanja.",
+    "EMPTY_IN_PROGRESS": "Nema putovanja u tijeku.",
+    "EMPTY_COMPLETED": "Još nema završenih putovanja."
+  },
   "TRIPS": {
     "CREATE": {
       "TITLE": "Novo putovanje",
