@@ -1,19 +1,26 @@
 <section class="mb-8">
   <!-- Header -->
-  <div class="mb-4">
-    <h2 class="text-xl font-bold font-headline text-on-surface">
-      {{ 'EXPLORE.SECTION_TITLE' | translate }}
-    </h2>
-    <p class="text-sm text-on-surface-variant font-body mt-0.5">
-      {{ 'EXPLORE.SECTION_SUBTITLE' | translate }}
-    </p>
+  <div class="flex items-start justify-between gap-4 mb-4">
+    <div>
+      <h2 class="text-xl font-bold font-headline text-on-surface">
+        {{ 'EXPLORE.SECTION_TITLE' | translate }}
+      </h2>
+      <p class="text-sm text-on-surface-variant font-body mt-0.5">
+        {{ 'EXPLORE.SECTION_SUBTITLE' | translate }}
+      </p>
+    </div>
+    <a routerLink="/explore"
+       class="inline-flex items-center gap-1 shrink-0 text-sm font-label font-semibold text-primary hover:text-primary-dim transition-colors">
+      {{ 'HOME.VIEW_ALL' | translate }}
+      <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+    </a>
   </div>
 
   <!-- Loading skeleton -->
   @if (loading()) {
-    <div class="flex gap-4 overflow-hidden">
-      @for (_ of [1, 2, 3, 4]; track $index) {
-        <div class="w-72 h-56 bg-surface-container-low rounded-xl shrink-0 animate-pulse"></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (_ of [1, 2, 3]; track $index) {
+        <div class="h-56 bg-surface-container-low rounded-xl animate-pulse"></div>
       }
     </div>
   }
@@ -43,9 +50,9 @@
 
   <!-- Styles row -->
   @else {
-    <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-6 px-6 lg:-mx-10 lg:px-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       @for (style of styles(); track style.slug) {
-        <app-style-card class="w-72 shrink-0 snap-start" [style]="style" (cardClick)="onStyleClick($event)" />
+        <app-style-card [style]="style" (cardClick)="onStyleClick($event)" />
       }
     </div>
   }

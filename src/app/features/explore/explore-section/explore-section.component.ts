@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExploreService } from '../../../core/services/explore.service';
 import {
@@ -17,6 +18,7 @@ import { ApplyTemplateDialogComponent } from '../apply-template-dialog/apply-tem
   selector: 'app-explore-section',
   standalone: true,
   imports: [
+    RouterLink,
     TranslateModule,
     StyleCardComponent,
     StylePreviewDialogComponent,
