@@ -23,6 +23,22 @@ export interface TripTemplateSummaryResponse {
   interests: Interest[];
 }
 
+// GET /explore/templates → flat list of every template, tagged with its parent style.
+export interface FeaturedTemplateResponse {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;        // tagline for the card
+  destination: string;
+  durationDays: number;
+  recommendedSeason: Season;
+  imageUrl: string | null;
+  estimatedBudget: number;
+  interests: Interest[];
+  styleSlug: string;          // for the template-detail deep-link
+  styleName: string;          // category badge
+}
+
 export interface TripStyleDetailResponse {
   id: number;
   slug: string;

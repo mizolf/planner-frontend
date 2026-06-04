@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
   ApplyTripTemplateRequest,
+  FeaturedTemplateResponse,
   TripStyleDetailResponse,
   TripStyleResponse,
   TripTemplateDetailResponse,
@@ -22,6 +23,10 @@ export class ExploreService {
   private readonly _stylesLoading = signal(false);
   private readonly _stylesError = signal<string | null>(null);
 
+  private readonly _featuredTemplates = signal<FeaturedTemplateResponse[]>([]);
+  private readonly _featuredTemplatesLoading = signal(false);
+  private readonly _featuredTemplatesError = signal<string | null>(null);
+
   private readonly _currentStyle = signal<TripStyleDetailResponse | null>(null);
   private readonly _currentStyleLoading = signal(false);
   private readonly _currentStyleError = signal<string | null>(null);
@@ -36,6 +41,10 @@ export class ExploreService {
   readonly styles = this._styles.asReadonly();
   readonly stylesLoading = this._stylesLoading.asReadonly();
   readonly stylesError = this._stylesError.asReadonly();
+
+  readonly featuredTemplates = this._featuredTemplates.asReadonly();
+  readonly featuredTemplatesLoading = this._featuredTemplatesLoading.asReadonly();
+  readonly featuredTemplatesError = this._featuredTemplatesError.asReadonly();
 
   readonly currentStyle = this._currentStyle.asReadonly();
   readonly currentStyleLoading = this._currentStyleLoading.asReadonly();
@@ -57,6 +66,22 @@ export class ExploreService {
       error: () => {
         this._stylesLoading.set(false);
         this._stylesError.set('EXPLORE.ERROR_LOADING_STYLES');
+      },
+    });
+  }
+
+  loadFeaturedTemplates(): void {
+    this._featuredTemplatesLoading.set(true);
+    this._featuredTemplatesError.set(null);
+
+    this.http.get<FeaturedTemplateResponse[]>(`${this.apiUrl}/templates`).subscribe({
+      next: (templates) => {
+        this._featuredTemplates.set(templates);
+        this._featuredTemplatesLoading.set(false);
+      },
+      error: () => {
+        this._featuredTemplatesLoading.set(false);
+        this._featuredTemplatesError.set('EXPLORE.ERROR_LOADING_TEMPLATES');
       },
     });
   }

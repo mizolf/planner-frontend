@@ -1,5 +1,17 @@
 # Explore — Discovery Hub stranica
 
+> **Ažuriranje (rework, lipanj 2026):** `/explore` sada prikazuje **ravni grid predložaka
+> putovanja** (2 po redu, bogate horizontalne kartice), a ne kartice stilova. Backend je
+> dobio **`GET /explore/templates`** → `FeaturedTemplateResponse[]` (svaki template već nosi
+> `styleSlug`, `styleName` i `description` tagline) — pa **fan-out iz Faze 1b više nije
+> potreban**. Servis ima `loadFeaturedTemplates()` po uzoru na `loadStyles()`. Nova
+> komponenta `features/explore/template-card/` (slika lijevo / sadržaj desno) na klik otvara
+> `template-preview-dialog` direktno (`open(styleSlug, slug)`); apply flow je nepromijenjen.
+> Kartice stilova ostaju samo na home rail-u (`explore-section`).
+> **Iduća faza:** toggle čipovi za **filtriranje po stilu** (Nightlife, Two-day wonder…),
+> trivijalno jer svaki template nosi `styleSlug`/`styleName`.
+> Time su odjeljci 2 (fan-out ograničenje) i 5 (Faza 1b fan-out) zastarjeli.
+
 ## 1. Kontekst i cilj
 
 U navbaru već postoji `/explore` link (`NAV.EXPLORE`), ali ruta nije spojena — klik trenutno

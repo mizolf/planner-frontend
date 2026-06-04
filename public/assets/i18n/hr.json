@@ -391,6 +391,7 @@
     "LOADING": "Učitavanje inspiracije...",
     "EMPTY": "Trenutno nema dostupnih predložaka.",
     "ERROR_LOADING_STYLES": "Učitavanje sekcije nije uspjelo. Pokušajte ponovo.",
+    "ERROR_LOADING_TEMPLATES": "Učitavanje putovanja nije uspjelo. Pokušajte ponovo.",
     "ERROR_LOADING_STYLE": "Učitavanje stila nije uspjelo.",
     "ERROR_STYLE_NOT_FOUND": "Ovaj stil više nije dostupan.",
     "ERROR_LOADING_TEMPLATE": "Učitavanje predloška nije uspjelo.",
@@ -433,11 +434,16 @@
     "PAGE": {
       "TITLE": "Istraži",
       "SUBTITLE": "Otkrijte odabrane ideje za putovanja i započnite planiranje jednim klikom.",
-      "BROWSE_BY_STYLE": "Pregledaj po stilu"
+      "BROWSE_BY_STYLE": "Pregledaj po stilu",
+      "ALL_TEMPLATES": "Predlošci putovanja"
     },
-    "SEARCH_PLACEHOLDER": "Pretraži stilove...",
+    "SEARCH_PLACEHOLDER": "Pretraži putovanja...",
     "RESULTS": {
-      "STYLES_EMPTY_SEARCH": "Nijedan stil ne odgovara pretrazi."
+      "STYLES_EMPTY_SEARCH": "Nijedan stil ne odgovara pretrazi.",
+      "TEMPLATES_EMPTY_SEARCH": "Nijedno putovanje ne odgovara pretrazi."
+    },
+    "FILTER": {
+      "ALL": "Svi"
     },
     "COMING_SOON": {
       "HEADING": "Još načina za istraživanje",

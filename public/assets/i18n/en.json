@@ -391,6 +391,7 @@
     "LOADING": "Loading inspiration...",
     "EMPTY": "No templates available yet.",
     "ERROR_LOADING_STYLES": "Failed to load explore section. Please try again.",
+    "ERROR_LOADING_TEMPLATES": "Failed to load trips. Please try again.",
     "ERROR_LOADING_STYLE": "Failed to load this style.",
     "ERROR_STYLE_NOT_FOUND": "This style is no longer available.",
     "ERROR_LOADING_TEMPLATE": "Failed to load this template.",
@@ -433,11 +434,16 @@
     "PAGE": {
       "TITLE": "Explore",
       "SUBTITLE": "Discover curated trip ideas and start planning in one tap.",
-      "BROWSE_BY_STYLE": "Browse by style"
+      "BROWSE_BY_STYLE": "Browse by style",
+      "ALL_TEMPLATES": "Trip templates"
     },
-    "SEARCH_PLACEHOLDER": "Search styles...",
+    "SEARCH_PLACEHOLDER": "Search trips...",
     "RESULTS": {
-      "STYLES_EMPTY_SEARCH": "No styles match your search."
+      "STYLES_EMPTY_SEARCH": "No styles match your search.",
+      "TEMPLATES_EMPTY_SEARCH": "No trips match your search."
+    },
+    "FILTER": {
+      "ALL": "All"
     },
     "COMING_SOON": {
       "HEADING": "More ways to explore",

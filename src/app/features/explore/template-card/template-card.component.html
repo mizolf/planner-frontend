@@ -1,0 +1,57 @@
+<button type="button" (click)="onClick()"
+   class="group flex w-full h-full text-left bg-surface-container-lowest rounded-xl overflow-hidden hover:bg-surface-container-low transition-colors"
+   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+
+  <!-- Image (left) -->
+  <div class="relative w-44 sm:w-52 shrink-0 min-h-[180px] bg-surface-container-low flex items-center justify-center">
+    @if (template().imageUrl) {
+      <img [src]="template().imageUrl" [alt]="template().name" class="w-full h-full object-cover" />
+    } @else {
+      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">landscape</span>
+    }
+    <!-- Category badge -->
+    <span class="absolute top-2 left-2 inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-primary/90 text-on-primary font-semibold backdrop-blur-sm">
+      {{ template().styleName }}
+    </span>
+  </div>
+
+  <!-- Content (right) -->
+  <div class="flex-1 min-w-0 p-5 flex flex-col">
+    <h3 class="text-lg font-bold font-headline text-on-surface truncate">{{ template().name }}</h3>
+
+    <!-- Destination -->
+    <p class="flex items-center gap-1 text-sm text-on-surface-variant font-body mt-0.5">
+      <span class="material-symbols-outlined text-[16px] shrink-0">location_on</span>
+      <span class="truncate">{{ template().destination }}</span>
+    </p>
+
+    <!-- Tagline -->
+    <p class="text-sm text-on-surface-variant font-body mt-2 line-clamp-2">{{ template().description }}</p>
+
+    <!-- Badges -->
+    <div class="flex flex-wrap items-center gap-2 mt-3">
+      <span class="inline-flex items-center gap-1 text-xs font-label px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-semibold">
+        <span class="material-symbols-outlined text-[14px]">calendar_month</span>
+        {{ 'EXPLORE.DAYS' | translate:{ count: template().durationDays } }}
+      </span>
+      <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary font-semibold">
+        {{ seasonKey(template().recommendedSeason) | translate }}
+      </span>
+      <span class="inline-flex items-center gap-1 text-xs font-label px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+        <span class="material-symbols-outlined text-[14px]">payments</span>
+        {{ 'EXPLORE.BUDGET_ESTIMATED' | translate:{ amount: template().estimatedBudget } }}
+      </span>
+    </div>
+
+    <!-- Interest chips -->
+    @if (template().interests.length > 0) {
+      <div class="flex flex-wrap gap-1.5 mt-3">
+        @for (interest of template().interests; track interest) {
+          <span class="inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-medium">
+            {{ 'TRIPS.INTERESTS.' + interest | translate }}
+          </span>
+        }
+      </div>
+    }
+  </div>
+</button>
