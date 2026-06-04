@@ -538,5 +538,15 @@
     "FOOTER_PRIVACY": "Privacy Policy",
     "FOOTER_SUPPORT": "Support Center",
     "FOOTER_STATUS": "System Status"
+  },
+  "FOOTER": {
+    "TAGLINE": "Plan beautiful trips together.",
+    "PRODUCT": "Product",
+    "LEGAL": "Legal",
+    "INVITES": "Invites",
+    "PRIVACY": "Privacy",
+    "TERMS": "Terms",
+    "SUPPORT": "Support",
+    "COPYRIGHT": "© {{year}} plannr. All rights reserved."
   }
 }

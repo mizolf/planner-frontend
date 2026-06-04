@@ -1,0 +1,63 @@
+<footer role="contentinfo" class="border-t border-outline-variant/15 bg-surface-container-low px-6 lg:px-10 py-10">
+  <!-- Top: brand + link columns -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- Brand -->
+    <div>
+      <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
+      <p class="mt-3 max-w-xs text-on-surface-variant text-sm leading-relaxed">
+        {{ 'FOOTER.TAGLINE' | translate }}
+      </p>
+    </div>
+
+    <!-- Product -->
+    <div class="flex flex-col gap-3">
+      <span class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">
+        {{ 'FOOTER.PRODUCT' | translate }}
+      </span>
+      <a routerLink="/home"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'NAV.DASHBOARD' | translate }}
+      </a>
+      <a routerLink="/my-trips"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'NAV.MY_TRIPS' | translate }}
+      </a>
+      <a routerLink="/explore"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'NAV.EXPLORE' | translate }}
+      </a>
+      <a routerLink="/invites"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'FOOTER.INVITES' | translate }}
+      </a>
+    </div>
+
+    <!-- Legal -->
+    <div class="flex flex-col gap-3">
+      <span class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">
+        {{ 'FOOTER.LEGAL' | translate }}
+      </span>
+      <a href="#"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'FOOTER.PRIVACY' | translate }}
+      </a>
+      <a href="#"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'FOOTER.TERMS' | translate }}
+      </a>
+      <a href="#"
+         class="w-fit font-label text-sm text-on-surface-variant hover:text-primary transition-colors">
+        {{ 'FOOTER.SUPPORT' | translate }}
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Bottom: copyright -->
+  <div class="pt-8 mt-8 border-t border-outline-variant/10">
+    <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/40">
+      {{ 'FOOTER.COPYRIGHT' | translate:{ year: year } }}
+    </p>
+  </div>
+</footer>
