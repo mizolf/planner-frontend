@@ -13,7 +13,7 @@
   @if (loading()) {
     <div class="flex gap-4 overflow-hidden">
       @for (_ of [1, 2, 3, 4]; track $index) {
-        <div class="w-64 h-56 bg-surface-container-low rounded-xl shrink-0 animate-pulse"></div>
+        <div class="w-72 h-56 bg-surface-container-low rounded-xl shrink-0 animate-pulse"></div>
       }
     </div>
   }
@@ -45,7 +45,7 @@
   @else {
     <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-6 px-6 lg:-mx-10 lg:px-10">
       @for (style of styles(); track style.slug) {
-        <app-style-card [style]="style" (cardClick)="onStyleClick($event)" />
+        <app-style-card class="w-72 shrink-0 snap-start" [style]="style" (cardClick)="onStyleClick($event)" />
       }
     </div>
   }

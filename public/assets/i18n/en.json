@@ -429,6 +429,23 @@
       "ERROR_UNAUTHORIZED": "Your session has expired. Please log in again.",
       "ERROR_NOT_FOUND": "This template is no longer available.",
       "ERROR_GENERIC": "Failed to apply template. Please try again."
+    },
+    "PAGE": {
+      "TITLE": "Explore",
+      "SUBTITLE": "Discover curated trip ideas and start planning in one tap.",
+      "BROWSE_BY_STYLE": "Browse by style"
+    },
+    "SEARCH_PLACEHOLDER": "Search styles...",
+    "RESULTS": {
+      "STYLES_EMPTY_SEARCH": "No styles match your search."
+    },
+    "COMING_SOON": {
+      "HEADING": "More ways to explore",
+      "BADGE": "Coming soon",
+      "COMMUNITY_TITLE": "Community trips",
+      "COMMUNITY_DESC": "Browse public itineraries from other travelers and clone them into your own.",
+      "DESTINATIONS_TITLE": "Destinations",
+      "DESTINATIONS_DESC": "Discover places to go, things to do, and local highlights for your next trip."
     }
   },
   "INVITES": {

@@ -1,0 +1,151 @@
+<div class="px-6 lg:px-10 py-8 max-w-7xl mx-auto">
+
+  <!-- Hero / intro header + search -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+    <!-- Title -->
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-primary text-[26px]">explore</span>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold font-headline text-on-surface">
+          {{ 'EXPLORE.PAGE.TITLE' | translate }}
+        </h1>
+        <p class="text-on-surface-variant font-body mt-1">
+          {{ 'EXPLORE.PAGE.SUBTITLE' | translate }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="relative w-full sm:w-72 shrink-0">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-[20px] pointer-events-none">
+        search
+      </span>
+      <input
+        #searchInput
+        type="text"
+        [value]="searchTerm()"
+        (input)="searchTerm.set(searchInput.value)"
+        [placeholder]="'EXPLORE.SEARCH_PLACEHOLDER' | translate"
+        class="w-full pl-11 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl font-body text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
+        style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);" />
+    </div>
+  </div>
+
+  <!-- Browse by style -->
+  <section class="mb-12">
+    <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
+      {{ 'EXPLORE.PAGE.BROWSE_BY_STYLE' | translate }}
+    </h2>
+
+    <!-- Loading skeleton -->
+    @if (loading()) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        @for (_ of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          <div class="h-56 bg-surface-container-low rounded-xl animate-pulse"></div>
+        }
+      </div>
+    }
+
+    <!-- Error -->
+    @else if (error()) {
+      <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
+           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
+        <p class="text-error font-label mb-4 text-sm">{{ error()! | translate }}</p>
+        <button
+          type="button"
+          (click)="retry()"
+          class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+          {{ 'EXPLORE.RETRY' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Empty: no styles at all -->
+    @else if (styles().length === 0) {
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-4xl text-primary">explore</span>
+        </div>
+        <p class="text-on-surface-variant font-body">{{ 'EXPLORE.EMPTY' | translate }}</p>
+      </div>
+    }
+
+    <!-- Empty search: styles exist but none match the term -->
+    @else if (filteredStyles().length === 0) {
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">search_off</span>
+        <p class="text-on-surface-variant font-body">{{ 'EXPLORE.RESULTS.STYLES_EMPTY_SEARCH' | translate }}</p>
+      </div>
+    }
+
+    <!-- Styles grid -->
+    @else {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        @for (style of filteredStyles(); track style.slug) {
+          <app-style-card [style]="style" (cardClick)="onStyleClick($event)" />
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Hub teasers: hint at the wider discovery vision (no backend yet) -->
+  <section>
+    <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
+      {{ 'EXPLORE.COMING_SOON.HEADING' | translate }}
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+      <!-- Community -->
+      <div class="flex items-start gap-4 p-5 bg-surface-container-lowest rounded-xl opacity-70"
+           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-secondary text-[26px]">groups</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="text-base font-bold font-headline text-on-surface">
+              {{ 'EXPLORE.COMING_SOON.COMMUNITY_TITLE' | translate }}
+            </h3>
+            <span class="inline-flex text-xs font-label px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-semibold">
+              {{ 'EXPLORE.COMING_SOON.BADGE' | translate }}
+            </span>
+          </div>
+          <p class="text-sm text-on-surface-variant font-body">
+            {{ 'EXPLORE.COMING_SOON.COMMUNITY_DESC' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Destinations -->
+      <div class="flex items-start gap-4 p-5 bg-surface-container-lowest rounded-xl opacity-70"
+           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-tertiary text-[26px]">map</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <h3 class="text-base font-bold font-headline text-on-surface">
+              {{ 'EXPLORE.COMING_SOON.DESTINATIONS_TITLE' | translate }}
+            </h3>
+            <span class="inline-flex text-xs font-label px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-semibold">
+              {{ 'EXPLORE.COMING_SOON.BADGE' | translate }}
+            </span>
+          </div>
+          <p class="text-sm text-on-surface-variant font-body">
+            {{ 'EXPLORE.COMING_SOON.DESTINATIONS_DESC' | translate }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- Dialog flow (reused as-is from explore-section): style preview -> template preview -> apply -->
+<app-style-preview-dialog (templateSelected)="onTemplateSelected($event)" />
+<app-template-preview-dialog (applyClicked)="onApplyClicked($event)" />
+<app-apply-template-dialog (tripCreated)="onTripCreated($event)" />

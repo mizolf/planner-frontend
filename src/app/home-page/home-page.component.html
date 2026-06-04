@@ -143,6 +143,13 @@
 
         <!-- Explore Templates -->
         <app-explore-section />
+        <div class="flex justify-end -mt-4 mb-8">
+          <a routerLink="/explore"
+             class="inline-flex items-center gap-1 text-sm font-label font-semibold text-primary hover:text-primary-dim transition-colors">
+            {{ 'HOME.VIEW_ALL' | translate }}
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
 
         <!-- Mobile CTA (visible only on small screens) -->
         <!-- <button type="button" (click)="openCreateTripDialog()"

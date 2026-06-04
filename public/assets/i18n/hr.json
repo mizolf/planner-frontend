@@ -429,6 +429,23 @@
       "ERROR_UNAUTHORIZED": "Vaša sesija je istekla. Prijavite se ponovo.",
       "ERROR_NOT_FOUND": "Ovaj predložak više nije dostupan.",
       "ERROR_GENERIC": "Primjena predloška nije uspjela. Pokušajte ponovo."
+    },
+    "PAGE": {
+      "TITLE": "Istraži",
+      "SUBTITLE": "Otkrijte odabrane ideje za putovanja i započnite planiranje jednim klikom.",
+      "BROWSE_BY_STYLE": "Pregledaj po stilu"
+    },
+    "SEARCH_PLACEHOLDER": "Pretraži stilove...",
+    "RESULTS": {
+      "STYLES_EMPTY_SEARCH": "Nijedan stil ne odgovara pretrazi."
+    },
+    "COMING_SOON": {
+      "HEADING": "Još načina za istraživanje",
+      "BADGE": "Uskoro",
+      "COMMUNITY_TITLE": "Putovanja zajednice",
+      "COMMUNITY_DESC": "Pregledajte javne planove drugih putnika i klonirajte ih u svoja putovanja.",
+      "DESTINATIONS_TITLE": "Destinacije",
+      "DESTINATIONS_DESC": "Otkrijte mjesta za posjetiti, aktivnosti i lokalne atrakcije za sljedeće putovanje."
     }
   },
   "INVITES": {
