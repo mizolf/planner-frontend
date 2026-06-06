@@ -67,7 +67,7 @@
             <!-- Dropdown -->
             <div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl z-50 py-1"
                  style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-              <a routerLink="/home"
+              <a routerLink="/profile"
                  (click)="closeProfile()"
                  class="flex items-center gap-3 px-4 py-2.5 font-label text-sm text-on-surface hover:bg-surface-container-low transition-colors">
                 <span class="material-symbols-outlined text-[20px] text-on-surface-variant">person</span>
@@ -143,6 +143,13 @@
          class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">explore</span>
         {{ 'NAV.EXPLORE' | translate }}
+      </a>
+      <a routerLink="/profile"
+         routerLinkActive="bg-primary/10 text-primary"
+         (click)="closeMobile()"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">person</span>
+        {{ 'NAV.MY_PROFILE' | translate }}
       </a>
     </nav>
   </aside>

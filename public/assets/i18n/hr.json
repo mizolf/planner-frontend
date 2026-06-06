@@ -115,6 +115,19 @@
       "CTA": "Planiraj prvo putovanje"
     }
   },
+  "PROFILE": {
+    "STATS": {
+      "TOTAL": "Ukupno putovanja",
+      "DESTINATIONS": "Destinacije",
+      "COMPLETED": "Završena"
+    },
+    "RECENT_TRIPS": "Nedavna putovanja",
+    "EMPTY": {
+      "TITLE": "Nema putovanja",
+      "DESCRIPTION": "Kad isplanirate putovanje, ovdje će se pojaviti statistika i nedavna putovanja.",
+      "CTA": "Planiraj putovanje"
+    }
+  },
   "MY_TRIPS": {
     "TITLE": "Moja putovanja",
     "SUBTITLE": "Sva vaša putovanja na jednom mjestu.",

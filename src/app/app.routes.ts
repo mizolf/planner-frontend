@@ -10,7 +10,7 @@ export const routes: Routes = [
       { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
       { path: 'my-trips', loadComponent: () => import('./features/my-trips/my-trips-page.component').then(m => m.MyTripsPageComponent) },
       { path: 'explore', loadComponent: () => import('./features/explore-page/explore-page.component').then(m => m.ExplorePageComponent) },
-
+      { path: 'profile', loadComponent: () => import('./features/profile-page/profile-page.component').then(m => m.ProfilePageComponent) },
       {
         path: 'trips/:id',
         loadComponent: () =>

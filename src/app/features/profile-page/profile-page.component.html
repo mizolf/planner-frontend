@@ -1,0 +1,153 @@
+<div class="px-6 lg:px-10 py-8 max-w-7xl mx-auto">
+
+  <!-- Identity header (always visible; user is loaded globally) -->
+  <div class="bg-surface-container-lowest rounded-xl p-6 mb-8 flex items-center gap-5"
+       style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+    <div class="w-20 h-20 rounded-full bg-primary text-on-primary font-headline text-2xl font-bold flex items-center justify-center shrink-0">
+      {{ getInitials() }}
+    </div>
+    <div class="min-w-0">
+      <h1 class="text-2xl font-bold font-headline text-on-surface truncate">
+        {{ user()?.fullName }}
+      </h1>
+      <p class="text-on-surface-variant font-body mt-1 truncate">
+        {{ user()?.email }}
+      </p>
+    </div>
+  </div>
+
+  <div class="flex flex-col xl:flex-row gap-8">
+    <!-- Main content -->
+    <div class="flex-1 min-w-0">
+
+      <!-- Loading -->
+      @if (tripsLoading()) {
+        <div class="animate-pulse space-y-8">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            @for (_ of [1, 2, 3]; track $index) {
+              <div class="h-24 bg-surface-container-low rounded-xl"></div>
+            }
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            @for (_ of [1, 2]; track $index) {
+              <div class="h-48 bg-surface-container-low rounded-xl"></div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Error -->
+      @else if (tripsError()) {
+        <div class="flex flex-col items-center justify-center py-24 text-center">
+          <span class="material-symbols-outlined text-6xl text-error/40 mb-4">cloud_off</span>
+          <p class="text-error font-label mb-4">{{ tripsError()! | translate }}</p>
+          <button
+            type="button"
+            (click)="retryLoadTrips()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+            {{ 'HOME.RETRY' | translate }}
+          </button>
+        </div>
+      }
+
+      <!-- Loaded -->
+      @else {
+        <!-- Stats row -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <!-- Total trips -->
+          <div class="bg-surface-container-lowest rounded-xl p-5"
+               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-[22px]">luggage</span>
+              </div>
+              <div>
+                <p class="text-2xl font-bold font-headline text-on-surface">{{ totalTrips() }}</p>
+                <p class="text-sm text-on-surface-variant font-label">{{ 'PROFILE.STATS.TOTAL' | translate }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destinations -->
+          <div class="bg-surface-container-lowest rounded-xl p-5"
+               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary text-[22px]">public</span>
+              </div>
+              <div>
+                <p class="text-2xl font-bold font-headline text-on-surface">{{ uniqueDestinations() }}</p>
+                <p class="text-sm text-on-surface-variant font-label">{{ 'PROFILE.STATS.DESTINATIONS' | translate }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Completed -->
+          <div class="bg-surface-container-lowest rounded-xl p-5"
+               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-tertiary text-[22px]">task_alt</span>
+              </div>
+              <div>
+                <p class="text-2xl font-bold font-headline text-on-surface">{{ completedCount() }}</p>
+                <p class="text-sm text-on-surface-variant font-label">{{ 'PROFILE.STATS.COMPLETED' | translate }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent trips -->
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold font-headline text-on-surface">
+            {{ 'PROFILE.RECENT_TRIPS' | translate }}
+          </h2>
+        </div>
+
+        @if (recentTrips().length > 0) {
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            @for (trip of recentTrips(); track trip.id) {
+              <app-trip-card [trip]="trip" />
+            }
+            @if (moreTripsCount() > 0) {
+              <a routerLink="/my-trips"
+                 class="flex flex-col items-center justify-center gap-1 min-h-[180px] rounded-xl text-on-surface-variant hover:text-primary transition-colors">
+                <span class="text-3xl font-bold font-headline">+{{ moreTripsCount() }}</span>
+                <span class="text-sm font-label font-semibold">{{ 'HOME.VIEW_ALL' | translate }}</span>
+              </a>
+            }
+          </div>
+        }
+
+        <!-- Empty trips -->
+        @else {
+          <div class="flex flex-col items-center justify-center py-16 text-center">
+            <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-5">
+              <span class="material-symbols-outlined text-4xl text-primary">flight_takeoff</span>
+            </div>
+            <h3 class="text-lg font-bold font-headline text-on-surface mb-2">
+              {{ 'PROFILE.EMPTY.TITLE' | translate }}
+            </h3>
+            <p class="text-on-surface-variant font-body max-w-sm mb-6">
+              {{ 'PROFILE.EMPTY.DESCRIPTION' | translate }}
+            </p>
+            <a routerLink="/home"
+               class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-semibold hover:bg-primary-dim transition-colors">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+              {{ 'PROFILE.EMPTY.CTA' | translate }}
+            </a>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Activity feed sidebar -->
+    <aside class="xl:w-80 shrink-0">
+      <div class="bg-surface-container-lowest rounded-xl p-5 xl:sticky xl:top-24 xl:h-[calc(100vh-7rem)] xl:flex xl:flex-col"
+           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <app-activity-feed class="xl:flex xl:flex-col xl:flex-1 xl:min-h-0" />
+      </div>
+    </aside>
+  </div>
+
+</div>

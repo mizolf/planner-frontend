@@ -115,6 +115,19 @@
       "CTA": "Plan your first trip"
     }
   },
+  "PROFILE": {
+    "STATS": {
+      "TOTAL": "Total Trips",
+      "DESTINATIONS": "Destinations",
+      "COMPLETED": "Completed"
+    },
+    "RECENT_TRIPS": "Recent Trips",
+    "EMPTY": {
+      "TITLE": "No trips yet",
+      "DESCRIPTION": "Once you plan a trip, your stats and recent trips will show up here.",
+      "CTA": "Plan a trip"
+    }
+  },
   "MY_TRIPS": {
     "TITLE": "My Trips",
     "SUBTITLE": "All your trips in one place.",
