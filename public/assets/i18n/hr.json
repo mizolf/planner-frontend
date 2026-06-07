@@ -79,6 +79,7 @@
     "MY_TRIPS": "Moja putovanja",
     "EXPLORE": "Istraži",
     "MY_PROFILE": "Moj profil",
+    "SETTINGS": "Postavke",
     "LOGOUT": "Odjava"
   },
   "NAVBAR": {
@@ -121,11 +122,45 @@
       "DESTINATIONS": "Destinacije",
       "COMPLETED": "Završena"
     },
+    "TRAVEL_STYLE": "Stil putovanja",
+    "TRAVEL_STYLE_EMPTY": "Još nemaš odabrane interese. Dodaj ih u",
     "RECENT_TRIPS": "Nedavna putovanja",
     "EMPTY": {
       "TITLE": "Nema putovanja",
       "DESCRIPTION": "Kad isplanirate putovanje, ovdje će se pojaviti statistika i nedavna putovanja.",
       "CTA": "Planiraj putovanje"
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Postavke",
+    "SUBTITLE": "Upravljaj lozinkom i putnim preferencijama.",
+    "BACK": "Profil",
+    "PASSWORD": {
+      "TITLE": "Promjena lozinke",
+      "SUBTITLE": "Koristi najmanje 8 znakova. Ostaješ prijavljen nakon promjene.",
+      "CURRENT_LABEL": "Trenutna lozinka",
+      "CURRENT_PLACEHOLDER": "Tvoja trenutna lozinka",
+      "CURRENT_REQUIRED": "Trenutna lozinka je obavezna.",
+      "NEW_LABEL": "Nova lozinka",
+      "NEW_PLACEHOLDER": "Najmanje 8 znakova",
+      "NEW_REQUIRED": "Nova lozinka je obavezna.",
+      "NEW_MINLENGTH": "Lozinka mora imati najmanje 8 znakova.",
+      "CONFIRM_LABEL": "Potvrdi novu lozinku",
+      "CONFIRM_PLACEHOLDER": "Ponovi novu lozinku",
+      "CONFIRM_REQUIRED": "Potvrdi novu lozinku.",
+      "PASSWORDS_MISMATCH": "Lozinke se ne podudaraju.",
+      "INVALID_CURRENT": "Trenutna lozinka nije ispravna.",
+      "SUBMIT": "Ažuriraj lozinku",
+      "SUCCESS": "Lozinka ažurirana.",
+      "ERROR_GENERIC": "Ažuriranje lozinke nije uspjelo. Pokušaj ponovo."
+    },
+    "PREFERENCES": {
+      "TITLE": "Putne preferencije",
+      "SUBTITLE": "Odaberi interese koji opisuju tvoj stil putovanja.",
+      "LABEL": "Interesi",
+      "SAVE": "Spremi preferencije",
+      "SUCCESS": "Preferencije spremljene.",
+      "ERROR_GENERIC": "Spremanje preferencija nije uspjelo. Pokušaj ponovo."
     }
   },
   "MY_TRIPS": {

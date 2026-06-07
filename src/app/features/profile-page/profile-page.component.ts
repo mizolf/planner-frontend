@@ -42,6 +42,10 @@ export class ProfilePageComponent implements OnInit {
     () => this.trips().length - this.recentTrips().length,
   );
 
+  readonly preferredInterests = computed(
+    () => this.user()?.preferredInterests ?? [],
+  );
+
   ngOnInit(): void {
     this.tripService.loadTrips();
   }

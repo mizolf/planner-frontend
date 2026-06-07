@@ -1,0 +1,141 @@
+<div class="px-6 lg:px-10 py-8 max-w-3xl mx-auto">
+
+  <!-- Page header -->
+  <header class="mb-8">
+    <a routerLink="/profile"
+       class="inline-flex items-center gap-1.5 text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-[0.15em] mb-6">
+      <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+      {{ 'SETTINGS.BACK' | translate }}
+    </a>
+    <h1 class="text-2xl font-bold font-headline text-on-surface">
+      {{ 'SETTINGS.TITLE' | translate }}
+    </h1>
+    <p class="text-on-surface-variant font-body mt-1">
+      {{ 'SETTINGS.SUBTITLE' | translate }}
+    </p>
+  </header>
+
+  <div class="space-y-8">
+
+    <!-- Change password -->
+    <section class="bg-surface-container-lowest rounded-xl p-6"
+             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-primary text-[22px]">lock</span>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold font-headline text-on-surface">
+            {{ 'SETTINGS.PASSWORD.TITLE' | translate }}
+          </h2>
+          <p class="text-sm text-on-surface-variant font-body">
+            {{ 'SETTINGS.PASSWORD.SUBTITLE' | translate }}
+          </p>
+        </div>
+      </div>
+
+      @if (passwordError()) {
+        <div class="mb-4 flex items-center gap-2 p-3 rounded-lg bg-error-container text-on-error-container text-sm font-label font-medium">
+          <span class="material-symbols-outlined text-[18px]">error</span>
+          {{ passwordError()! | translate }}
+        </div>
+      }
+
+      <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" class="space-y-4">
+        <app-password-field
+          label="SETTINGS.PASSWORD.CURRENT_LABEL"
+          controlName="currentPassword"
+          placeholder="SETTINGS.PASSWORD.CURRENT_PLACEHOLDER"
+          [errors]="{
+            required: 'SETTINGS.PASSWORD.CURRENT_REQUIRED',
+            serverError: 'SETTINGS.PASSWORD.INVALID_CURRENT'
+          }"
+        />
+
+        <app-password-field
+          label="SETTINGS.PASSWORD.NEW_LABEL"
+          controlName="newPassword"
+          placeholder="SETTINGS.PASSWORD.NEW_PLACEHOLDER"
+          [errors]="{
+            required: 'SETTINGS.PASSWORD.NEW_REQUIRED',
+            minlength: 'SETTINGS.PASSWORD.NEW_MINLENGTH'
+          }"
+        />
+
+        <app-password-field
+          label="SETTINGS.PASSWORD.CONFIRM_LABEL"
+          controlName="confirmPassword"
+          placeholder="SETTINGS.PASSWORD.CONFIRM_PLACEHOLDER"
+          [errors]="{
+            required: 'SETTINGS.PASSWORD.CONFIRM_REQUIRED'
+          }"
+        />
+        @if (passwordForm.controls.confirmPassword.touched && passwordForm.errors?.['passwordsMismatch']) {
+          <p class="text-xs text-error flex items-center gap-1 -mt-2 ml-1">
+            <span class="material-symbols-outlined text-[14px]">error</span>
+            {{ 'SETTINGS.PASSWORD.PASSWORDS_MISMATCH' | translate }}
+          </p>
+        }
+
+        <div class="flex justify-end pt-1">
+          <button
+            type="submit"
+            [disabled]="passwordLoading()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            @if (passwordLoading()) {
+              {{ 'AUTH.COMMON.LOADING' | translate }}
+            } @else {
+              {{ 'SETTINGS.PASSWORD.SUBMIT' | translate }}
+            }
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Travel preferences -->
+    <section class="bg-surface-container-lowest rounded-xl p-6"
+             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-secondary text-[22px]">tune</span>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold font-headline text-on-surface">
+            {{ 'SETTINGS.PREFERENCES.TITLE' | translate }}
+          </h2>
+          <p class="text-sm text-on-surface-variant font-body">
+            {{ 'SETTINGS.PREFERENCES.SUBTITLE' | translate }}
+          </p>
+        </div>
+      </div>
+
+      @if (preferencesError()) {
+        <div class="mb-4 flex items-center gap-2 p-3 rounded-lg bg-error-container text-on-error-container text-sm font-label font-medium">
+          <span class="material-symbols-outlined text-[18px]">error</span>
+          {{ preferencesError()! | translate }}
+        </div>
+      }
+
+      <form [formGroup]="preferencesForm" (ngSubmit)="onSavePreferences()" class="space-y-5">
+        <app-interest-chips
+          label="SETTINGS.PREFERENCES.LABEL"
+          controlName="interests"
+        />
+
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            [disabled]="preferencesLoading()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            @if (preferencesLoading()) {
+              {{ 'AUTH.COMMON.LOADING' | translate }}
+            } @else {
+              {{ 'SETTINGS.PREFERENCES.SAVE' | translate }}
+            }
+          </button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</div>

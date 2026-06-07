@@ -73,6 +73,12 @@
                 <span class="material-symbols-outlined text-[20px] text-on-surface-variant">person</span>
                 {{ 'NAV.MY_PROFILE' | translate }}
               </a>
+              <a routerLink="/settings"
+                 (click)="closeProfile()"
+                 class="flex items-center gap-3 px-4 py-2.5 font-label text-sm text-on-surface hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[20px] text-on-surface-variant">settings</span>
+                {{ 'NAV.SETTINGS' | translate }}
+              </a>
               <div class="mx-3 my-1 border-t border-outline-variant/15"></div>
               <button
                 type="button"
@@ -150,6 +156,13 @@
          class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">person</span>
         {{ 'NAV.MY_PROFILE' | translate }}
+      </a>
+      <a routerLink="/settings"
+         routerLinkActive="bg-primary/10 text-primary"
+         (click)="closeMobile()"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        {{ 'NAV.SETTINGS' | translate }}
       </a>
     </nav>
   </aside>

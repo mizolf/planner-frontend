@@ -79,6 +79,7 @@
     "MY_TRIPS": "My Trips",
     "EXPLORE": "Explore",
     "MY_PROFILE": "My Profile",
+    "SETTINGS": "Settings",
     "LOGOUT": "Logout"
   },
   "NAVBAR": {
@@ -121,11 +122,45 @@
       "DESTINATIONS": "Destinations",
       "COMPLETED": "Completed"
     },
+    "TRAVEL_STYLE": "Travel style",
+    "TRAVEL_STYLE_EMPTY": "No travel interests yet. Add them in",
     "RECENT_TRIPS": "Recent Trips",
     "EMPTY": {
       "TITLE": "No trips yet",
       "DESCRIPTION": "Once you plan a trip, your stats and recent trips will show up here.",
       "CTA": "Plan a trip"
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "SUBTITLE": "Manage your password and travel preferences.",
+    "BACK": "Profile",
+    "PASSWORD": {
+      "TITLE": "Change password",
+      "SUBTITLE": "Use at least 8 characters. You'll stay signed in after the change.",
+      "CURRENT_LABEL": "Current password",
+      "CURRENT_PLACEHOLDER": "Your current password",
+      "CURRENT_REQUIRED": "Current password is required.",
+      "NEW_LABEL": "New password",
+      "NEW_PLACEHOLDER": "At least 8 characters",
+      "NEW_REQUIRED": "New password is required.",
+      "NEW_MINLENGTH": "Password must be at least 8 characters.",
+      "CONFIRM_LABEL": "Confirm new password",
+      "CONFIRM_PLACEHOLDER": "Repeat your new password",
+      "CONFIRM_REQUIRED": "Please confirm your new password.",
+      "PASSWORDS_MISMATCH": "Passwords do not match.",
+      "INVALID_CURRENT": "Current password is incorrect.",
+      "SUBMIT": "Update password",
+      "SUCCESS": "Password updated.",
+      "ERROR_GENERIC": "Couldn't update your password. Please try again."
+    },
+    "PREFERENCES": {
+      "TITLE": "Travel preferences",
+      "SUBTITLE": "Pick the interests that describe your travel style.",
+      "LABEL": "Interests",
+      "SAVE": "Save preferences",
+      "SUCCESS": "Preferences saved.",
+      "ERROR_GENERIC": "Couldn't save your preferences. Please try again."
     }
   },
   "MY_TRIPS": {

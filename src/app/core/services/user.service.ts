@@ -1,8 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { User } from '../models/user.model';
+import { User, ChangePasswordRequest, UpdatePreferencesRequest } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -35,5 +35,15 @@ export class UserService {
         this._error.set('HOME.ERROR_LOADING_USER');
       },
     });
+  }
+
+  changePassword(req: ChangePasswordRequest): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/me/password`, req);
+  }
+
+  updatePreferences(req: UpdatePreferencesRequest): Observable<User> {
+    return this.http
+      .put<User>(`${this.apiUrl}/me/preferences`, req)
+      .pipe(tap((user) => this._currentUser.set(user)));
   }
 }

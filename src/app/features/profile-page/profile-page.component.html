@@ -14,6 +14,34 @@
         {{ user()?.email }}
       </p>
     </div>
+    <a routerLink="/settings"
+       class="ml-auto shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+      <span class="material-symbols-outlined text-[20px]">settings</span>
+      <span class="hidden sm:inline">{{ 'NAV.SETTINGS' | translate }}</span>
+    </a>
+  </div>
+
+  <!-- Travel style -->
+  <div class="bg-surface-container-lowest rounded-xl p-6 mb-8"
+       style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+    <h2 class="text-sm font-semibold font-label text-on-surface-variant mb-3">
+      {{ 'PROFILE.TRAVEL_STYLE' | translate }}
+    </h2>
+    @if (preferredInterests().length > 0) {
+      <div class="flex flex-wrap gap-2">
+        @for (interest of preferredInterests(); track interest) {
+          <span class="px-3 py-1.5 rounded-full bg-primary/10 text-primary font-label text-sm font-medium">
+            {{ 'TRIPS.INTERESTS.' + interest | translate }}
+          </span>
+        }
+      </div>
+    } @else {
+      <p class="text-sm text-on-surface-variant font-body">
+        {{ 'PROFILE.TRAVEL_STYLE_EMPTY' | translate }}
+        <a routerLink="/settings" class="text-primary font-semibold hover:underline underline-offset-2">
+          {{ 'NAV.SETTINGS' | translate }}</a>.
+      </p>
+    }
   </div>
 
   <div class="flex flex-col xl:flex-row gap-8">
