@@ -99,18 +99,86 @@
       </button>
     </div>
 
-    <!-- Per-tab empty (has trips, but this tab is empty) -->
-    @if (filteredTrips().length === 0) {
-      <div class="flex flex-col items-center justify-center py-20 text-center">
-        <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">luggage</span>
-        <p class="text-on-surface-variant font-body">
-          @switch (activeTab()) {
-            @case ('UPCOMING') { {{ 'MY_TRIPS.EMPTY_UPCOMING' | translate }} }
-            @case ('IN_PROGRESS') { {{ 'MY_TRIPS.EMPTY_IN_PROGRESS' | translate }} }
-            @case ('COMPLETED') { {{ 'MY_TRIPS.EMPTY_COMPLETED' | translate }} }
-          }
-        </p>
+    <!-- Controls: search + date range + sort -->
+    @if (showControls()) {
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+        <!-- Search -->
+        <div class="relative sm:flex-1">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-[20px] pointer-events-none">search</span>
+          <input
+            #searchInput
+            type="text"
+            [value]="searchTerm()"
+            (input)="searchTerm.set(searchInput.value)"
+            [placeholder]="'MY_TRIPS.SEARCH_PLACEHOLDER' | translate"
+            class="w-full pl-11 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl font-body text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors" />
+        </div>
+
+        <!-- Date range -->
+        <div class="flex items-center gap-2">
+          <label class="flex items-center gap-1.5 text-sm font-label text-on-surface-variant/70">
+            {{ 'MY_TRIPS.DATE_FROM' | translate }}
+            <input
+              #dateFromInput
+              type="date"
+              [value]="dateFrom()"
+              (change)="dateFrom.set(dateFromInput.value)"
+              class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors" />
+          </label>
+          <label class="flex items-center gap-1.5 text-sm font-label text-on-surface-variant/70">
+            {{ 'MY_TRIPS.DATE_TO' | translate }}
+            <input
+              #dateToInput
+              type="date"
+              [value]="dateTo()"
+              (change)="dateTo.set(dateToInput.value)"
+              class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-3 py-2.5 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors" />
+          </label>
+        </div>
+
+        <!-- Sort -->
+        <div class="relative shrink-0">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-[20px] pointer-events-none">sort</span>
+          <select
+            #sortSelect
+            [value]="sortBy()"
+            (change)="sortBy.set($any(sortSelect.value))"
+            [attr.aria-label]="'MY_TRIPS.SORT.LABEL' | translate"
+            class="pl-11 pr-10 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl font-body text-sm text-on-surface focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer">
+            <option value="DEFAULT">{{ 'MY_TRIPS.SORT.DEFAULT' | translate }}</option>
+            <option value="START_ASC">{{ 'MY_TRIPS.SORT.START_ASC' | translate }}</option>
+            <option value="START_DESC">{{ 'MY_TRIPS.SORT.START_DESC' | translate }}</option>
+            <option value="NAME_ASC">{{ 'MY_TRIPS.SORT.NAME_ASC' | translate }}</option>
+            <option value="RECENT">{{ 'MY_TRIPS.SORT.RECENT' | translate }}</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-[20px] pointer-events-none">expand_more</span>
+        </div>
       </div>
+    }
+
+    <!-- Empty: no filter results vs per-tab empty -->
+    @if (filteredTrips().length === 0) {
+      @if (hasActiveFilters()) {
+        <div class="flex flex-col items-center justify-center py-20 text-center">
+          <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">search_off</span>
+          <p class="text-on-surface-variant font-body mb-4">{{ 'MY_TRIPS.NO_RESULTS' | translate }}</p>
+          <button type="button" (click)="clearFilters()"
+            class="px-5 py-2 rounded-lg font-label text-sm font-semibold text-primary hover:bg-primary/10 transition-colors">
+            {{ 'MY_TRIPS.CLEAR_FILTERS' | translate }}
+          </button>
+        </div>
+      } @else {
+        <div class="flex flex-col items-center justify-center py-20 text-center">
+          <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">luggage</span>
+          <p class="text-on-surface-variant font-body">
+            @switch (activeTab()) {
+              @case ('UPCOMING') { {{ 'MY_TRIPS.EMPTY_UPCOMING' | translate }} }
+              @case ('IN_PROGRESS') { {{ 'MY_TRIPS.EMPTY_IN_PROGRESS' | translate }} }
+              @case ('COMPLETED') { {{ 'MY_TRIPS.EMPTY_COMPLETED' | translate }} }
+            }
+          </p>
+        </div>
+      }
     }
 
     <!-- Grid -->

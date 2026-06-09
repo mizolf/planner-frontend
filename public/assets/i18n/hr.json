@@ -175,7 +175,20 @@
     },
     "EMPTY_UPCOMING": "Nema nadolazećih putovanja.",
     "EMPTY_IN_PROGRESS": "Nema putovanja u tijeku.",
-    "EMPTY_COMPLETED": "Još nema završenih putovanja."
+    "EMPTY_COMPLETED": "Još nema završenih putovanja.",
+    "SEARCH_PLACEHOLDER": "Pretraži po nazivu ili odredištu…",
+    "DATE_FROM": "Od",
+    "DATE_TO": "Do",
+    "SORT": {
+      "LABEL": "Sortiraj putovanja",
+      "DEFAULT": "Zadano",
+      "START_ASC": "Datum početka — najskoriji",
+      "START_DESC": "Datum početka — najkasniji",
+      "NAME_ASC": "Naziv (A–Ž)",
+      "RECENT": "Nedavno dodano"
+    },
+    "NO_RESULTS": "Nijedno putovanje ne odgovara filterima.",
+    "CLEAR_FILTERS": "Očisti filtere"
   },
   "TRIPS": {
     "CREATE": {

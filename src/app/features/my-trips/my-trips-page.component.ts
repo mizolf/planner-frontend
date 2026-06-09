@@ -3,9 +3,10 @@ import { TranslateModule } from "@ngx-translate/core";
 import { TripCardComponent } from "../trips/trip-card/trip-card.component";
 import { CreateTripDialogComponent } from "../trips/create-trip-dialog/create-trip-dialog.component";
 import { TripService } from "../../core/services/trip.service";
-import { TripStatus } from "../../core/models/trip.model";
+import { TripResponse, TripStatus } from "../../core/models/trip.model";
 
 type MyTripsTab = 'ALL' | 'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED';
+type SortOption = 'DEFAULT' | 'START_ASC' | 'START_DESC' | 'NAME_ASC' | 'RECENT';
 
 @Component({
   selector: 'app-my-trips-page',
@@ -24,43 +25,62 @@ export class MyTripsPageComponent implements OnInit {
 
   readonly activeTab = signal<MyTripsTab>('ALL');
 
+  // search / filter / sort kontrole
+  readonly searchTerm = signal('');
+  readonly dateFrom = signal('');   // 'yyyy-MM-dd' iz date inputa; '' = bez granice
+  readonly dateTo = signal('');
+  readonly sortBy = signal<SortOption>('DEFAULT');
+
   // brojači za labele tabova
   readonly totalTrips = computed(() => this.trips().length);
   readonly upcomingCount = computed(() => this.countBy('UPCOMING'));
   readonly inProgressCount = computed(() => this.countBy('IN_PROGRESS'));
   readonly completedCount = computed(() => this.countBy('COMPLETED'));
 
-  // popis za prikaz, ovisno o aktivnom tabu + sortiran (vidi spec §5)
+  // popis za prikaz: tab → search → filter po datumu → sort (vidi spec §5)
   readonly filteredTrips = computed(() => {
     const tab = this.activeTab();
-    const all = this.trips();
+    const term = this.searchTerm().trim().toLowerCase();
+    const from = this.dateFrom();
+    const to = this.dateTo();
 
-    if (tab === 'ALL') {
-      const statusOrder: Record<TripStatus, number> = {
-        IN_PROGRESS: 0,
-        UPCOMING: 1,
-        COMPLETED: 2,
-      };
-      return [...all].sort((a, b) => {
-        const orderDiff = statusOrder[a.status] - statusOrder[b.status];
-        if (orderDiff !== 0) return orderDiff;
-        return a.startDate.localeCompare(b.startDate);
-      });
+    // 1. tab filter
+    let list = tab === 'ALL'
+      ? [...this.trips()]
+      : this.trips().filter(t => t.status === tab);
+
+    // 2. search (naziv + odredište)
+    if (term) {
+      list = list.filter(t =>
+        t.name.toLowerCase().includes(term) ||
+        t.destination.toLowerCase().includes(term));
     }
 
-    if (tab === 'COMPLETED') {
-      return all
-        .filter(t => t.status === 'COMPLETED')
-        .sort((a, b) => b.endDate.localeCompare(a.endDate));
-    }
+    // 3. filter po datumu početka (usporedba na 'yyyy-MM-dd' prefiksu)
+    if (from) list = list.filter(t => t.startDate.slice(0, 10) >= from);
+    if (to) list = list.filter(t => t.startDate.slice(0, 10) <= to);
 
-    // UPCOMING / IN_PROGRESS: filtriraj po statusu, sortiraj po startDate uzlazno
-    return all
-      .filter(t => t.status === tab)
-      .sort((a, b) => a.startDate.localeCompare(b.startDate));
+    // 4. sort
+    return this.applySort(list, tab, this.sortBy());
   });
 
   readonly hasTrips = computed(() => this.trips().length > 0);
+
+  readonly hasActiveFilters = computed(() =>
+    !!this.searchTerm().trim() || !!this.dateFrom() || !!this.dateTo());
+
+  // broj tripova u trenutnom tabu (neovisno o search/datum filteru)
+  readonly currentTabCount = computed(() => {
+    switch (this.activeTab()) {
+      case 'UPCOMING': return this.upcomingCount();
+      case 'IN_PROGRESS': return this.inProgressCount();
+      case 'COMPLETED': return this.completedCount();
+      default: return this.totalTrips();
+    }
+  });
+
+  // kontrolna traka vidljiva kad tab ima tripova ILI je filter aktivan (da ga možeš očistiti)
+  readonly showControls = computed(() => this.currentTabCount() > 0 || this.hasActiveFilters());
 
   ngOnInit(): void { this.tripService.loadTrips(); }
 
@@ -68,7 +88,34 @@ export class MyTripsPageComponent implements OnInit {
   openCreateTripDialog(): void { this.dialog.open(); }
   retryLoadTrips(): void { this.tripService.loadTrips(); }
 
+  clearFilters(): void {
+    this.searchTerm.set('');
+    this.dateFrom.set('');
+    this.dateTo.set('');
+  }
+
   private countBy(status: TripStatus): number {
     return this.trips().filter(t => t.status === status).length;
+  }
+
+  private applySort(list: TripResponse[], tab: MyTripsTab, sort: SortOption): TripResponse[] {
+    switch (sort) {
+      case 'START_ASC': return [...list].sort((a, b) => a.startDate.localeCompare(b.startDate));
+      case 'START_DESC': return [...list].sort((a, b) => b.startDate.localeCompare(a.startDate));
+      case 'NAME_ASC': return [...list].sort((a, b) => a.name.localeCompare(b.name));
+      case 'RECENT': return [...list].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      default: return this.defaultSort(list, tab);
+    }
+  }
+
+  // postojeći per-tab pametni sort (§5); lista je već filtrirana po tabu
+  private defaultSort(list: TripResponse[], tab: MyTripsTab): TripResponse[] {
+    if (tab === 'ALL') {
+      const statusOrder: Record<TripStatus, number> = { IN_PROGRESS: 0, UPCOMING: 1, COMPLETED: 2 };
+      return [...list].sort((a, b) =>
+        (statusOrder[a.status] - statusOrder[b.status]) || a.startDate.localeCompare(b.startDate));
+    }
+    if (tab === 'COMPLETED') return [...list].sort((a, b) => b.endDate.localeCompare(a.endDate));
+    return [...list].sort((a, b) => a.startDate.localeCompare(b.startDate));
   }
 }

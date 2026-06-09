@@ -175,7 +175,20 @@
     },
     "EMPTY_UPCOMING": "No upcoming trips.",
     "EMPTY_IN_PROGRESS": "No trips in progress.",
-    "EMPTY_COMPLETED": "No completed trips yet."
+    "EMPTY_COMPLETED": "No completed trips yet.",
+    "SEARCH_PLACEHOLDER": "Search by name or destination…",
+    "DATE_FROM": "From",
+    "DATE_TO": "To",
+    "SORT": {
+      "LABEL": "Sort trips",
+      "DEFAULT": "Default",
+      "START_ASC": "Start date — soonest",
+      "START_DESC": "Start date — latest",
+      "NAME_ASC": "Name (A–Z)",
+      "RECENT": "Recently added"
+    },
+    "NO_RESULTS": "No trips match your filters.",
+    "CLEAR_FILTERS": "Clear filters"
   },
   "TRIPS": {
     "CREATE": {

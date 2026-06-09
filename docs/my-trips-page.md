@@ -22,7 +22,7 @@ Cilj: napraviti pravu stranicu za pregled svih tripova po fazi, čime se rješav
 | Odnos home ↔ My Trips | **My Trips preuzima puni popis**; home prikazuje samo preview + link | Jasna podjela uloga: home = dashboard/pregled, My Trips = upravljanje popisom. Manje duplikacije. |
 | Tabovi | **Sve / Nadolazeći / U tijeku / Završeni** (4 taba) | "Sve" daje jedinstveni pregled; tri statusna taba filtriraju po fazi i čine završene tripove vidljivima. |
 | Kartica tripa | Reuse postojeće `TripCardComponent` bez izmjena | Već renderira sve potrebno (status badge, days-to-go, datumi) i navigira u detalj. |
-| Search / filter / sort kontrole | **Izvan opsega** | Nije odabrano u konzultaciji; tabovi su dovoljni za ovu iteraciju. Lako se doda kasnije. |
+| Search / filter / sort kontrole | **Dodano naknadno** (vidi §14) | Tabovi su bili dovoljni za prvu iteraciju; kontrole su dodane kasnije za pročišćavanje unutar odabranog taba. |
 | Quick akcije (edit/delete/leave) na kartici | **Izvan opsega** | Te akcije već postoje u detalju tripa. |
 | Deep-link taba (`?tab=`) | **Izvan opsega** | Zasad samo lokalni signal, default `ALL`. |
 
@@ -221,4 +221,40 @@ Novi `MY_TRIPS` namespace (umetnut nakon `HOME` bloka):
 - `public/assets/i18n/en.json` — `MY_TRIPS` namespace
 - `public/assets/i18n/hr.json` — `MY_TRIPS` namespace
 
-**Izvan opsega (moguće kasnije):** search/filter/sort kontrole, quick akcije na kartici, cover image na kartici, deep-link taba (`?tab=`).
+**Izvan opsega (moguće kasnije):** quick akcije na kartici, cover image na kartici, deep-link taba (`?tab=`).
+
+## 14. Search / filter / sort kontrole (naknadno dodano)
+
+Kontrolna traka **ispod tab trake**, iznad grida. Hijerarhija: tab = *faza*, kontrole = *pročišćavanje unutar te faze* (tab odabere skup → search/datum/sort rade nad njim). Na mobitelu (`< sm`) traka se slaže okomito. Sve ostaje u `MyTripsPageComponent` + i18n; bez backend izmjena.
+
+### Odluke
+
+| Odluka | Izbor |
+|--------|-------|
+| Pozicija | Kontrolna traka ispod tab trake |
+| Sort opcije | Default (postojeći per-tab §5) + datum početka (najskoriji/najkasniji) + naziv (A–Ž) + nedavno dodano |
+| Filter datuma | Po datumu početka: trip prolazi ako `startDate` padne unutar `[Od, Do]` (otvoreni rub ako je jedno polje prazno) |
+| Search polja | `name` + `destination` (bez `description`) |
+| Brojači tabova | Ostaju ukupni po fazi — ne mijenjaju se sa search/datum filterom (mijenja se samo grid) |
+| Date input | Native `<input type="date">`, signal-vezan, lokalno stiliziran (ne shared `app-form-field`) |
+
+### Signali i pipeline (`filteredTrips`)
+
+Novi signali: `searchTerm`, `dateFrom`, `dateTo` (`'yyyy-MM-dd'`, `''` = bez granice), `sortBy: SortOption`.
+`filteredTrips` je pipeline: **tab filter → search (naziv/odredište) → filter po datumu početka → sort**. Usporedba datuma na `startDate.slice(0, 10)` (robusno za puni ISO). Sort se grana po `sortBy`; `DEFAULT` poziva izdvojeni `defaultSort` (postojeća §5 logika nad već-filtriranom listom).
+
+Pomoćne computed: `hasActiveFilters`, `currentTabCount`, `showControls` (= tab ima tripova **ili** je filter aktivan). `clearFilters()` resetira search + datume (ne sort).
+
+### Stanja
+
+- Filter isprazni rezultate → `MY_TRIPS.NO_RESULTS` + gumb "Očisti filtere" (`clearFilters`).
+- Prazan tab bez filtera → postojeći per-tab empty; kontrole skrivene (`showControls()` false).
+
+### i18n (`MY_TRIPS`)
+
+Novi ključevi (en + hr): `SEARCH_PLACEHOLDER`, `DATE_FROM`, `DATE_TO`, `SORT.{LABEL,DEFAULT,START_ASC,START_DESC,NAME_ASC,RECENT}`, `NO_RESULTS`, `CLEAR_FILTERS`.
+
+### Reuse obrazaca
+
+- Search input → `explore-page.component.html` (signal `searchTerm`, `[value]` + `(input)`).
+- Sort `<select>` → stil iz `invite-member-dialog` (ikona `sort` lijevo + `expand_more` desno, `appearance-none`).
