@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-auth-layout',
@@ -9,11 +10,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './auth-layout.component.html',
 })
 export class AuthLayoutComponent {
-  private translateService = inject(TranslateService);
-  currentLang = 'en';
+  private languageService = inject(LanguageService);
+  currentLang = this.languageService.currentLang;
 
   switchLang(lang: string): void {
-    this.currentLang = lang;
-    this.translateService.use(lang);
+    this.languageService.use(lang);
   }
 }

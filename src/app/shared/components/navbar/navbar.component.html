@@ -80,6 +80,28 @@
                 {{ 'NAV.SETTINGS' | translate }}
               </a>
               <div class="mx-3 my-1 border-t border-outline-variant/15"></div>
+              <div class="flex items-center justify-between gap-3 px-4 py-2.5">
+                <span class="flex items-center gap-3 font-label text-sm text-on-surface">
+                  <span class="material-symbols-outlined text-[20px] text-on-surface-variant">language</span>
+                  {{ 'NAV.LANGUAGE' | translate }}
+                </span>
+                <span class="flex items-center gap-1">
+                  <button
+                    type="button"
+                    (click)="setLang('en')"
+                    class="text-[11px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+                    [class]="currentLang() === 'en' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+                  >EN</button>
+                  <span class="text-on-surface-variant/20 text-[11px]">|</span>
+                  <button
+                    type="button"
+                    (click)="setLang('hr')"
+                    class="text-[11px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+                    [class]="currentLang() === 'hr' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+                  >HR</button>
+                </span>
+              </div>
+              <div class="mx-3 my-1 border-t border-outline-variant/15"></div>
               <button
                 type="button"
                 (click)="onLogout()"

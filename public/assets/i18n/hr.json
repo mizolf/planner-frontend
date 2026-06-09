@@ -80,7 +80,8 @@
     "EXPLORE": "Istraži",
     "MY_PROFILE": "Moj profil",
     "SETTINGS": "Postavke",
-    "LOGOUT": "Odjava"
+    "LOGOUT": "Odjava",
+    "LANGUAGE": "Jezik"
   },
   "NAVBAR": {
     "NOTIFICATIONS_ARIA": "Obavijesti, {{count}} na čekanju"

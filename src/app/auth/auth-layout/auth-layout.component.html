@@ -51,14 +51,14 @@
           type="button"
           (click)="switchLang('en')"
           class="text-[10px] font-label uppercase tracking-widest hover:text-primary transition-colors"
-          [class]="currentLang === 'en' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+          [class]="currentLang() === 'en' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
         >EN</button>
         <span class="text-on-surface-variant/20 text-[10px]">|</span>
         <button
           type="button"
           (click)="switchLang('hr')"
           class="text-[10px] font-label uppercase tracking-widest hover:text-primary transition-colors"
-          [class]="currentLang === 'hr' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+          [class]="currentLang() === 'hr' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
         >HR</button>
       </div>
       <!-- Links -->

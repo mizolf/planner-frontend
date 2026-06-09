@@ -80,7 +80,8 @@
     "EXPLORE": "Explore",
     "MY_PROFILE": "My Profile",
     "SETTINGS": "Settings",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "LANGUAGE": "Language"
   },
   "NAVBAR": {
     "NOTIFICATIONS_ARIA": "Notifications, {{count}} pending"
