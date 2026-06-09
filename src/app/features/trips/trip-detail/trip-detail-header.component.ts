@@ -29,6 +29,30 @@ export class TripDetailHeaderComponent {
   readonly visibleMembers = computed(() => this.trip().members.slice(0, MAX_AVATARS));
   readonly overflowCount = computed(() => Math.max(0, this.trip().members.length - MAX_AVATARS));
 
+  readonly totalSpent = computed(() =>
+    this.trip().days.reduce(
+      (sum, d) => sum + d.activities.reduce((s, a) => s + (a.cost ?? 0), 0),
+      0,
+    ),
+  );
+  readonly hasSpent = computed(() => this.totalSpent() > 0);
+  readonly hasBudget = computed(() => {
+    const b = this.trip().budget;
+    return b != null && b > 0;
+  });
+  readonly overBudget = computed(() => {
+    const b = this.trip().budget;
+    return b != null && this.totalSpent() > b;
+  });
+  /** Spent as a % of budget (can exceed 100 when over budget). */
+  readonly spentPercent = computed(() => {
+    const b = this.trip().budget;
+    if (b == null || b <= 0) return 0;
+    return Math.round((this.totalSpent() / b) * 100);
+  });
+  /** Bar fill width, capped at 100% even when over budget. */
+  readonly barWidth = computed(() => Math.min(100, this.spentPercent()));
+
   initialsOf = initialsOf;
   getStatusColor = (): string => getTripStatusColor(this.trip().status);
 

@@ -231,11 +231,21 @@
       "RELAXATION": "Relaxation",
       "HISTORY": "History"
     },
+    "CATEGORIES": {
+      "NONE": "No category",
+      "ATTRACTION": "Attraction",
+      "TRANSPORT": "Transport",
+      "ACCOMMODATION": "Accommodation",
+      "RESTAURANT": "Restaurant",
+      "OTHER": "Other"
+    },
     "DETAIL": {
       "BACK": "Dashboard",
       "DESTINATION_KICKER": "Destination",
       "DATE_SEPARATOR": "–",
       "BUDGET_LABEL": "Budget",
+      "SPENT_LABEL": "Spent",
+      "OVER_BUDGET": "Over budget",
       "DESCRIPTION_FALLBACK": "No description.",
       "INTERESTS_TITLE": "Interests",
       "EDIT_CTA": "Edit",
@@ -352,6 +362,11 @@
           "START_TIME_LABEL": "Start",
           "START_TIME_REQUIRED": "Pick a start time.",
           "END_TIME_LABEL": "End",
+          "CATEGORY_LABEL": "Category",
+          "COST_LABEL": "Cost",
+          "COST_PLACEHOLDER": "e.g. 25.00",
+          "COST_MIN": "Cost must be 0 or more.",
+          "COST_MAX": "Cost can be at most 999,999.99.",
           "CANCEL": "Cancel",
           "SUBMIT": "Add activity",
           "SUCCESS": "Activity added.",

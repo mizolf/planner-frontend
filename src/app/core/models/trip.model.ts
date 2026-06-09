@@ -10,6 +10,22 @@ export type Interest =
   | "RELAXATION"
   | "HISTORY";
 
+export type ActivityCategory =
+  | "ATTRACTION"
+  | "TRANSPORT"
+  | "ACCOMMODATION"
+  | "RESTAURANT"
+  | "OTHER";
+
+/** Material Symbols icon per activity category, shared by the card badge and the dialogs. */
+export const CATEGORY_ICONS: Record<ActivityCategory, string> = {
+  ATTRACTION: "attractions",
+  TRANSPORT: "directions_bus",
+  ACCOMMODATION: "hotel",
+  RESTAURANT: "restaurant",
+  OTHER: "category",
+};
+
 export interface CreateTripRequest {
   name: string;
   description?: string;
@@ -71,6 +87,8 @@ export interface ActivityResponse {
   location: string | null;
   startTime: string | null;
   endTime: string | null;
+  category: ActivityCategory | null;
+  cost: number | null;
 }
 
 export interface CreateTripActivityRequest {
@@ -79,6 +97,8 @@ export interface CreateTripActivityRequest {
   location?: string;
   startTime?: string;
   endTime?: string;
+  category?: ActivityCategory;
+  cost?: number;
 }
 
 export interface TripActivityResponse {
@@ -88,6 +108,8 @@ export interface TripActivityResponse {
   location: string | null;
   startTime: string | null;
   endTime: string | null;
+  category: ActivityCategory | null;
+  cost: number | null;
 }
 
 export interface UpdateTripActivityRequest {
@@ -96,6 +118,8 @@ export interface UpdateTripActivityRequest {
   location?: string;
   startTime?: string;
   endTime?: string;
+  category?: ActivityCategory;
+  cost?: number;
 }
 
 export interface TripDayResponse {

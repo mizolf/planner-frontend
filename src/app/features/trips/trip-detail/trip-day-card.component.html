@@ -104,6 +104,22 @@
             @if (activity.description) {
               <p class="text-sm text-on-surface-variant font-body mt-1.5 leading-relaxed">{{ activity.description }}</p>
             }
+            @if (activity.category || activity.cost != null) {
+              <div class="flex flex-wrap items-center gap-2 mt-2">
+                @if (activity.category; as category) {
+                  <span class="inline-flex items-center gap-1 text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-medium">
+                    <span class="material-symbols-outlined text-[14px]">{{ categoryIcons[category] }}</span>
+                    {{ 'TRIPS.CATEGORIES.' + category | translate }}
+                  </span>
+                }
+                @if (activity.cost != null) {
+                  <span class="inline-flex items-center gap-1 text-xs font-label text-on-surface-variant">
+                    <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">payments</span>
+                    <span class="tabular-nums font-semibold text-on-surface">{{ activity.cost | number:'1.0-2' }}</span>
+                  </span>
+                }
+              </div>
+            }
           </div>
         </li>
       }

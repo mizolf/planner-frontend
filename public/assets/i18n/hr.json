@@ -231,11 +231,21 @@
       "RELAXATION": "Opuštanje",
       "HISTORY": "Povijest"
     },
+    "CATEGORIES": {
+      "NONE": "Bez kategorije",
+      "ATTRACTION": "Znamenitost",
+      "TRANSPORT": "Prijevoz",
+      "ACCOMMODATION": "Smještaj",
+      "RESTAURANT": "Restoran",
+      "OTHER": "Ostalo"
+    },
     "DETAIL": {
       "BACK": "Početna",
       "DESTINATION_KICKER": "Odredište",
       "DATE_SEPARATOR": "–",
       "BUDGET_LABEL": "Budžet",
+      "SPENT_LABEL": "Potrošeno",
+      "OVER_BUDGET": "Prekoračen budžet",
       "DESCRIPTION_FALLBACK": "Nema opisa.",
       "INTERESTS_TITLE": "Interesi",
       "EDIT_CTA": "Uredi",
@@ -352,6 +362,11 @@
           "START_TIME_LABEL": "Početak",
           "START_TIME_REQUIRED": "Odaberi vrijeme početka.",
           "END_TIME_LABEL": "Kraj",
+          "CATEGORY_LABEL": "Kategorija",
+          "COST_LABEL": "Cijena",
+          "COST_PLACEHOLDER": "npr. 25.00",
+          "COST_MIN": "Cijena mora biti 0 ili više.",
+          "COST_MAX": "Cijena može biti najviše 999.999,99.",
           "CANCEL": "Odustani",
           "SUBMIT": "Dodaj aktivnost",
           "SUCCESS": "Aktivnost dodana.",

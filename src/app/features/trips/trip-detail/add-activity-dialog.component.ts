@@ -9,7 +9,10 @@ import {
 
 import { TranslateModule } from "@ngx-translate/core";
 
-import { CreateTripActivityRequest } from "../../../core/models/trip.model";
+import {
+  ActivityCategory,
+  CreateTripActivityRequest,
+} from "../../../core/models/trip.model";
 import { toBackendTime } from "../../../shared/utils/format-time";
 
 import { TripService } from "../../../core/services/trip.service";
@@ -33,12 +36,24 @@ export class AddActivityDialogComponent {
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
 
+  readonly categories: ActivityCategory[] = [
+    "ATTRACTION",
+    "TRANSPORT",
+    "ACCOMMODATION",
+    "RESTAURANT",
+    "OTHER",
+  ];
+
   readonly form = this.fb.nonNullable.group({
     name: ["", [Validators.required, Validators.maxLength(255)]],
     description: ["", Validators.maxLength(255)],
     location: ["", Validators.maxLength(255)],
     startTime: ["", Validators.required],
     endTime: [""],
+    category: [""],
+    cost: this.fb.control<number | null>(null, {
+      validators: [Validators.min(0), Validators.max(999999.99)],
+    }),
   });
 
   @HostListener("document:keydown.escape")
@@ -55,6 +70,8 @@ export class AddActivityDialogComponent {
       location: "",
       startTime: "",
       endTime: "",
+      category: "",
+      cost: null,
     });
     this.errorMessage.set(null);
     this.isOpen.set(true);
@@ -95,6 +112,9 @@ export class AddActivityDialogComponent {
 
     const trimmedLocation = v.location.trim();
     if (trimmedLocation) request.location = trimmedLocation;
+
+    if (v.category) request.category = v.category as ActivityCategory;
+    if (v.cost != null) request.cost = Number(v.cost);
 
     this.tripService.addActivityToDay(tripId, dayId, request).subscribe({
       next: () => {

@@ -100,6 +100,46 @@
               />
             </div>
 
+            <!-- Category + Cost side-by-side -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Category: local <select> mirroring app-form-field markup (FormFieldComponent renders only <input>) -->
+              <div class="space-y-1.5">
+                <label for="editCategory" class="block text-sm font-semibold text-on-surface-variant ml-1">
+                  {{ 'TRIPS.DETAIL.ACTIVITIES.ADD.CATEGORY_LABEL' | translate }}
+                </label>
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg">
+                    category
+                  </span>
+                  <select
+                    id="editCategory"
+                    formControlName="category"
+                    class="w-full pl-12 pr-10 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface text-sm transition-all shadow-sm outline-none appearance-none cursor-pointer">
+                    <option value="">{{ 'TRIPS.CATEGORIES.NONE' | translate }}</option>
+                    @for (c of categories; track c) {
+                      <option [value]="c">{{ 'TRIPS.CATEGORIES.' + c | translate }}</option>
+                    }
+                  </select>
+                  <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg pointer-events-none">
+                    expand_more
+                  </span>
+                </div>
+              </div>
+
+              <app-form-field
+                label="TRIPS.DETAIL.ACTIVITIES.ADD.COST_LABEL"
+                icon="payments"
+                type="number"
+                controlName="cost"
+                placeholder="TRIPS.DETAIL.ACTIVITIES.ADD.COST_PLACEHOLDER"
+                [errors]="{
+                  min: 'TRIPS.DETAIL.ACTIVITIES.ADD.COST_MIN',
+                  max: 'TRIPS.DETAIL.ACTIVITIES.ADD.COST_MAX',
+                  server: 'TRIPS.DETAIL.ACTIVITIES.ADD.ERROR_VALIDATION'
+                }"
+              />
+            </div>
+
           </form>
         </div>
 

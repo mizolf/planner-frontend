@@ -112,15 +112,54 @@
       [ngClass]="getStatusColor()">
       {{ 'HOME.STATUS.' + trip().status | translate }}
     </span>
-
-    @if (trip().budget !== null && trip().budget !== undefined) {
-      <span class="inline-flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">payments</span>
-        <span class="text-on-surface-variant">{{ 'TRIPS.DETAIL.BUDGET_LABEL' | translate }}</span>
-        <span class="text-on-surface font-semibold tabular-nums">{{ trip().budget | number:'1.0-2' }}</span>
-      </span>
-    }
   </div>
+
+  <!-- Spending: budget vs spent with a progress bar -->
+  @if (hasBudget()) {
+    <div class="mb-5 max-w-sm">
+      <div class="flex items-center justify-between text-sm font-label mb-1.5">
+        <span class="inline-flex items-center gap-1.5 text-on-surface-variant">
+          <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">payments</span>
+          {{ 'TRIPS.DETAIL.BUDGET_LABEL' | translate }}
+        </span>
+        <span class="text-on-surface font-semibold tabular-nums">{{ trip().budget | number:'1.0-2' }}</span>
+      </div>
+
+      <div
+        class="h-2 w-full rounded-full bg-surface-container-high overflow-hidden"
+        role="progressbar"
+        [attr.aria-valuenow]="barWidth()"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-label]="'TRIPS.DETAIL.SPENT_LABEL' | translate">
+        <div
+          class="h-full rounded-full transition-all duration-500"
+          [ngClass]="overBudget() ? 'bg-error' : 'bg-primary'"
+          [style.width.%]="barWidth()"></div>
+      </div>
+
+      <div class="flex items-center justify-between text-sm font-label mt-1.5">
+        <span
+          class="inline-flex items-center gap-1.5"
+          [ngClass]="overBudget() ? 'text-error' : 'text-on-surface-variant'">
+          @if (overBudget()) {
+            <span class="material-symbols-outlined text-[16px]">warning</span>
+          }
+          {{ (overBudget() ? 'TRIPS.DETAIL.OVER_BUDGET' : 'TRIPS.DETAIL.SPENT_LABEL') | translate }}
+          <span class="font-semibold tabular-nums">{{ totalSpent() | number:'1.0-2' }}</span>
+        </span>
+        <span
+          class="font-semibold tabular-nums"
+          [ngClass]="overBudget() ? 'text-error' : 'text-on-surface'">{{ spentPercent() }}%</span>
+      </div>
+    </div>
+  } @else if (hasSpent()) {
+    <div class="flex items-center gap-1.5 mb-5 text-sm font-label text-on-surface-variant">
+      <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">savings</span>
+      <span>{{ 'TRIPS.DETAIL.SPENT_LABEL' | translate }}</span>
+      <span class="text-on-surface font-semibold tabular-nums">{{ totalSpent() | number:'1.0-2' }}</span>
+    </div>
+  }
 
   @if (trip().interests.length > 0) {
     <div class="flex flex-wrap gap-1.5">

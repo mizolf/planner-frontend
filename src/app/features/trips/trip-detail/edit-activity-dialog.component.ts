@@ -10,6 +10,7 @@ import {
 import { TranslateModule } from "@ngx-translate/core";
 
 import {
+  ActivityCategory,
   TripActivityResponse,
   UpdateTripActivityRequest,
 } from "../../../core/models/trip.model";
@@ -38,12 +39,24 @@ export class EditActivityDialogComponent {
   readonly errorMessage = signal<string | null>(null);
   readonly confirmingDelete = signal(false);
 
+  readonly categories: ActivityCategory[] = [
+    "ATTRACTION",
+    "TRANSPORT",
+    "ACCOMMODATION",
+    "RESTAURANT",
+    "OTHER",
+  ];
+
   readonly form = this.fb.nonNullable.group({
     name: ["", [Validators.required, Validators.maxLength(255)]],
     description: ["", Validators.maxLength(255)],
     location: ["", Validators.maxLength(255)],
     startTime: ["", Validators.required],
     endTime: [""],
+    category: [""],
+    cost: this.fb.control<number | null>(null, {
+      validators: [Validators.min(0), Validators.max(999999.99)],
+    }),
   });
 
   @HostListener("document:keydown.escape")
@@ -61,6 +74,8 @@ export class EditActivityDialogComponent {
       location: activity.location ?? "",
       startTime: formatTime(activity.startTime),
       endTime: formatTime(activity.endTime),
+      category: activity.category ?? "",
+      cost: activity.cost ?? null,
     });
     this.errorMessage.set(null);
     this.confirmingDelete.set(false);
@@ -103,6 +118,11 @@ export class EditActivityDialogComponent {
     if (start) request.startTime = start;
     const end = toBackendTime(v.endTime);
     if (end) request.endTime = end;
+
+    // category/cost attach conditionally (omit when empty/null) so they are not
+    // wiped on every edit — backend updateEntity ignores nulls.
+    if (v.category) request.category = v.category as ActivityCategory;
+    if (v.cost != null) request.cost = Number(v.cost);
 
     this.tripService
       .updateActivityInDay(tripId, dayId, activityId, request)
