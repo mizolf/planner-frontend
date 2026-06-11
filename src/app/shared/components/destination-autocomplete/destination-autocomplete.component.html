@@ -1,0 +1,62 @@
+<div class="space-y-1.5">
+  <label [for]="controlName()" class="block text-sm font-semibold text-on-surface-variant ml-1">
+    {{ label() | translate }}
+  </label>
+  <div class="relative">
+    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg">
+      {{ icon() }}
+    </span>
+    <input
+      [id]="controlName()"
+      type="text"
+      [formControlName]="controlName()"
+      [placeholder]="placeholder() | translate"
+      autocomplete="off"
+      role="combobox"
+      aria-autocomplete="list"
+      [attr.aria-expanded]="dropdownOpen()"
+      [attr.aria-activedescendant]="activeIndex() >= 0 ? controlName() + '-option-' + activeIndex() : null"
+      (input)="onInput($event)"
+      (keydown)="onKeydown($event)"
+      (blur)="onBlur()"
+      class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface placeholder:text-on-surface-variant/30 text-sm transition-all shadow-sm outline-none"
+    />
+
+    @if (dropdownOpen()) {
+      <div
+        role="listbox"
+        class="absolute z-10 top-full mt-1 w-full bg-surface-container-lowest border border-outline-variant/10 rounded-lg shadow-lg max-h-60 overflow-auto">
+        @if (searching()) {
+          <div class="px-4 py-3 text-sm text-on-surface-variant">
+            {{ 'DESTINATION_AUTOCOMPLETE.SEARCHING' | translate }}
+          </div>
+        } @else if (noResults()) {
+          <div class="px-4 py-3 text-sm text-on-surface-variant">
+            {{ 'DESTINATION_AUTOCOMPLETE.NO_RESULTS' | translate }}
+          </div>
+        } @else {
+          @for (suggestion of suggestions(); track suggestion.label; let i = $index) {
+            <button
+              type="button"
+              role="option"
+              [id]="controlName() + '-option-' + i"
+              [attr.aria-selected]="i === activeIndex()"
+              (mousedown)="onOptionMousedown($event, suggestion)"
+              (mouseenter)="activeIndex.set(i)"
+              [class.bg-surface-container-high]="i === activeIndex()"
+              class="w-full flex items-center gap-2 px-4 py-2.5 text-left text-sm text-on-surface transition-colors">
+              <span class="material-symbols-outlined text-lg text-on-surface-variant/40">location_on</span>
+              {{ suggestion.label }}
+            </button>
+          }
+        }
+      </div>
+    }
+  </div>
+  @if (control?.touched && control?.errors) {
+    <p class="text-xs text-error flex items-center gap-1 mt-1 ml-1">
+      <span class="material-symbols-outlined text-[14px]">error</span>
+      {{ firstErrorMessage | translate }}
+    </p>
+  }
+</div>

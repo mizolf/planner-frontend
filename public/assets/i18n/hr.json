@@ -625,5 +625,9 @@
     "TERMS": "Uvjeti",
     "SUPPORT": "Podrška",
     "COPYRIGHT": "© {{year}} plannr. Sva prava pridržana."
+  },
+  "DESTINATION_AUTOCOMPLETE": {
+    "SEARCHING": "Pretraživanje…",
+    "NO_RESULTS": "Nema pronađenih mjesta"
   }
 }

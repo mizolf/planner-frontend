@@ -625,5 +625,9 @@
     "TERMS": "Terms",
     "SUPPORT": "Support",
     "COPYRIGHT": "© {{year}} plannr. All rights reserved."
+  },
+  "DESTINATION_AUTOCOMPLETE": {
+    "SEARCHING": "Searching…",
+    "NO_RESULTS": "No matching places found"
   }
 }

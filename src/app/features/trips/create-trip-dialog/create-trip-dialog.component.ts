@@ -5,7 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TripService } from '../../../core/services/trip.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { CreateTripRequest, Interest } from '../../../core/models/trip.model';
+import { DestinationSuggestion } from '../../../core/services/geocoding.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { DestinationAutocompleteComponent } from '../../../shared/components/destination-autocomplete/destination-autocomplete.component';
 import { TextareaFieldComponent } from '../../../shared/components/textarea-field/textarea-field.component';
 import { InterestChipsComponent } from '../../../shared/components/interest-chips/interest-chips.component';
 import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validators/trip.validators';
@@ -17,6 +19,7 @@ import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validato
     ReactiveFormsModule,
     TranslateModule,
     FormFieldComponent,
+    DestinationAutocompleteComponent,
     TextareaFieldComponent,
     InterestChipsComponent,
   ],
@@ -30,6 +33,8 @@ export class CreateTripDialogComponent {
   isOpen = signal(false);
   loading = signal(false);
   errorMessage = signal<string | null>(null);
+  // Set only by picking a suggestion; any manual keystroke clears it
+  coords = signal<{ lat: number; lon: number } | null>(null);
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -50,9 +55,18 @@ export class CreateTripDialogComponent {
 
   open(): void {
     this.form.reset();
+    this.coords.set(null);
     this.errorMessage.set(null);
     this.isOpen.set(true);
     document.body.style.overflow = 'hidden';
+  }
+
+  onDestinationSelected(suggestion: DestinationSuggestion): void {
+    this.coords.set({ lat: suggestion.latitude, lon: suggestion.longitude });
+  }
+
+  onDestinationCleared(): void {
+    this.coords.set(null);
   }
 
   close(): void {
@@ -81,6 +95,11 @@ export class CreateTripDialogComponent {
     if (v.description) request.description = v.description;
     if (v.budget !== null) request.budget = v.budget;
     if (v.interests.length > 0) request.interests = v.interests;
+    const coords = this.coords();
+    if (coords) {
+      request.latitude = coords.lat;
+      request.longitude = coords.lon;
+    }
 
     this.tripService.createTrip(request).subscribe({
       next: () => {

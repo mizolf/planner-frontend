@@ -30,6 +30,8 @@ export interface CreateTripRequest {
   name: string;
   description?: string;
   destination: string;
+  latitude?: number;
+  longitude?: number;
   startDate: string;
   endDate: string;
   budget?: number;
@@ -40,6 +42,9 @@ export interface UpdateTripRequest {
   name?: string;
   description?: string;
   destination?: string;
+  // Explicit null clears coordinates server-side (edit is a full replace)
+  latitude?: number | null;
+  longitude?: number | null;
   startDate?: string;
   endDate?: string;
   budget?: number;
@@ -51,6 +56,8 @@ export interface TripResponse {
   name: string;
   description: string;
   destination: string;
+  latitude: number | null;
+  longitude: number | null;
   startDate: string;
   endDate: string;
   status: TripStatus;

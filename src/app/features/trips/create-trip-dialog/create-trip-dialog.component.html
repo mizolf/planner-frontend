@@ -54,16 +54,17 @@
             }"
           />
 
-          <app-form-field
+          <app-destination-autocomplete
             label="TRIPS.CREATE.DESTINATION_LABEL"
             icon="location_on"
-            type="text"
             controlName="destination"
             placeholder="TRIPS.CREATE.DESTINATION_PLACEHOLDER"
             [errors]="{
               required: 'TRIPS.CREATE.DESTINATION_REQUIRED',
               maxlength: 'TRIPS.CREATE.DESTINATION_MAX'
             }"
+            (selected)="onDestinationSelected($event)"
+            (cleared)="onDestinationCleared()"
           />
 
           <app-textarea-field

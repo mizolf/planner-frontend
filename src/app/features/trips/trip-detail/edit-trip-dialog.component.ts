@@ -11,7 +11,9 @@ import {
   TripDetailResponse,
   UpdateTripRequest,
 } from '../../../core/models/trip.model';
+import { DestinationSuggestion } from '../../../core/services/geocoding.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { DestinationAutocompleteComponent } from '../../../shared/components/destination-autocomplete/destination-autocomplete.component';
 import { TextareaFieldComponent } from '../../../shared/components/textarea-field/textarea-field.component';
 import { InterestChipsComponent } from '../../../shared/components/interest-chips/interest-chips.component';
 import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validators/trip.validators';
@@ -23,6 +25,7 @@ import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validato
     ReactiveFormsModule,
     TranslateModule,
     FormFieldComponent,
+    DestinationAutocompleteComponent,
     TextareaFieldComponent,
     InterestChipsComponent,
   ],
@@ -39,6 +42,8 @@ export class EditTripDialogComponent {
   readonly isOpen = signal(false);
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  // Set by prefill or picking a suggestion; any manual keystroke clears it
+  readonly coords = signal<{ lat: number; lon: number } | null>(null);
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -74,6 +79,14 @@ export class EditTripDialogComponent {
     if (this.isOpen()) this.close();
   }
 
+  onDestinationSelected(suggestion: DestinationSuggestion): void {
+    this.coords.set({ lat: suggestion.latitude, lon: suggestion.longitude });
+  }
+
+  onDestinationCleared(): void {
+    this.coords.set(null);
+  }
+
   open(trip: TripDetailResponse): void {
     this._tripId.set(trip.id);
     this._originalDays.set(trip.days);
@@ -86,6 +99,13 @@ export class EditTripDialogComponent {
       budget: trip.budget ?? null,
       interests: trip.interests ?? [],
     });
+    // Prefill survives form.reset because the autocomplete's search pipeline
+    // listens to the DOM (input) event, which reset doesn't fire
+    this.coords.set(
+      trip.latitude != null && trip.longitude != null
+        ? { lat: trip.latitude, lon: trip.longitude }
+        : null,
+    );
     this.errorMessage.set(null);
     this.isOpen.set(true);
     document.body.style.overflow = 'hidden';
@@ -114,6 +134,9 @@ export class EditTripDialogComponent {
     const request: UpdateTripRequest = {
       name: v.name,
       destination: v.destination,
+      // Always sent — explicit null clears stale coordinates server-side
+      latitude: this.coords()?.lat ?? null,
+      longitude: this.coords()?.lon ?? null,
       description: v.description,
       startDate: v.startDate,
       endDate: v.endDate,
