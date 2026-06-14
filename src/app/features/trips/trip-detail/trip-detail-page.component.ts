@@ -182,13 +182,21 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   openAddActivity(day: TripDayResponse): void {
     const trip = this.trip();
     if (!trip) return;
-    this.addActivityDialog?.open(trip.id, day.id);
+    const bias =
+      trip.latitude != null && trip.longitude != null
+        ? { latitude: trip.latitude, longitude: trip.longitude }
+        : null;
+    this.addActivityDialog?.open(trip.id, day.id, bias);
   }
 
   openEditActivity(day: TripDayResponse, activity: TripActivityResponse): void {
     const trip = this.trip();
     if (!trip) return;
-    this.editActivityDialog?.open(trip.id, day.id, activity);
+    const bias =
+      trip.latitude != null && trip.longitude != null
+        ? { latitude: trip.latitude, longitude: trip.longitude }
+        : null;
+    this.editActivityDialog?.open(trip.id, day.id, activity, bias);
   }
 
   openDeleteDay(day: TripDayResponse): void {

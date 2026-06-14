@@ -1,5 +1,6 @@
 import { Component, HostListener, inject, signal } from "@angular/core";
 import { FormFieldComponent } from "../../../shared/components/form-field/form-field.component";
+import { DestinationAutocompleteComponent } from "../../../shared/components/destination-autocomplete/destination-autocomplete.component";
 import { HttpErrorResponse } from "@angular/common/http";
 import {
   FormBuilder,
@@ -14,6 +15,10 @@ import {
   TripActivityResponse,
   UpdateTripActivityRequest,
 } from "../../../core/models/trip.model";
+import {
+  DestinationSuggestion,
+  GeoBias,
+} from "../../../core/services/geocoding.service";
 import { formatTime, toBackendTime } from "../../../shared/utils/format-time";
 
 import { TripService } from "../../../core/services/trip.service";
@@ -22,7 +27,12 @@ import { ToastService } from "../../../shared/services/toast.service";
 @Component({
   selector: "app-edit-activity-dialog",
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, FormFieldComponent],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    FormFieldComponent,
+    DestinationAutocompleteComponent,
+  ],
   templateUrl: "./edit-activity-dialog.component.html",
 })
 export class EditActivityDialogComponent {
@@ -38,6 +48,10 @@ export class EditActivityDialogComponent {
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
   readonly confirmingDelete = signal(false);
+  // Set by prefill or picking a suggestion; any manual keystroke clears it
+  readonly coords = signal<{ lat: number; lon: number } | null>(null);
+  // Biases Photon search toward the parent trip's location (null = global search)
+  readonly bias = signal<GeoBias | null>(null);
 
   readonly categories: ActivityCategory[] = [
     "ATTRACTION",
@@ -64,7 +78,12 @@ export class EditActivityDialogComponent {
     if (this.isOpen()) this.close();
   }
 
-  open(tripId: number, dayId: number, activity: TripActivityResponse): void {
+  open(
+    tripId: number,
+    dayId: number,
+    activity: TripActivityResponse,
+    bias: GeoBias | null,
+  ): void {
     this._tripId.set(tripId);
     this._dayId.set(dayId);
     this._activityId.set(activity.id);
@@ -77,6 +96,14 @@ export class EditActivityDialogComponent {
       category: activity.category ?? "",
       cost: activity.cost ?? null,
     });
+    this.bias.set(bias);
+    // Prefill survives form.reset because the autocomplete's search pipeline
+    // listens to the DOM (input) event, which reset doesn't fire
+    this.coords.set(
+      activity.latitude != null && activity.longitude != null
+        ? { lat: activity.latitude, lon: activity.longitude }
+        : null,
+    );
     this.errorMessage.set(null);
     this.confirmingDelete.set(false);
     this.isOpen.set(true);
@@ -88,10 +115,20 @@ export class EditActivityDialogComponent {
     this._tripId.set(null);
     this._dayId.set(null);
     this._activityId.set(null);
+    this.coords.set(null);
+    this.bias.set(null);
     this.isOpen.set(false);
     this.errorMessage.set(null);
     this.confirmingDelete.set(false);
     document.body.style.overflow = "";
+  }
+
+  onDestinationSelected(suggestion: DestinationSuggestion): void {
+    this.coords.set({ lat: suggestion.latitude, lon: suggestion.longitude });
+  }
+
+  onDestinationCleared(): void {
+    this.coords.set(null);
   }
 
   onSubmit(): void {
@@ -113,6 +150,9 @@ export class EditActivityDialogComponent {
       name: v.name.trim(),
       description: v.description.trim(),
       location: v.location.trim(),
+      // Always sent — explicit null clears stale coordinates (mirrors edit-trip)
+      latitude: this.coords()?.lat ?? null,
+      longitude: this.coords()?.lon ?? null,
     };
     const start = toBackendTime(v.startTime);
     if (start) request.startTime = start;

@@ -53,16 +53,18 @@
               }"
             />
 
-            <app-form-field
+            <app-destination-autocomplete
               label="TRIPS.DETAIL.ACTIVITIES.ADD.LOCATION_LABEL"
               icon="place"
-              type="text"
               controlName="location"
               placeholder="TRIPS.DETAIL.ACTIVITIES.ADD.LOCATION_PLACEHOLDER"
+              [bias]="bias()"
               [errors]="{
                 maxlength: 'TRIPS.DETAIL.ACTIVITIES.ADD.LOCATION_MAX',
                 server: 'TRIPS.DETAIL.ACTIVITIES.ADD.ERROR_VALIDATION'
               }"
+              (selected)="onDestinationSelected($event)"
+              (cleared)="onDestinationCleared()"
             />
 
             <app-form-field

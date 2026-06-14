@@ -1,5 +1,6 @@
 import { Component, HostListener, inject, input, signal } from "@angular/core";
 import { FormFieldComponent } from "../../../shared/components/form-field/form-field.component";
+import { DestinationAutocompleteComponent } from "../../../shared/components/destination-autocomplete/destination-autocomplete.component";
 import { HttpErrorResponse } from "@angular/common/http";
 import {
   FormBuilder,
@@ -13,6 +14,10 @@ import {
   ActivityCategory,
   CreateTripActivityRequest,
 } from "../../../core/models/trip.model";
+import {
+  DestinationSuggestion,
+  GeoBias,
+} from "../../../core/services/geocoding.service";
 import { toBackendTime } from "../../../shared/utils/format-time";
 
 import { TripService } from "../../../core/services/trip.service";
@@ -21,7 +26,12 @@ import { ToastService } from "../../../shared/services/toast.service";
 @Component({
   selector: "app-add-activity-dialog",
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, FormFieldComponent],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    FormFieldComponent,
+    DestinationAutocompleteComponent,
+  ],
   templateUrl: "./add-activity-dialog.component.html",
 })
 export class AddActivityDialogComponent {
@@ -35,6 +45,10 @@ export class AddActivityDialogComponent {
   readonly isOpen = signal(false);
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  // Set only by picking a suggestion; any manual keystroke clears it
+  readonly coords = signal<{ lat: number; lon: number } | null>(null);
+  // Biases Photon search toward the parent trip's location (null = global search)
+  readonly bias = signal<GeoBias | null>(null);
 
   readonly categories: ActivityCategory[] = [
     "ATTRACTION",
@@ -61,7 +75,7 @@ export class AddActivityDialogComponent {
     if (this.isOpen()) this.close();
   }
 
-  open(tripId: number, dayId: number): void {
+  open(tripId: number, dayId: number, bias: GeoBias | null): void {
     this._tripId.set(tripId);
     this._dayId.set(dayId);
     this.form.reset({
@@ -73,6 +87,8 @@ export class AddActivityDialogComponent {
       category: "",
       cost: null,
     });
+    this.bias.set(bias);
+    this.coords.set(null);
     this.errorMessage.set(null);
     this.isOpen.set(true);
     document.body.style.overflow = "hidden";
@@ -82,9 +98,19 @@ export class AddActivityDialogComponent {
     if (this.loading()) return;
     this._tripId.set(null);
     this._dayId.set(null);
+    this.coords.set(null);
+    this.bias.set(null);
     this.isOpen.set(false);
     this.errorMessage.set(null);
     document.body.style.overflow = "";
+  }
+
+  onDestinationSelected(suggestion: DestinationSuggestion): void {
+    this.coords.set({ lat: suggestion.latitude, lon: suggestion.longitude });
+  }
+
+  onDestinationCleared(): void {
+    this.coords.set(null);
   }
 
   onSubmit(): void {
@@ -112,6 +138,12 @@ export class AddActivityDialogComponent {
 
     const trimmedLocation = v.location.trim();
     if (trimmedLocation) request.location = trimmedLocation;
+
+    const coords = this.coords();
+    if (coords) {
+      request.latitude = coords.lat;
+      request.longitude = coords.lon;
+    }
 
     if (v.category) request.category = v.category as ActivityCategory;
     if (v.cost != null) request.cost = Number(v.cost);

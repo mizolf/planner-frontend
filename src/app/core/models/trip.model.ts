@@ -92,6 +92,8 @@ export interface ActivityResponse {
   name: string;
   description: string | null;
   location: string | null;
+  latitude: number | null;
+  longitude: number | null;
   startTime: string | null;
   endTime: string | null;
   category: ActivityCategory | null;
@@ -102,6 +104,8 @@ export interface CreateTripActivityRequest {
   name: string;
   description?: string;
   location?: string;
+  latitude?: number;
+  longitude?: number;
   startTime?: string;
   endTime?: string;
   category?: ActivityCategory;
@@ -113,6 +117,8 @@ export interface TripActivityResponse {
   name: string;
   description: string | null;
   location: string | null;
+  latitude: number | null;
+  longitude: number | null;
   startTime: string | null;
   endTime: string | null;
   category: ActivityCategory | null;
@@ -123,6 +129,9 @@ export interface UpdateTripActivityRequest {
   name?: string;
   description?: string;
   location?: string;
+  // Explicit null clears coordinates server-side (once the backend honors it)
+  latitude?: number | null;
+  longitude?: number | null;
   startTime?: string;
   endTime?: string;
   category?: ActivityCategory;
