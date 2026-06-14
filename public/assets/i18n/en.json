@@ -210,6 +210,7 @@
       "END_DATE_LABEL": "End Date",
       "END_DATE_REQUIRED": "End date is required.",
       "END_BEFORE_START": "End date must be after start date.",
+      "DATES_OVERLAP": "These dates overlap with another of your trips. Please choose different dates.",
       "BUDGET_LABEL": "Budget (Optional)",
       "BUDGET_PLACEHOLDER": "450.00",
       "BUDGET_MIN": "Budget must be a positive number.",
@@ -397,6 +398,7 @@
         "CANCEL": "Cancel",
         "SUBMIT": "Save changes",
         "SUCCESS": "Trip updated.",
+        "DATES_OVERLAP": "These dates overlap with another of your trips. Please choose different dates.",
         "ERROR_VALIDATION": "Please check the highlighted fields.",
         "ERROR_GENERIC": "Couldn't update the trip. Please try again."
       },

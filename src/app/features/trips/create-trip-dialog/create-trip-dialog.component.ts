@@ -109,7 +109,9 @@ export class CreateTripDialogComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
-        if (err.status === 400) {
+        if (err.status === 409 && err.error?.code === 'OVERLAPPING_DATES') {
+          this.errorMessage.set('TRIPS.CREATE.DATES_OVERLAP');
+        } else if (err.status === 400) {
           const msg = err.error?.message ?? err.error;
           this.errorMessage.set(
             typeof msg === 'string' && msg.includes('End date must not be before start date')

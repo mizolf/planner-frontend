@@ -210,6 +210,7 @@
       "END_DATE_LABEL": "Datum završetka",
       "END_DATE_REQUIRED": "Datum završetka je obavezan.",
       "END_BEFORE_START": "Datum završetka mora biti nakon datuma početka.",
+      "DATES_OVERLAP": "Ovi datumi se preklapaju s drugim tvojim putovanjem. Odaberi druge datume.",
       "BUDGET_LABEL": "Budžet (Opcionalno)",
       "BUDGET_PLACEHOLDER": "450.00",
       "BUDGET_MIN": "Budžet mora biti pozitivan broj.",
@@ -397,6 +398,7 @@
         "CANCEL": "Odustani",
         "SUBMIT": "Spremi promjene",
         "SUCCESS": "Put ažuriran.",
+        "DATES_OVERLAP": "Ovi datumi se preklapaju s drugim tvojim putovanjem. Odaberi druge datume.",
         "ERROR_VALIDATION": "Provjeri označena polja.",
         "ERROR_GENERIC": "Ažuriranje putovanja nije uspjelo. Pokušaj ponovno."
       },

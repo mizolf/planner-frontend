@@ -158,6 +158,10 @@ export class EditTripDialogComponent {
   }
 
   private applyError(err: HttpErrorResponse): void {
+    if (err.status === 409 && err.error?.code === 'OVERLAPPING_DATES') {
+      this.errorMessage.set('TRIPS.DETAIL.EDIT.DATES_OVERLAP');
+      return;
+    }
     const fieldErrors: Record<string, string> | undefined = err.error?.fieldErrors;
     if (err.status === 400 && fieldErrors) {
       let mapped = false;
