@@ -389,7 +389,12 @@
           "CANCEL": "Cancel",
           "SUCCESS": "Activity deleted.",
           "ERROR_GENERIC": "Couldn't delete the activity. Please try again."
-        }
+        },
+        "LOCATE": "Show on map"
+      },
+      "MAP": {
+        "NO_LOCATIONS": "No activities with a location for this day yet.",
+        "HIDDEN_COUNT": "{{count}} without a location"
       },
       "EDIT": {
         "TITLE": "Edit trip",

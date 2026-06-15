@@ -389,7 +389,12 @@
           "CANCEL": "Odustani",
           "SUCCESS": "Aktivnost obrisana.",
           "ERROR_GENERIC": "Brisanje aktivnosti nije uspjelo. Pokušaj ponovno."
-        }
+        },
+        "LOCATE": "Prikaži na karti"
+      },
+      "MAP": {
+        "NO_LOCATIONS": "Nijedna aktivnost ovog dana još nema lokaciju.",
+        "HIDDEN_COUNT": "{{count}} bez lokacije"
       },
       "EDIT": {
         "TITLE": "Uredi put",

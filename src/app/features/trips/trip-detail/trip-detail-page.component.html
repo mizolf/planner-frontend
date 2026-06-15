@@ -92,8 +92,16 @@
               (selectDay)="selectDay($event)"
               (addDay)="openAddDay()" />
 
-            <div class="mt-8">
-              @if (selectedDay(); as d) {
+            @if (selectedDay(); as d) {
+              <app-trip-map
+                class="block mt-8"
+                [day]="d"
+                [centerLat]="t.latitude"
+                [centerLng]="t.longitude"
+                [focusedActivityId]="focusedActivityId()"
+                (focusActivity)="onFocusActivity($event)" />
+
+              <div class="mt-8">
                 <app-trip-day-card
                   [day]="d"
                   [canEditDay]="canEditContent()"
@@ -103,9 +111,11 @@
                   [canAddActivity]="canEditContent()"
                   (addActivity)="openAddActivity(d)"
                   [canEditActivity]="canEditContent()"
-                  (editActivity)="openEditActivity(d, $event)"/>
-              }
-            </div>
+                  (editActivity)="openEditActivity(d, $event)"
+                  [focusedActivityId]="focusedActivityId()"
+                  (focusActivity)="onFocusActivity($event)" />
+              </div>
+            }
           }
         </section>
 

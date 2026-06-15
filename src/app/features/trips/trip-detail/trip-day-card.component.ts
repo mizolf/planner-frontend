@@ -31,5 +31,8 @@ export class TripDayCardComponent {
   readonly canEditActivity = input(false);
   readonly editActivity = output<TripActivityResponse>();
 
+  readonly focusedActivityId = input<number | null>(null);
+  readonly focusActivity = output<number>();
+
   formatTime = formatTime;
 }

@@ -28,6 +28,7 @@ import { InviteMemberDialogComponent } from "./invite-member-dialog.component";
 import { PendingInvitesSectionComponent } from "./pending-invites-section.component";
 import { TripInviteResponse } from "../../../core/models/invite.model";
 import { TripDayCardComponent } from "./trip-day-card.component";
+import { TripMapComponent } from "./trip-map.component";
 import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
 import { TripMembersSectionComponent } from "./trip-members-section.component";
@@ -49,6 +50,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     InviteMemberDialogComponent,
     PendingInvitesSectionComponent,
     TripDayCardComponent,
+    TripMapComponent,
     TripDayPickerComponent,
     TripDetailHeaderComponent,
     TripMembersSectionComponent,
@@ -88,6 +90,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   );
 
   private readonly userSelectedDayId = signal<number | null>(null);
+  readonly focusedActivityId = signal<number | null>(null);
 
   @ViewChild(AddDayDialogComponent) addDayDialog?: AddDayDialogComponent;
   @ViewChild(EditDayDialogComponent) editDayDialog?: EditDayDialogComponent;
@@ -138,6 +141,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
         return;
       }
       this.userSelectedDayId.set(null);
+      this.focusedActivityId.set(null);
       this.tripService.loadTripDetail(id);
     });
   }
@@ -149,6 +153,11 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   selectDay(id: number): void {
     this.userSelectedDayId.set(id);
+    this.focusedActivityId.set(null);
+  }
+
+  onFocusActivity(id: number): void {
+    this.focusedActivityId.set(id);
   }
 
   openEditTrip(): void {
