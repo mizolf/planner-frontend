@@ -118,6 +118,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   pendingInvitesSection?: PendingInvitesSectionComponent;
 
   private paramSub?: Subscription;
+  private focusTimer?: ReturnType<typeof setTimeout>;
 
   readonly selectedDay = computed(() => {
     const t = this.trip();
@@ -148,6 +149,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramSub?.unsubscribe();
+    clearTimeout(this.focusTimer);
     this.tripService.clearTripDetail();
   }
 
@@ -157,7 +159,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   }
 
   onFocusActivity(id: number): void {
+    clearTimeout(this.focusTimer);
     this.focusedActivityId.set(id);
+    this.focusTimer = setTimeout(() => this.focusedActivityId.set(null), 3000);
   }
 
   openEditTrip(): void {

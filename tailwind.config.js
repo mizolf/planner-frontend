@@ -80,10 +80,21 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateY(0.5rem)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'focus-highlight': {
+          '0%, 55%': {
+            backgroundColor: '#d2e4ff',
+            boxShadow: '0 0 0 2px #00628c',
+          },
+          '100%': {
+            backgroundColor: 'transparent',
+            boxShadow: '0 0 0 2px transparent',
+          },
+        },
       },
       animation: {
         'slide-in': 'slide-in 0.25s ease-out',
         'fade-in-up': 'fade-in-up 0.3s ease-out both',
+        'focus-highlight': 'focus-highlight 3s ease-out forwards',
       },
       borderRadius: {
         "DEFAULT": "0.25rem",
