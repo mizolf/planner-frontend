@@ -61,7 +61,27 @@
             {{ 'TRIPS.DETAIL.DAYS.TITLE' | translate }}
           </h2>
 
-          @if (t.days.length === 0) {
+          @if (generating()) {
+            <!-- AI is building the itinerary: friendly message + pulsing skeleton -->
+            <div class="flex items-center gap-3 mb-8 text-on-surface-variant">
+              <span class="material-symbols-outlined animate-pulse">auto_awesome</span>
+              <span class="text-sm font-body font-medium">
+                {{ 'TRIPS.DETAIL.AI.LOADING' | translate }}
+              </span>
+            </div>
+            <div class="animate-pulse space-y-10">
+              @for (n of [1, 2, 3]; track n) {
+                <div class="flex gap-7">
+                  <div class="size-12 rounded-full bg-surface-container-low shrink-0"></div>
+                  <div class="flex-1 space-y-3">
+                    <div class="h-3 w-32 bg-surface-container-low rounded"></div>
+                    <div class="h-5 w-1/2 bg-surface-container-low rounded"></div>
+                    <div class="h-4 w-2/3 bg-surface-container-low rounded"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else if (t.days.length === 0) {
             <div class="flex flex-col items-center text-center py-16 px-6 bg-surface-container-low rounded-2xl">
               <span class="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4">event_note</span>
               <h3 class="font-headline font-bold text-lg text-on-surface mb-2">

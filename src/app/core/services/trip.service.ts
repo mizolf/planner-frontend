@@ -39,6 +39,10 @@ export class TripService {
   readonly detailLoading = this._detailLoading.asReadonly();
   readonly detailError = this._detailError.asReadonly();
 
+  // True while the AI itinerary is being generated for the open trip detail.
+  private readonly _generating = signal(false);
+  readonly generating = this._generating.asReadonly();
+
   loadTrips(): void {
     this._loading.set(true);
     this._error.set(null);
@@ -168,6 +172,29 @@ export class TripService {
     this._tripDetail.set(null);
     this._detailError.set(null);
     this._detailLoading.set(false);
+    this._generating.set(false);
+  }
+
+  // Triggers backend AI generation for an (empty) trip. Empty body — the
+  // backend derives all context from the trip itself. On success it writes the
+  // full TripDetailResponse into _tripDetail so the detail page fills in.
+  generateItinerary(tripId: number): Observable<TripDetailResponse> {
+    this._generating.set(true);
+
+    return this.http
+      .post<TripDetailResponse>(
+        `${this.apiUrl}/${tripId}/generate-itinerary`,
+        {},
+      )
+      .pipe(
+        tap({
+          next: (detail) => {
+            this._tripDetail.set(detail);
+            this._generating.set(false);
+          },
+          error: () => this._generating.set(false),
+        }),
+      );
   }
 
   addDayToTrip(

@@ -216,6 +216,8 @@
       "BUDGET_MIN": "Budžet mora biti pozitivan broj.",
       "BUDGET_TOO_LARGE": "Budžet je prevelik (maks. 999.999,99).",
       "INTERESTS_LABEL": "Interesi (Opcionalno)",
+      "AI_LABEL": "✨ Generiraj plan s AI",
+      "AI_HINT": "Složit ćemo plan dan-po-dan iz tvojih datuma, budžeta i interesa.",
       "SUBMIT": "Kreiraj putovanje",
       "CANCEL": "Odustani",
       "SUCCESS": "Putovanje uspješno kreirano!",
@@ -423,6 +425,11 @@
         "SUCCESS": "Napustio/la si putovanje.",
         "ERROR_OWNER": "Kao vlasnik ne možeš napustiti — umjesto toga obriši putovanje.",
         "ERROR_GENERIC": "Napuštanje putovanja nije uspjelo. Pokušaj ponovno."
+      },
+      "AI": {
+        "LOADING": "AI generira tvoj plan…",
+        "SUCCESS": "✨ Tvoj AI plan je spreman!",
+        "ERROR": "AI nije uspio generirati plan. Možeš ga složiti ručno."
       },
       "LOADING": "Učitavanje putovanja…",
       "ERROR": {

@@ -65,6 +65,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   readonly trip = this.tripService.tripDetail;
   readonly loading = this.tripService.detailLoading;
   readonly error = this.tripService.detailError;
+  readonly generating = this.tripService.generating;
 
   readonly currentUserRole = computed(() => {
     const t = this.trip();

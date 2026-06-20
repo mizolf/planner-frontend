@@ -1,6 +1,7 @@
 import { Component, inject, signal, HostListener } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { TripService } from '../../../core/services/trip.service';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -29,6 +30,7 @@ export class CreateTripDialogComponent {
   private fb = inject(FormBuilder);
   private tripService = inject(TripService);
   private toastService = inject(ToastService);
+  private router = inject(Router);
 
   isOpen = signal(false);
   loading = signal(false);
@@ -44,6 +46,7 @@ export class CreateTripDialogComponent {
     endDate: ['', Validators.required],
     budget: [null as number | null, [Validators.min(0), budgetMaxDigits()]],
     interests: [[] as Interest[]],
+    generateWithAi: [false],
   }, {
     validators: endDateAfterStartDate('startDate', 'endDate'),
   });
@@ -102,10 +105,25 @@ export class CreateTripDialogComponent {
     }
 
     this.tripService.createTrip(request).subscribe({
-      next: () => {
+      next: (newTrip) => {
         this.loading.set(false);
         this.close();
-        this.toastService.show({ message: 'TRIPS.CREATE.SUCCESS', type: 'success' });
+
+        if (v.generateWithAi) {
+          // Jump to the new trip; it shows an "AI is generating…" state while
+          // the (slow, ~15–25s) request runs. The subscription outlives this
+          // dialog — toastService/tripService are root singletons — so the
+          // success/error toast still fires after navigation.
+          this.router.navigate(['/trips', newTrip.id]);
+          this.tripService.generateItinerary(newTrip.id).subscribe({
+            next: () =>
+              this.toastService.show({ message: 'TRIPS.DETAIL.AI.SUCCESS', type: 'success' }),
+            error: () =>
+              this.toastService.show({ message: 'TRIPS.DETAIL.AI.ERROR', type: 'error' }),
+          });
+        } else {
+          this.toastService.show({ message: 'TRIPS.CREATE.SUCCESS', type: 'success' });
+        }
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);

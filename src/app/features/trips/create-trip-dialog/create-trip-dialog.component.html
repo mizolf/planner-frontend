@@ -127,6 +127,23 @@
             controlName="interests"
           />
 
+          <!-- AI itinerary opt-in -->
+          <label class="flex items-start gap-3 p-4 rounded-xl bg-surface-container-low border border-outline-variant/10 cursor-pointer">
+            <input
+              type="checkbox"
+              formControlName="generateWithAi"
+              class="mt-0.5 size-4 rounded accent-primary shrink-0 cursor-pointer"
+            />
+            <span class="flex flex-col">
+              <span class="text-sm font-semibold text-on-surface">
+                {{ 'TRIPS.CREATE.AI_LABEL' | translate }}
+              </span>
+              <span class="text-xs text-on-surface-variant font-body mt-0.5">
+                {{ 'TRIPS.CREATE.AI_HINT' | translate }}
+              </span>
+            </span>
+          </label>
+
         </form>
       </div>
 

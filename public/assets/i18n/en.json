@@ -216,6 +216,8 @@
       "BUDGET_MIN": "Budget must be a positive number.",
       "BUDGET_TOO_LARGE": "Budget is too large (max 999,999.99).",
       "INTERESTS_LABEL": "Interests (Optional)",
+      "AI_LABEL": "✨ Generate plan with AI",
+      "AI_HINT": "We'll draft a day-by-day itinerary from your dates, budget and interests.",
       "SUBMIT": "Create Trip",
       "CANCEL": "Cancel",
       "SUCCESS": "Trip created successfully!",
@@ -423,6 +425,11 @@
         "SUCCESS": "You left the trip.",
         "ERROR_OWNER": "As the owner you can't leave — delete the trip instead.",
         "ERROR_GENERIC": "Couldn't leave the trip. Please try again."
+      },
+      "AI": {
+        "LOADING": "AI is generating your plan…",
+        "SUCCESS": "✨ Your AI plan is ready!",
+        "ERROR": "AI couldn't generate a plan. You can build the itinerary manually."
       },
       "LOADING": "Loading trip…",
       "ERROR": {
