@@ -19,10 +19,12 @@ export class TripDetailHeaderComponent {
   readonly canEdit = input(false);
   readonly canDelete = input(false);
   readonly canLeave = input(false);
+  readonly canToggleVisibility = input(false);
 
   readonly edit = output<void>();
   readonly delete = output<void>();
   readonly leave = output<void>();
+  readonly toggleVisibility = output<void>();
 
   readonly menuOpen = signal(false);
 

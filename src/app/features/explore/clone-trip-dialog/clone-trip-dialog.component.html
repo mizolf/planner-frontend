@@ -1,0 +1,100 @@
+@if (isOpen()) {
+  <div
+    (click)="close()"
+    class="fixed inset-0 bg-inverse-surface/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+
+    <div
+      (click)="$event.stopPropagation()"
+      class="bg-surface-container-lowest rounded-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
+      style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
+      role="dialog"
+      aria-modal="true">
+
+      <!-- Header -->
+      <div class="flex items-start justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+        <div>
+          <h2 class="text-xl font-bold font-headline text-on-surface">
+            {{ 'EXPLORE.COMMUNITY.CLONE.TITLE' | translate }}
+          </h2>
+          <p class="text-sm text-on-surface-variant font-body mt-0.5">
+            {{ 'EXPLORE.COMMUNITY.CLONE.SUBTITLE' | translate }}
+          </p>
+        </div>
+        <button
+          type="button"
+          (click)="close()"
+          [disabled]="loading()"
+          class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Server error banner -->
+      @if (errorMessage()) {
+        <div class="mx-6 mt-4 flex items-center gap-2 p-3 rounded-lg bg-error-container text-on-error-container text-sm font-label font-medium">
+          <span class="material-symbols-outlined text-[18px]">error</span>
+          {{ errorMessage()! | translate }}
+        </div>
+      }
+
+      <!-- Body -->
+      <div class="px-6 py-6 overflow-y-auto flex-1">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" id="cloneTripForm" class="space-y-5">
+
+          <app-form-field
+            label="EXPLORE.COMMUNITY.CLONE.START_DATE_LABEL"
+            icon="event"
+            type="date"
+            controlName="startDate"
+            [errors]="{
+              required: 'EXPLORE.COMMUNITY.CLONE.START_DATE_REQUIRED',
+              dateInPast: 'EXPLORE.COMMUNITY.CLONE.START_DATE_PAST'
+            }"
+          />
+
+          @if (endDate(); as ed) {
+            <p class="text-xs text-on-surface-variant font-label flex items-center gap-1 -mt-3 ml-1">
+              <span class="material-symbols-outlined text-[14px]">event_available</span>
+              {{ 'EXPLORE.COMMUNITY.CLONE.END_DATE_HINT' | translate:{ date: (ed | date:'mediumDate') } }}
+            </p>
+          }
+
+          <app-form-field
+            label="EXPLORE.COMMUNITY.CLONE.NAME_LABEL"
+            icon="luggage"
+            type="text"
+            controlName="name"
+            placeholder="EXPLORE.COMMUNITY.CLONE.NAME_PLACEHOLDER"
+            [errors]="{
+              maxlength: 'TRIPS.CREATE.NAME_MAX'
+            }"
+          />
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-6 py-4 border-t border-outline-variant/10 bg-surface-container-low shrink-0 flex items-center justify-end gap-3">
+        <button
+          type="button"
+          (click)="close()"
+          [disabled]="loading()"
+          class="px-5 py-2.5 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50">
+          {{ 'EXPLORE.COMMUNITY.CLONE.CANCEL' | translate }}
+        </button>
+        <button
+          type="submit"
+          form="cloneTripForm"
+          [disabled]="loading()"
+          class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (loading()) {
+            {{ 'AUTH.COMMON.LOADING' | translate }}
+          } @else {
+            {{ 'EXPLORE.COMMUNITY.CLONE.SUBMIT' | translate }}
+          }
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

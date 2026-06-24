@@ -255,6 +255,15 @@
       "DELETE_CTA": "Delete trip",
       "LEAVE_CTA": "Leave trip",
       "MENU_ARIA": "Trip actions",
+      "VISIBILITY": {
+        "PUBLIC": "Public",
+        "PRIVATE": "Private",
+        "MAKE_PUBLIC": "Make this trip public",
+        "MAKE_PRIVATE": "Make this trip private",
+        "PUBLISHED_TOAST": "Trip is now public — anyone can find and clone it.",
+        "UNPUBLISHED_TOAST": "Trip is now private.",
+        "ERROR": "Failed to change visibility. Please try again."
+      },
       "ROLE": {
         "OWNER": "Owner",
         "EDITOR": "Editor",
@@ -536,11 +545,46 @@
     "FILTER": {
       "ALL": "All"
     },
+    "TEMPLATES": {
+      "TAB": "Templates"
+    },
+    "COMMUNITY": {
+      "TAB": "Community",
+      "HEADING": "Community trips",
+      "SUBTITLE": "Public itineraries shared by other travelers. Clone any of them into your own private trip.",
+      "EMPTY": "No public trips yet. Be the first to share one!",
+      "EMPTY_SEARCH": "No public trips match your search.",
+      "ERROR_LOADING": "Failed to load community trips. Please try again.",
+      "ERROR_NOT_FOUND": "This trip is no longer public.",
+      "MEMBER_COUNT": "{{count}} members",
+      "BY_OWNER": "by {{name}}",
+      "CLONE_BUTTON": "Clone to my trips",
+      "CLONE": {
+        "TITLE": "Clone trip",
+        "SUBTITLE": "Create your own private copy from this itinerary",
+        "START_DATE_LABEL": "Start Date",
+        "START_DATE_REQUIRED": "Start date is required.",
+        "START_DATE_PAST": "Start date must be today or later.",
+        "END_DATE_HINT": "Trip will end {{date}}",
+        "NAME_LABEL": "Trip Name (Optional)",
+        "NAME_PLACEHOLDER": "Override the default name...",
+        "SUBMIT": "Clone",
+        "CANCEL": "Cancel",
+        "SUCCESS": "Trip cloned to your trips!",
+        "ERROR_VALIDATION": "Please check your input and try again.",
+        "ERROR_UNAUTHORIZED": "Your session has expired. Please log in again.",
+        "ERROR_NOT_FOUND": "This trip is no longer public.",
+        "ERROR_GENERIC": "Failed to clone trip. Please try again."
+      }
+    },
+    "PAGINATION": {
+      "ARIA": "Pagination",
+      "PREV": "Previous page",
+      "NEXT": "Next page"
+    },
     "COMING_SOON": {
       "HEADING": "More ways to explore",
       "BADGE": "Coming soon",
-      "COMMUNITY_TITLE": "Community trips",
-      "COMMUNITY_DESC": "Browse public itineraries from other travelers and clone them into your own.",
       "DESTINATIONS_TITLE": "Destinations",
       "DESTINATIONS_DESC": "Discover places to go, things to do, and local highlights for your next trip."
     }

@@ -7,8 +7,19 @@
   </a>
 
   <!-- Write actions (gated by role) -->
-  @if (canEdit() || canDelete() || canLeave()) {
+  @if (canEdit() || canDelete() || canLeave() || canToggleVisibility()) {
     <div class="absolute top-0 right-0 flex items-center gap-2">
+      @if (canToggleVisibility()) {
+        <button
+          type="button"
+          (click)="toggleVisibility.emit()"
+          [title]="(trip().visibility === 'PUBLIC' ? 'TRIPS.DETAIL.VISIBILITY.MAKE_PRIVATE' : 'TRIPS.DETAIL.VISIBILITY.MAKE_PUBLIC') | translate"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[18px]">{{ trip().visibility === 'PUBLIC' ? 'public' : 'lock' }}</span>
+          {{ (trip().visibility === 'PUBLIC' ? 'TRIPS.DETAIL.VISIBILITY.PUBLIC' : 'TRIPS.DETAIL.VISIBILITY.PRIVATE') | translate }}
+        </button>
+      }
+
       @if (canEdit()) {
         <button
           type="button"

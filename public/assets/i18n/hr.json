@@ -255,6 +255,15 @@
       "DELETE_CTA": "Obriši put",
       "LEAVE_CTA": "Napusti putovanje",
       "MENU_ARIA": "Radnje putovanja",
+      "VISIBILITY": {
+        "PUBLIC": "Javno",
+        "PRIVATE": "Privatno",
+        "MAKE_PUBLIC": "Učini putovanje javnim",
+        "MAKE_PRIVATE": "Učini putovanje privatnim",
+        "PUBLISHED_TOAST": "Putovanje je sada javno — svatko ga može pronaći i klonirati.",
+        "UNPUBLISHED_TOAST": "Putovanje je sada privatno.",
+        "ERROR": "Promjena vidljivosti nije uspjela. Pokušaj ponovno."
+      },
       "ROLE": {
         "OWNER": "Vlasnik",
         "EDITOR": "Urednik",
@@ -536,11 +545,46 @@
     "FILTER": {
       "ALL": "Svi"
     },
+    "TEMPLATES": {
+      "TAB": "Predlošci"
+    },
+    "COMMUNITY": {
+      "TAB": "Zajednica",
+      "HEADING": "Putovanja zajednice",
+      "SUBTITLE": "Javni planovi koje dijele drugi putnici. Kloniraj bilo koji u svoje privatno putovanje.",
+      "EMPTY": "Još nema javnih putovanja. Budi prvi koji će podijeliti!",
+      "EMPTY_SEARCH": "Nijedno javno putovanje ne odgovara pretrazi.",
+      "ERROR_LOADING": "Učitavanje putovanja zajednice nije uspjelo. Pokušaj ponovno.",
+      "ERROR_NOT_FOUND": "Ovo putovanje više nije javno.",
+      "MEMBER_COUNT": "{{count}} članova",
+      "BY_OWNER": "od {{name}}",
+      "CLONE_BUTTON": "Kloniraj u moja putovanja",
+      "CLONE": {
+        "TITLE": "Kloniraj putovanje",
+        "SUBTITLE": "Napravi vlastitu privatnu kopiju iz ovog plana",
+        "START_DATE_LABEL": "Datum početka",
+        "START_DATE_REQUIRED": "Datum početka je obavezan.",
+        "START_DATE_PAST": "Datum početka mora biti danas ili kasnije.",
+        "END_DATE_HINT": "Putovanje završava {{date}}",
+        "NAME_LABEL": "Naziv putovanja (neobavezno)",
+        "NAME_PLACEHOLDER": "Promijeni zadani naziv...",
+        "SUBMIT": "Kloniraj",
+        "CANCEL": "Odustani",
+        "SUCCESS": "Putovanje klonirano u tvoja putovanja!",
+        "ERROR_VALIDATION": "Provjeri unos i pokušaj ponovno.",
+        "ERROR_UNAUTHORIZED": "Sesija je istekla. Prijavi se ponovno.",
+        "ERROR_NOT_FOUND": "Ovo putovanje više nije javno.",
+        "ERROR_GENERIC": "Kloniranje putovanja nije uspjelo. Pokušaj ponovno."
+      }
+    },
+    "PAGINATION": {
+      "ARIA": "Stranice",
+      "PREV": "Prethodna stranica",
+      "NEXT": "Sljedeća stranica"
+    },
     "COMING_SOON": {
       "HEADING": "Još načina za istraživanje",
       "BADGE": "Uskoro",
-      "COMMUNITY_TITLE": "Putovanja zajednice",
-      "COMMUNITY_DESC": "Pregledajte javne planove drugih putnika i klonirajte ih u svoja putovanja.",
       "DESTINATIONS_TITLE": "Destinacije",
       "DESTINATIONS_DESC": "Otkrijte mjesta za posjetiti, aktivnosti i lokalne atrakcije za sljedeće putovanje."
     }

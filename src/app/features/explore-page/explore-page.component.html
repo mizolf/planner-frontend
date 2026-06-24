@@ -33,115 +33,182 @@
     </div>
   </div>
 
-  <!-- Explore trips -->
-  <section class="mb-12">
-    <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
-      {{ 'EXPLORE.PAGE.ALL_TEMPLATES' | translate }}
-    </h2>
+  <!-- Tab bar -->
+  <div class="flex items-center gap-6 border-b border-outline-variant/15 mb-6">
+    <button type="button" (click)="setTab('TEMPLATES')"
+      class="px-1 pb-3 font-label text-sm font-semibold border-b-2 transition-colors"
+      [class.text-primary]="activeTab() === 'TEMPLATES'"
+      [class.border-primary]="activeTab() === 'TEMPLATES'"
+      [class.text-on-surface-variant]="activeTab() !== 'TEMPLATES'"
+      [class.border-transparent]="activeTab() !== 'TEMPLATES'">
+      {{ 'EXPLORE.TEMPLATES.TAB' | translate }}
+    </button>
+    <button type="button" (click)="setTab('COMMUNITY')"
+      class="px-1 pb-3 font-label text-sm font-semibold border-b-2 transition-colors"
+      [class.text-primary]="activeTab() === 'COMMUNITY'"
+      [class.border-primary]="activeTab() === 'COMMUNITY'"
+      [class.text-on-surface-variant]="activeTab() !== 'COMMUNITY'"
+      [class.border-transparent]="activeTab() !== 'COMMUNITY'">
+      {{ 'EXPLORE.COMMUNITY.TAB' | translate }}
+    </button>
+  </div>
 
-    <!-- Style filter chips (multi-select; empty = all) -->
-    @if (templates().length > 0) {
-      <div class="flex flex-wrap gap-2 mb-6">
-        <button type="button" (click)="clearStyleFilter()"
-          class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-colors"
-          [class.bg-primary]="selectedStyles().size === 0"
-          [class.text-on-primary]="selectedStyles().size === 0"
-          [class.bg-surface-container-low]="selectedStyles().size > 0"
-          [class.text-on-surface-variant]="selectedStyles().size > 0">
-          {{ 'EXPLORE.FILTER.ALL' | translate }}
-        </button>
-        @for (style of availableStyles(); track style.slug) {
-          <button type="button" (click)="toggleStyle(style.slug)"
+  <!-- ============ TEMPLATES TAB ============ -->
+  @if (activeTab() === 'TEMPLATES') {
+    <section class="mb-12">
+      <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
+        {{ 'EXPLORE.PAGE.ALL_TEMPLATES' | translate }}
+      </h2>
+
+      <!-- Style filter chips (multi-select; empty = all) -->
+      @if (templates().length > 0) {
+        <div class="flex flex-wrap gap-2 mb-6">
+          <button type="button" (click)="clearStyleFilter()"
             class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-colors"
-            [class.bg-primary]="selectedStyles().has(style.slug)"
-            [class.text-on-primary]="selectedStyles().has(style.slug)"
-            [class.bg-surface-container-low]="!selectedStyles().has(style.slug)"
-            [class.text-on-surface-variant]="!selectedStyles().has(style.slug)">
-            {{ style.name }}
+            [class.bg-primary]="selectedStyles().size === 0"
+            [class.text-on-primary]="selectedStyles().size === 0"
+            [class.bg-surface-container-low]="selectedStyles().size > 0"
+            [class.text-on-surface-variant]="selectedStyles().size > 0">
+            {{ 'EXPLORE.FILTER.ALL' | translate }}
           </button>
-        }
-      </div>
-    }
-
-    <!-- Loading skeleton -->
-    @if (loading()) {
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        @for (_ of [1, 2, 3, 4]; track $index) {
-          <div class="h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
-        }
-      </div>
-    }
-
-    <!-- Error -->
-    @else if (error()) {
-      <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
-           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-        <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
-        <p class="text-error font-label mb-4 text-sm">{{ error()! | translate }}</p>
-        <button
-          type="button"
-          (click)="retry()"
-          class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
-          {{ 'EXPLORE.RETRY' | translate }}
-        </button>
-      </div>
-    }
-
-    <!-- Empty: no templates at all -->
-    @else if (templates().length === 0) {
-      <div class="flex flex-col items-center justify-center py-16 text-center">
-        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-          <span class="material-symbols-outlined text-4xl text-primary">explore</span>
+          @for (style of availableStyles(); track style.slug) {
+            <button type="button" (click)="toggleStyle(style.slug)"
+              class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-colors"
+              [class.bg-primary]="selectedStyles().has(style.slug)"
+              [class.text-on-primary]="selectedStyles().has(style.slug)"
+              [class.bg-surface-container-low]="!selectedStyles().has(style.slug)"
+              [class.text-on-surface-variant]="!selectedStyles().has(style.slug)">
+              {{ style.name }}
+            </button>
+          }
         </div>
-        <p class="text-on-surface-variant font-body">{{ 'EXPLORE.EMPTY' | translate }}</p>
-      </div>
-    }
+      }
 
-    <!-- Empty search: templates exist but none match the term -->
-    @else if (filteredTemplates().length === 0) {
-      <div class="flex flex-col items-center justify-center py-16 text-center">
-        <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">search_off</span>
-        <p class="text-on-surface-variant font-body">{{ 'EXPLORE.RESULTS.TEMPLATES_EMPTY_SEARCH' | translate }}</p>
-      </div>
-    }
+      <!-- Loading skeleton -->
+      @if (loading()) {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          @for (_ of [1, 2, 3, 4]; track $index) {
+            <div class="h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+          }
+        </div>
+      }
 
-    <!-- Templates grid (2 per row on desktop, 1 on mobile) -->
-    @else {
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        @for (template of filteredTemplates(); track template.id) {
-          <app-template-card [template]="template" (cardClick)="onTemplateClick($event)" />
+      <!-- Error -->
+      @else if (error()) {
+        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
+             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+          <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
+          <p class="text-error font-label mb-4 text-sm">{{ error()! | translate }}</p>
+          <button
+            type="button"
+            (click)="retry()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+            {{ 'EXPLORE.RETRY' | translate }}
+          </button>
+        </div>
+      }
+
+      <!-- Empty: no templates at all -->
+      @else if (templates().length === 0) {
+        <div class="flex flex-col items-center justify-center py-16 text-center">
+          <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <span class="material-symbols-outlined text-4xl text-primary">explore</span>
+          </div>
+          <p class="text-on-surface-variant font-body">{{ 'EXPLORE.EMPTY' | translate }}</p>
+        </div>
+      }
+
+      <!-- Empty search: templates exist but none match the term -->
+      @else if (filteredTemplates().length === 0) {
+        <div class="flex flex-col items-center justify-center py-16 text-center">
+          <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">search_off</span>
+          <p class="text-on-surface-variant font-body">{{ 'EXPLORE.RESULTS.TEMPLATES_EMPTY_SEARCH' | translate }}</p>
+        </div>
+      }
+
+      <!-- Templates grid (2 per row on desktop, 1 on mobile) -->
+      @else {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          @for (template of filteredTemplates(); track template.id) {
+            <app-template-card [template]="template" (cardClick)="onTemplateClick($event)" />
+          }
+        </div>
+      }
+    </section>
+  }
+
+  <!-- ============ COMMUNITY TAB ============ -->
+  @if (activeTab() === 'COMMUNITY') {
+    <section class="mb-12" #communityTop>
+      <h2 class="text-xl font-bold font-headline text-on-surface mb-1">
+        {{ 'EXPLORE.COMMUNITY.HEADING' | translate }}
+      </h2>
+      <p class="text-sm text-on-surface-variant font-body mb-6">
+        {{ 'EXPLORE.COMMUNITY.SUBTITLE' | translate }}
+      </p>
+
+      <!-- Loading skeleton -->
+      @if (communityLoading()) {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          @for (_ of [1, 2, 3, 4]; track $index) {
+            <div class="h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+          }
+        </div>
+      }
+
+      <!-- Error -->
+      @else if (communityError()) {
+        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
+             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+          <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
+          <p class="text-error font-label mb-4 text-sm">{{ communityError()! | translate }}</p>
+          <button
+            type="button"
+            (click)="retryCommunity()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+            {{ 'EXPLORE.RETRY' | translate }}
+          </button>
+        </div>
+      }
+
+      <!-- Empty (search vs bare) -->
+      @else if (communityTrips().length === 0) {
+        @if (hasCommunitySearch()) {
+          <div class="flex flex-col items-center justify-center py-16 text-center">
+            <span class="material-symbols-outlined text-5xl text-on-surface-variant/40 mb-3">search_off</span>
+            <p class="text-on-surface-variant font-body">{{ 'EXPLORE.COMMUNITY.EMPTY_SEARCH' | translate }}</p>
+          </div>
+        } @else {
+          <div class="flex flex-col items-center justify-center py-16 text-center">
+            <div class="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-4xl text-secondary">groups</span>
+            </div>
+            <p class="text-on-surface-variant font-body">{{ 'EXPLORE.COMMUNITY.EMPTY' | translate }}</p>
+          </div>
         }
-      </div>
-    }
-  </section>
+      }
 
-  <!-- Hub teasers: hint at the wider discovery vision (no backend yet) -->
+      <!-- Community grid + paginator -->
+      @else {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          @for (trip of communityTrips(); track trip.id) {
+            <app-public-trip-card [trip]="trip" (cardClick)="onCommunityCardClick($event)" />
+          }
+        </div>
+        <app-paginator
+          [page]="communityPage()"
+          [totalPages]="communityTotalPages()"
+          (pageChange)="onPageChange($event)" />
+      }
+    </section>
+  }
+
+  <!-- Hub teaser: hint at the wider discovery vision (no backend yet) -->
   <section>
     <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
       {{ 'EXPLORE.COMING_SOON.HEADING' | translate }}
     </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-      <!-- Community -->
-      <div class="flex items-start gap-4 p-5 bg-surface-container-lowest rounded-xl opacity-70"
-           style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-        <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0">
-          <span class="material-symbols-outlined text-secondary text-[26px]">groups</span>
-        </div>
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-1">
-            <h3 class="text-base font-bold font-headline text-on-surface">
-              {{ 'EXPLORE.COMING_SOON.COMMUNITY_TITLE' | translate }}
-            </h3>
-            <span class="inline-flex text-xs font-label px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-semibold">
-              {{ 'EXPLORE.COMING_SOON.BADGE' | translate }}
-            </span>
-          </div>
-          <p class="text-sm text-on-surface-variant font-body">
-            {{ 'EXPLORE.COMING_SOON.COMMUNITY_DESC' | translate }}
-          </p>
-        </div>
-      </div>
+    <div class="grid grid-cols-1 gap-5">
 
       <!-- Destinations -->
       <div class="flex items-start gap-4 p-5 bg-surface-container-lowest rounded-xl opacity-70"
@@ -169,6 +236,10 @@
 
 </div>
 
-<!-- Dialog flow (reused as-is): template preview -> apply -->
+<!-- Dialog flow: template preview -> apply -->
 <app-template-preview-dialog (applyClicked)="onApplyClicked($event)" />
 <app-apply-template-dialog (tripCreated)="onTripCreated($event)" />
+
+<!-- Dialog flow: community preview -> clone -->
+<app-community-preview-dialog (cloneClicked)="onCloneClicked($event)" />
+<app-clone-trip-dialog (tripCreated)="onCloneSuccess($event)" />

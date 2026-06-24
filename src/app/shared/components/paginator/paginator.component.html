@@ -1,0 +1,42 @@
+@if (totalPages() > 1) {
+  <nav class="flex items-center justify-center gap-1.5 mt-8" [attr.aria-label]="'EXPLORE.PAGINATION.ARIA' | translate">
+    <!-- Prev -->
+    <button
+      type="button"
+      (click)="prev()"
+      [disabled]="isFirst()"
+      [attr.aria-label]="'EXPLORE.PAGINATION.PREV' | translate"
+      class="inline-flex items-center justify-center size-9 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+      <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+    </button>
+
+    <!-- Page numbers -->
+    @for (slot of slots(); track $index) {
+      @if (slot === 'gap') {
+        <span class="inline-flex items-center justify-center size-9 text-on-surface-variant/50 font-label text-sm">…</span>
+      } @else {
+        <button
+          type="button"
+          (click)="go(slot)"
+          [attr.aria-current]="slot === page() ? 'page' : null"
+          class="inline-flex items-center justify-center min-w-9 h-9 px-2 rounded-lg font-label text-sm font-semibold transition-colors"
+          [class.bg-primary]="slot === page()"
+          [class.text-on-primary]="slot === page()"
+          [class.text-on-surface-variant]="slot !== page()"
+          [class.hover:bg-surface-container-high]="slot !== page()">
+          {{ slot + 1 }}
+        </button>
+      }
+    }
+
+    <!-- Next -->
+    <button
+      type="button"
+      (click)="next()"
+      [disabled]="isLast()"
+      [attr.aria-label]="'EXPLORE.PAGINATION.NEXT' | translate"
+      class="inline-flex items-center justify-center size-9 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+      <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+    </button>
+  </nav>
+}

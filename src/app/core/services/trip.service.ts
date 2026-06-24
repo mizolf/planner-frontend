@@ -16,6 +16,7 @@ import {
   UpdateTripDayRequest,
   UpdateTripRequest,
   MemberRole,
+  TripVisibility,
 } from "../models/trip.model";
 
 @Injectable({ providedIn: "root" })
@@ -84,6 +85,28 @@ export class TripService {
           );
           this._trips.update((trips) =>
             trips.map((t) => (t.id === tripId ? { ...t, ...updated } : t)),
+          );
+        }),
+      );
+  }
+
+  // Owner-only PUBLIC/PRIVATE toggle. Server-confirmed (privacy control — never
+  // optimistic); patches visibility into both the open detail and the list.
+  setVisibility(
+    tripId: number,
+    visibility: TripVisibility,
+  ): Observable<TripResponse> {
+    return this.http
+      .patch<TripResponse>(`${this.apiUrl}/${tripId}/visibility`, { visibility })
+      .pipe(
+        tap((updated) => {
+          this._tripDetail.update((detail) =>
+            detail ? { ...detail, visibility: updated.visibility } : detail,
+          );
+          this._trips.update((trips) =>
+            trips.map((t) =>
+              t.id === tripId ? { ...t, visibility: updated.visibility } : t,
+            ),
           );
         }),
       );

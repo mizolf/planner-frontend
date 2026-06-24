@@ -1,5 +1,7 @@
 export type TripStatus = "UPCOMING" | "IN_PROGRESS" | "COMPLETED";
 
+export type TripVisibility = "PRIVATE" | "PUBLIC";
+
 export type Interest =
   | "CULTURE"
   | "FOOD"
@@ -63,6 +65,8 @@ export interface TripResponse {
   status: TripStatus;
   budget: number;
   interests: Interest[];
+  // Additive + backward-compatible: existing rows default to PRIVATE server-side.
+  visibility: TripVisibility;
   createdAt: string;
   updatedAt: string;
 }

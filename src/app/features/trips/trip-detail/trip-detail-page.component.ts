@@ -16,6 +16,7 @@ import {
 } from "../../../core/models/trip.model";
 import { TripService } from "../../../core/services/trip.service";
 import { UserService } from "../../../core/services/user.service";
+import { ToastService } from "../../../shared/services/toast.service";
 import { AddDayDialogComponent } from "./add-day-dialog.component";
 import { EditDayDialogComponent } from "./edit-day-dialog.component";
 import { DeleteDayDialogComponent } from "./delete-day-dialog.component";
@@ -61,6 +62,7 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly tripService = inject(TripService);
   private readonly userService = inject(UserService);
+  private readonly toastService = inject(ToastService);
 
   readonly trip = this.tripService.tripDetail;
   readonly loading = this.tripService.detailLoading;
@@ -175,6 +177,27 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
     const t = this.trip();
     if (!t) return;
     this.deleteTripDialog?.open(t);
+  }
+
+  onToggleVisibility(): void {
+    const t = this.trip();
+    if (!t) return;
+    const next = t.visibility === "PUBLIC" ? "PRIVATE" : "PUBLIC";
+    this.tripService.setVisibility(t.id, next).subscribe({
+      next: () =>
+        this.toastService.show({
+          message:
+            next === "PUBLIC"
+              ? "TRIPS.DETAIL.VISIBILITY.PUBLISHED_TOAST"
+              : "TRIPS.DETAIL.VISIBILITY.UNPUBLISHED_TOAST",
+          type: "success",
+        }),
+      error: () =>
+        this.toastService.show({
+          message: "TRIPS.DETAIL.VISIBILITY.ERROR",
+          type: "error",
+        }),
+    });
   }
 
   openLeaveTrip(): void {
