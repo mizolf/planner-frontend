@@ -245,6 +245,7 @@
     "DETAIL": {
       "BACK": "Dashboard",
       "DESTINATION_KICKER": "Destination",
+      "OVERVIEW_TITLE": "Trip overview",
       "DATE_SEPARATOR": "–",
       "BUDGET_LABEL": "Budget",
       "SPENT_LABEL": "Spent",

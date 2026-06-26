@@ -245,6 +245,7 @@
     "DETAIL": {
       "BACK": "Početna",
       "DESTINATION_KICKER": "Odredište",
+      "OVERVIEW_TITLE": "Pregled puta",
       "DATE_SEPARATOR": "–",
       "BUDGET_LABEL": "Budžet",
       "SPENT_LABEL": "Potrošeno",

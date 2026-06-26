@@ -1,7 +1,7 @@
-<section class="mt-16">
-  <header class="mb-6 flex items-start justify-between gap-4 flex-wrap">
+<section class="mt-6 pt-6 border-t border-outline-variant/15">
+  <header class="mb-5 flex items-start justify-between gap-4 flex-wrap">
     <div>
-      <h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight">
+      <h2 class="text-xl font-bold font-headline text-on-surface tracking-tight">
         {{ 'TRIPS.DETAIL.MEMBERS.TITLE' | translate }}
       </h2>
       <p class="text-sm font-body text-on-surface-variant mt-1">
@@ -20,13 +20,13 @@
   </header>
 
   @if (members().length === 0) {
-    <p class="text-sm font-label text-on-surface-variant py-6 text-center bg-surface-container-low rounded-xl">
+    <p class="text-sm font-label text-on-surface-variant py-6 text-center bg-surface-container-low rounded-md">
       {{ 'TRIPS.DETAIL.MEMBERS.EMPTY' | translate }}
     </p>
   } @else {
-    <ul class="grid gap-3 sm:grid-cols-2">
+    <ul class="divide-y divide-outline-variant/15">
       @for (member of members(); track member.userId) {
-        <li class="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/10">
+        <li class="flex items-start gap-4 py-4 first:pt-0">
           <div class="size-12 shrink-0 rounded-full bg-primary-container text-on-primary-container font-headline font-bold flex items-center justify-center text-base tracking-tight">
             {{ initialsOf(member.fullName) }}
           </div>
@@ -38,7 +38,7 @@
                   [value]="member.role"
                   (change)="onRoleChange(member, $any($event.target).value, $any($event.target))"
                   [attr.aria-label]="'TRIPS.DETAIL.MEMBERS.MANAGE.ROLE_LABEL' | translate:{ name: member.fullName }"
-                  class="shrink-0 text-xs font-label font-semibold rounded-lg border border-outline-variant/40 bg-surface-container-lowest text-on-surface px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-primary/40">
+                  class="shrink-0 text-xs font-label font-semibold rounded-md bg-surface-container-low text-on-surface px-2.5 py-1 focus:outline-none focus:ring-2 focus:ring-primary/40">
                   <option value="EDITOR">{{ 'TRIPS.DETAIL.ROLE.EDITOR' | translate }}</option>
                   <option value="VIEWER">{{ 'TRIPS.DETAIL.ROLE.VIEWER' | translate }}</option>
                 </select>

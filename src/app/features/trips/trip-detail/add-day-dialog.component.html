@@ -5,7 +5,7 @@
 
     <div
       (click)="$event.stopPropagation()"
-      class="bg-surface-container-lowest rounded-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
+      class="bg-surface-container-lowest rounded-card max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
       style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
       role="dialog"
       aria-modal="true">
@@ -72,7 +72,7 @@
                 formControlName="notes"
                 rows="3"
                 [placeholder]="'TRIPS.DETAIL.DAYS.ADD.NOTES_PLACEHOLDER' | translate"
-                class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface placeholder:text-on-surface-variant/30 text-sm transition-all shadow-sm outline-none resize-none"></textarea>
+                class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest rounded-md focus:ring-2 focus:ring-primary-container text-on-surface placeholder:text-on-surface-variant/30 text-sm transition-all shadow-sm outline-none resize-none"></textarea>
             </div>
             @if (form.controls.notes.touched && form.controls.notes.errors) {
               <p class="text-xs text-error flex items-center gap-1 mt-1 ml-1">

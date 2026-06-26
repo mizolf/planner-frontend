@@ -1,7 +1,7 @@
 @if (visible()) {
-  <section class="mt-12">
-    <header class="mb-6">
-      <h2 class="text-2xl font-bold font-headline text-on-surface tracking-tight">
+  <section class="mt-6 pt-6 border-t border-outline-variant/15">
+    <header class="mb-5">
+      <h2 class="text-xl font-bold font-headline text-on-surface tracking-tight">
         {{ 'INVITES.PENDING.TITLE' | translate }}
       </h2>
       <p class="text-sm font-body text-on-surface-variant mt-1">
@@ -9,9 +9,9 @@
       </p>
     </header>
 
-    <ul class="space-y-3">
+    <ul class="divide-y divide-outline-variant/15">
       @for (inv of invites(); track inv.id) {
-        <li class="flex items-start gap-4 bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/10">
+        <li class="flex items-start gap-4 py-4 first:pt-0">
           <div class="size-10 shrink-0 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
             <span class="material-symbols-outlined text-[20px]">mail</span>
           </div>

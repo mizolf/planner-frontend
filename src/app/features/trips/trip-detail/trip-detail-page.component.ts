@@ -9,7 +9,9 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
+import { DatePipe, NgClass } from "@angular/common";
 import { Subscription } from "rxjs";
+import { getTripStatusColor } from "../../../shared/utils/trip-status-color";
 import {
   TripActivityResponse,
   TripDayResponse,
@@ -40,6 +42,8 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
   imports: [
     RouterLink,
     TranslateModule,
+    DatePipe,
+    NgClass,
     AddDayDialogComponent,
     EditDayDialogComponent,
     AddActivityDialogComponent,
@@ -68,6 +72,9 @@ export class TripDetailPageComponent implements OnInit, OnDestroy {
   readonly loading = this.tripService.detailLoading;
   readonly error = this.tripService.detailError;
   readonly generating = this.tripService.generating;
+
+  /** Presentational only: tonal status-chip classes (shared with the header/cards). */
+  readonly statusColor = getTripStatusColor;
 
   readonly currentUserRole = computed(() => {
     const t = this.trip();

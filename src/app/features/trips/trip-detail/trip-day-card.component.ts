@@ -1,5 +1,5 @@
 import { Component, input, output } from "@angular/core";
-import { DatePipe, DecimalPipe } from "@angular/common";
+import { DatePipe, DecimalPipe, NgClass } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import {
   CATEGORY_ICONS,
@@ -11,7 +11,7 @@ import { formatTime } from "../../../shared/utils/format-time";
 @Component({
   selector: "app-trip-day-card",
   standalone: true,
-  imports: [DatePipe, DecimalPipe, TranslateModule],
+  imports: [DatePipe, DecimalPipe, NgClass, TranslateModule],
   templateUrl: "./trip-day-card.component.html",
 })
 export class TripDayCardComponent {
@@ -35,4 +35,22 @@ export class TripDayCardComponent {
   readonly focusActivity = output<number>();
 
   formatTime = formatTime;
+
+  /**
+   * Presentational only: soft tonal classes for an activity's category icon box.
+   * Full class strings (not interpolated) so Tailwind's content scan keeps them.
+   */
+  toneClasses(activity: TripActivityResponse): string {
+    switch (activity.category) {
+      case "RESTAURANT":
+        return "bg-tertiary/10 text-tertiary";
+      case "ACCOMMODATION":
+        return "bg-secondary/10 text-secondary";
+      case "ATTRACTION":
+      case "TRANSPORT":
+        return "bg-primary/10 text-primary";
+      default:
+        return "bg-surface-container-high text-on-surface-variant";
+    }
+  }
 }

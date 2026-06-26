@@ -47,7 +47,7 @@
 
             <div
               (click)="$event.stopPropagation()"
-              class="absolute right-0 mt-1 z-50 min-w-[12rem] py-1.5 rounded-xl bg-surface-container-lowest border border-outline-variant/10 shadow-lg">
+              class="absolute right-0 mt-1 z-50 min-w-[12rem] py-1.5 rounded-card bg-surface-container-lowest shadow-ambient">
               @if (canDelete()) {
                 <button
                   type="button"
@@ -113,9 +113,9 @@
   <div class="flex flex-wrap items-center gap-x-5 gap-y-3 mb-5 text-sm font-label text-on-surface-variant">
     <span class="inline-flex items-center gap-2">
       <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">calendar_month</span>
-      <span class="text-on-surface font-semibold">{{ trip().startDate | date:'mediumDate' }}</span>
+      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().startDate | date:'mediumDate' }}</span>
       <span class="text-on-surface-variant/50">{{ 'TRIPS.DETAIL.DATE_SEPARATOR' | translate }}</span>
-      <span class="text-on-surface font-semibold">{{ trip().endDate | date:'mediumDate' }}</span>
+      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().endDate | date:'mediumDate' }}</span>
     </span>
 
     <span

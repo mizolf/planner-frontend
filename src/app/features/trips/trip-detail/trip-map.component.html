@@ -3,11 +3,11 @@
 <div class="relative z-0">
   <div
     #mapEl
-    class="h-72 sm:h-96 w-full rounded-2xl overflow-hidden bg-surface-container-low"></div>
+    class="h-72 sm:h-96 w-full rounded-card overflow-hidden bg-surface-container-low shadow-ambient"></div>
 
   @if (!hasLocations()) {
     <div
-      class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center rounded-2xl bg-surface-container-low/85 pointer-events-none">
+      class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center rounded-card bg-surface-container-low/85 pointer-events-none">
       <span class="material-symbols-outlined text-4xl text-on-surface-variant/40">location_off</span>
       <p class="text-sm font-label text-on-surface-variant">
         {{ 'TRIPS.DETAIL.MAP.NO_LOCATIONS' | translate }}

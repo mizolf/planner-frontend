@@ -5,7 +5,7 @@
 
       <div
         (click)="$event.stopPropagation()"
-        class="bg-surface-container-lowest rounded-2xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
+        class="bg-surface-container-lowest rounded-card max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col"
         style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
         role="dialog"
         aria-modal="true">
@@ -116,7 +116,7 @@
                   <select
                     id="category"
                     formControlName="category"
-                    class="w-full pl-12 pr-10 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface text-sm transition-all shadow-sm outline-none appearance-none cursor-pointer">
+                    class="w-full pl-12 pr-10 py-3 bg-surface-container-lowest rounded-md focus:ring-2 focus:ring-primary-container text-on-surface text-sm transition-all shadow-sm outline-none appearance-none cursor-pointer">
                     <option value="">{{ 'TRIPS.CATEGORIES.NONE' | translate }}</option>
                     @for (c of categories; track c) {
                       <option [value]="c">{{ 'TRIPS.CATEGORIES.' + c | translate }}</option>

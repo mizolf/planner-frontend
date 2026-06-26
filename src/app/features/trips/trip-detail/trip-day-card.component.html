@@ -74,65 +74,76 @@
           (click)="canEditActivity() && editActivity.emit(activity)"
           (keydown.enter)="canEditActivity() && editActivity.emit(activity)"
           (keydown.space)="canEditActivity() && editActivity.emit(activity); canEditActivity() && $event.preventDefault()"
-          class="flex items-start gap-4 sm:gap-5 -mx-2 px-2 py-1.5 rounded-lg transition-colors"
-          [class.animate-focus-highlight]="focusedActivityId() === activity.id"
-          [class.hover:bg-surface-container-low]="canEditActivity()"
+          class="flex items-stretch gap-3 sm:gap-4 rounded-card focus-visible:outline-none"
           [class.focus-visible:ring-2]="canEditActivity()"
-          [class.focus-visible:ring-primary]="canEditActivity()"
-          [class.focus-visible:outline-none]="canEditActivity()">
-          <div class="shrink-0 w-14 sm:w-20 pt-0.5">
+          [class.focus-visible:ring-primary]="canEditActivity()">
+          <!-- Time column (mono) -->
+          <div class="shrink-0 w-12 sm:w-16 pt-4 text-right">
             @if (activity.startTime) {
-              <p class="text-sm font-label font-bold text-tertiary tabular-nums">
+              <p class="font-mono text-xs font-bold text-tertiary tabular-nums">
                 {{ formatTime(activity.startTime) }}
               </p>
               @if (activity.endTime) {
-                <p class="text-[10px] font-label text-on-surface-variant/60 tabular-nums mt-0.5">
+                <p class="font-mono text-[10px] text-on-surface-variant/50 tabular-nums mt-0.5">
                   {{ formatTime(activity.endTime) }}
                 </p>
               }
             } @else {
-              <p class="text-xs font-label text-on-surface-variant/40">—</p>
+              <p class="font-mono text-xs text-on-surface-variant/40 pt-0.5">—</p>
             }
           </div>
-          <div class="min-w-0 flex-1">
-            <p class="font-headline font-semibold text-on-surface text-base leading-snug">{{ activity.name }}</p>
-            @if (activity.location) {
-              <p class="flex items-center gap-1 text-xs text-on-surface-variant font-body mt-1">
-                <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">place</span>
-                {{ activity.location }}
-              </p>
-            }
-            @if (activity.description) {
-              <p class="text-sm text-on-surface-variant font-body mt-1.5 leading-relaxed">{{ activity.description }}</p>
-            }
-            @if (activity.category || activity.cost != null) {
-              <div class="flex flex-wrap items-center gap-2 mt-2">
-                @if (activity.category; as category) {
-                  <span class="inline-flex items-center gap-1 text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-medium">
-                    <span class="material-symbols-outlined text-[14px]">{{ categoryIcons[category] }}</span>
-                    {{ 'TRIPS.CATEGORIES.' + category | translate }}
-                  </span>
-                }
-                @if (activity.cost != null) {
-                  <span class="inline-flex items-center gap-1 text-xs font-label text-on-surface-variant">
-                    <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">payments</span>
-                    <span class="tabular-nums font-semibold text-on-surface">{{ activity.cost | number:'1.0-2' }}</span>
-                  </span>
-                }
-              </div>
+
+          <!-- Activity card -->
+          <div
+            class="flex-1 min-w-0 flex items-start gap-3 sm:gap-4 bg-surface-container-lowest rounded-md shadow-ambient p-4 transition-all"
+            [class.animate-focus-highlight]="focusedActivityId() === activity.id"
+            [class.hover:bg-surface-container-low]="canEditActivity()">
+            <!-- Tone-coloured category icon -->
+            <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center" [ngClass]="toneClasses(activity)">
+              <span class="material-symbols-outlined text-[20px]">{{ activity.category ? categoryIcons[activity.category] : 'place' }}</span>
+            </div>
+
+            <div class="min-w-0 flex-1">
+              <p class="font-headline font-semibold text-on-surface text-base leading-snug">{{ activity.name }}</p>
+              @if (activity.location) {
+                <p class="flex items-center gap-1 text-xs text-on-surface-variant font-body mt-1">
+                  <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">place</span>
+                  {{ activity.location }}
+                </p>
+              }
+              @if (activity.description) {
+                <p class="text-sm text-on-surface-variant font-body mt-1.5 leading-relaxed">{{ activity.description }}</p>
+              }
+              @if (activity.category || activity.cost != null) {
+                <div class="flex flex-wrap items-center gap-2 mt-2.5">
+                  @if (activity.category; as category) {
+                    <span class="inline-flex items-center gap-1 text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-medium">
+                      <span class="material-symbols-outlined text-[14px]">{{ categoryIcons[category] }}</span>
+                      {{ 'TRIPS.CATEGORIES.' + category | translate }}
+                    </span>
+                  }
+                  @if (activity.cost != null) {
+                    <span class="inline-flex items-center gap-1 text-xs font-label text-on-surface-variant">
+                      <span class="material-symbols-outlined text-[14px] text-on-surface-variant/70">payments</span>
+                      <span class="tabular-nums font-mono font-semibold text-on-surface">{{ activity.cost | number:'1.0-2' }}</span>
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+
+            @if (activity.latitude != null && activity.longitude != null) {
+              <button
+                type="button"
+                (click)="focusActivity.emit(activity.id); $event.stopPropagation()"
+                (keydown.enter)="$event.stopPropagation()"
+                (keydown.space)="$event.stopPropagation()"
+                [attr.aria-label]="'TRIPS.DETAIL.ACTIVITIES.LOCATE' | translate"
+                class="shrink-0 -mt-0.5 p-1.5 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                <span class="material-symbols-outlined text-[18px]">pin_drop</span>
+              </button>
             }
           </div>
-          @if (activity.latitude != null && activity.longitude != null) {
-            <button
-              type="button"
-              (click)="focusActivity.emit(activity.id); $event.stopPropagation()"
-              (keydown.enter)="$event.stopPropagation()"
-              (keydown.space)="$event.stopPropagation()"
-              [attr.aria-label]="'TRIPS.DETAIL.ACTIVITIES.LOCATE' | translate"
-              class="shrink-0 -mt-0.5 p-1.5 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
-              <span class="material-symbols-outlined text-[18px]">pin_drop</span>
-            </button>
-          }
         </li>
       }
     </ul>
