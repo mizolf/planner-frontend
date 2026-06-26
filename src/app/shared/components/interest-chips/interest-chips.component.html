@@ -8,9 +8,9 @@
         type="button"
         (click)="toggleInterest(interest)"
         [ngClass]="isSelected(interest)
-          ? 'bg-primary text-on-primary'
-          : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'"
-        class="px-4 py-2.5 rounded-lg font-label text-sm font-medium transition-colors">
+          ? 'bg-primary text-on-primary font-semibold'
+          : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium'"
+        class="px-4 py-2.5 rounded-md font-label text-sm transition-colors">
         {{ 'TRIPS.INTERESTS.' + interest | translate }}
       </button>
     }

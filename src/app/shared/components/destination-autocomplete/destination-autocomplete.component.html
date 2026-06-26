@@ -19,13 +19,13 @@
       (input)="onInput($event)"
       (keydown)="onKeydown($event)"
       (blur)="onBlur()"
-      class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant/10 rounded-lg focus:ring-2 focus:ring-primary-container focus:border-transparent text-on-surface placeholder:text-on-surface-variant/30 text-sm transition-all shadow-sm outline-none"
+      class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest rounded-md focus:ring-2 focus:ring-primary-container text-on-surface placeholder:text-on-surface-variant/30 text-sm transition-all shadow-sm outline-none"
     />
 
     @if (dropdownOpen()) {
       <div
         role="listbox"
-        class="absolute z-10 top-full mt-1 w-full bg-surface-container-lowest border border-outline-variant/10 rounded-lg shadow-lg max-h-60 overflow-auto">
+        class="absolute z-10 top-full mt-1 w-full bg-surface-container-lowest rounded-card shadow-ambient max-h-60 overflow-auto py-1">
         @if (searching()) {
           <div class="px-4 py-3 text-sm text-on-surface-variant">
             {{ 'DESTINATION_AUTOCOMPLETE.SEARCHING' | translate }}
