@@ -1,0 +1,37 @@
+// Ethereal Navigator — reusable surface treatments.
+// Kept as @layer components (not Tailwind utilities) so utilities still win on
+// specificity, and so the tonal `.ph-image-*` names survive Tailwind's content purge.
+@layer components {
+  // Tonal gradient cover placeholders — used for trip / template covers in place of
+  // a real image. Soft tonal wash, never a flat grey box.
+  .ph-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eaf1ff, #dce9ff); // surface-container-low → container
+    color: #4d5d73; // on-surface-variant
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: 0.08em;
+  }
+  .ph-image-sky {
+    background: linear-gradient(135deg, #00628c, #34b5fa); // sky-40 → sky-70
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .ph-image-earth {
+    background: linear-gradient(135deg, #006947, #4ad59c); // earth-40 → earth-70
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .ph-image-sunset {
+    background: linear-gradient(135deg, #994100, #ff955a); // sunset-40 → sunset-70
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  // AI-insight surface — warm sunset wash + soft glow. Used later where AI itinerary
+  // generation surfaces appear.
+  .sunset-glow {
+    background: linear-gradient(135deg, #ffdbc6 0%, #ffffff 70%); // sunset-90 → white
+    box-shadow:
+      0 0 28px rgba(255, 149, 90, 0.2),
+      0 12px 40px rgba(32, 48, 68, 0.06);
+  }
+}

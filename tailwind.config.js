@@ -70,6 +70,14 @@ module.exports = {
         "headline": ["Plus Jakarta Sans", "sans-serif"],
         "body": ["Manrope", "sans-serif"],
         "label": ["Manrope", "sans-serif"],
+        "mono": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      boxShadow: {
+        // Ethereal Navigator — tinted with on-surface, never black
+        "ambient": "0 12px 40px rgba(32, 48, 68, 0.06)",
+        "floating": "0 16px 48px rgba(32, 48, 68, 0.08)",
+        "glow-sky": "0 0 0 4px rgba(0, 98, 140, 0.16)",
+        "glow-sunset": "0 0 28px rgba(255, 149, 90, 0.20)",
       },
       keyframes: {
         'slide-in': {
@@ -81,13 +89,13 @@ module.exports = {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'focus-highlight': {
+          // Flash a sky ring while keeping the card's resting ambient shadow,
+          // so a highlighted activity card doesn't lose its background/elevation.
           '0%, 55%': {
-            backgroundColor: '#d2e4ff',
-            boxShadow: '0 0 0 2px #00628c',
+            boxShadow: '0 0 0 2px #00628c, 0 12px 40px rgba(32, 48, 68, 0.06)',
           },
           '100%': {
-            backgroundColor: 'transparent',
-            boxShadow: '0 0 0 2px transparent',
+            boxShadow: '0 12px 40px rgba(32, 48, 68, 0.06)',
           },
         },
       },
@@ -100,6 +108,9 @@ module.exports = {
         "DEFAULT": "0.25rem",
         "lg": "0.5rem",
         "xl": "0.75rem",
+        // Ethereal Navigator — more generous, semantic radii (added, not overriding)
+        "card": "1.25rem",
+        "hero": "1.75rem",
         "full": "9999px",
       },
     },
