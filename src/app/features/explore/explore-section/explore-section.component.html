@@ -2,10 +2,10 @@
   <!-- Header -->
   <div class="flex items-start justify-between gap-4 mb-4">
     <div>
-      <h2 class="text-xl font-bold font-headline text-on-surface">
+      <h2 class="text-2xl sm:text-3xl font-bold font-headline tracking-tight text-on-surface">
         {{ 'EXPLORE.SECTION_TITLE' | translate }}
       </h2>
-      <p class="text-sm text-on-surface-variant font-body mt-0.5">
+      <p class="text-sm text-on-surface-variant font-body mt-1">
         {{ 'EXPLORE.SECTION_SUBTITLE' | translate }}
       </p>
     </div>
@@ -20,15 +20,14 @@
   @if (loading()) {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       @for (_ of [1, 2, 3]; track $index) {
-        <div class="h-56 bg-surface-container-low rounded-xl animate-pulse"></div>
+        <div class="h-56 bg-surface-container-low rounded-card animate-pulse"></div>
       }
     </div>
   }
 
   <!-- Error -->
   @else if (error()) {
-    <div class="flex flex-col items-center justify-center py-12 text-center bg-surface-container-lowest rounded-xl"
-         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+    <div class="flex flex-col items-center justify-center py-12 text-center bg-surface-container-lowest rounded-card shadow-ambient">
       <span class="material-symbols-outlined text-4xl text-error/40 mb-3">cloud_off</span>
       <p class="text-error font-label mb-3 text-sm">{{ error()! | translate }}</p>
       <button
@@ -42,8 +41,7 @@
 
   <!-- Empty -->
   @else if (styles().length === 0) {
-    <div class="flex items-center justify-center py-12 text-center bg-surface-container-lowest rounded-xl"
-         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+    <div class="flex items-center justify-center py-12 text-center bg-surface-container-lowest rounded-card shadow-ambient">
       <p class="text-on-surface-variant font-label text-sm">{{ 'EXPLORE.EMPTY' | translate }}</p>
     </div>
   }

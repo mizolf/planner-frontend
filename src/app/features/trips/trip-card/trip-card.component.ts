@@ -27,4 +27,26 @@ export class TripCardComponent {
   getStatusColor(): string {
     return getTripStatusColor(this.trip().status);
   }
+
+  /**
+   * Presentational only: a stable sky/earth/sunset tone for the gradient cover,
+   * derived from the trip id so the same trip always gets the same colour.
+   */
+  tone(): 'sky' | 'earth' | 'sunset' {
+    const tones = ['sky', 'earth', 'sunset'] as const;
+    const key = String(this.trip().id ?? this.trip().name ?? '');
+    let sum = 0;
+    for (let i = 0; i < key.length; i++) sum += key.charCodeAt(i);
+    return tones[sum % tones.length];
+  }
+
+  /**
+   * Presentational only: a short cover label derived from the destination city
+   * (e.g. "Amsterdam, Netherlands" → "AMS"). Stands in for a cover image.
+   */
+  coverLabel(): string {
+    const city = (this.trip().destination ?? '').split(',')[0];
+    const letters = city.replace(/[^a-zA-ZÀ-ſ]/g, '');
+    return (letters.slice(0, 3) || '—').toUpperCase();
+  }
 }

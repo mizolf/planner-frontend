@@ -1,24 +1,25 @@
 <button type="button" (click)="onClick()"
-   class="group flex flex-col w-full h-full bg-surface-container-lowest rounded-xl overflow-hidden text-left hover:bg-surface-container-low transition-colors"
-   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+   class="group flex flex-col w-full h-full bg-surface-container-lowest rounded-card overflow-hidden text-left shadow-ambient transition-all duration-200 hover:shadow-floating motion-safe:hover:-translate-y-1">
 
   <!-- Image / placeholder -->
-  <div class="relative h-32 bg-surface-container-low flex items-center justify-center">
+  <div class="relative h-32 shrink-0">
     @if (style().imageUrl) {
       <img [src]="style().imageUrl" [alt]="style().name" class="w-full h-full object-cover" />
     } @else {
-      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">landscape</span>
+      <div class="ph-image w-full h-full" [ngClass]="'ph-image-' + tone()">
+        <span class="material-symbols-outlined text-5xl text-white/45">explore</span>
+      </div>
     }
-    <span class="absolute top-2 right-2 inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-primary/90 text-on-primary font-semibold backdrop-blur-sm">
+    <span class="absolute top-2.5 right-2.5 inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface font-semibold shadow-ambient">
       {{ 'EXPLORE.TEMPLATE_COUNT' | translate:{ count: style().templateCount } }}
     </span>
   </div>
 
   <!-- Content -->
-  <div class="p-4 flex flex-col flex-1">
-    <h3 class="text-base font-bold font-headline text-on-surface mb-1 truncate">{{ style().name }}</h3>
+  <div class="p-5 flex flex-col flex-1">
+    <h3 class="text-lg font-bold font-headline tracking-tight text-on-surface mb-1 truncate">{{ style().name }}</h3>
     @if (style().description) {
-      <p class="text-sm text-on-surface-variant font-body line-clamp-2">{{ style().description }}</p>
+      <p class="text-sm text-on-surface-variant font-body line-clamp-2 leading-relaxed">{{ style().description }}</p>
     }
   </div>
 </button>

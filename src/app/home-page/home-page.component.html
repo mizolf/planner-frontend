@@ -1,12 +1,12 @@
 <div class="px-6 lg:px-10 py-8 max-w-7xl mx-auto">
 
   <!-- Greeting + CTA (always visible) -->
-  <div class="flex items-start justify-between mb-8">
+  <div class="flex items-start justify-between mb-10">
     <div>
-      <h1 class="text-3xl font-bold font-headline text-on-surface">
+      <h1 class="text-4xl sm:text-5xl font-extrabold font-headline tracking-tighter text-on-surface">
         {{ greetingKey | translate:{ name: getFirstName() } }}
       </h1>
-      <p class="text-on-surface-variant font-body mt-1">
+      <p class="text-lg text-on-surface-variant font-body mt-2">
         {{ 'HOME.SUBTITLE' | translate }}
       </p>
     </div>
@@ -23,12 +23,12 @@
     <div class="animate-pulse space-y-8">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         @for (_ of [1, 2, 3]; track $index) {
-          <div class="h-24 bg-surface-container-low rounded-xl"></div>
+          <div class="h-24 bg-surface-container-low rounded-card"></div>
         }
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         @for (_ of [1, 2]; track $index) {
-          <div class="h-48 bg-surface-container-low rounded-xl"></div>
+          <div class="h-48 bg-surface-container-low rounded-card"></div>
         }
       </div>
     </div>
@@ -78,43 +78,40 @@
         <!-- Stats row -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <!-- Total Trips -->
-          <div class="bg-surface-container-lowest rounded-xl p-5"
-               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span class="material-symbols-outlined text-primary text-[22px]">luggage</span>
+          <div class="bg-surface-container-lowest rounded-card shadow-ambient p-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary text-[24px]">luggage</span>
               </div>
               <div>
-                <p class="text-2xl font-bold font-headline text-on-surface">{{ totalTrips() }}</p>
-                <p class="text-sm text-on-surface-variant font-label">{{ 'HOME.STATS.TOTAL' | translate }}</p>
+                <p class="text-4xl font-extrabold font-headline tracking-tight leading-none text-on-surface">{{ totalTrips() }}</p>
+                <p class="text-sm text-on-surface-variant font-label mt-1.5">{{ 'HOME.STATS.TOTAL' | translate }}</p>
               </div>
             </div>
           </div>
 
           <!-- Upcoming -->
-          <div class="bg-surface-container-lowest rounded-xl p-5"
-               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
-                <span class="material-symbols-outlined text-secondary text-[22px]">schedule</span>
+          <div class="bg-surface-container-lowest rounded-card shadow-ambient p-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-secondary text-[24px]">schedule</span>
               </div>
               <div>
-                <p class="text-2xl font-bold font-headline text-on-surface">{{ upcomingCount() }}</p>
-                <p class="text-sm text-on-surface-variant font-label">{{ 'HOME.STATS.UPCOMING' | translate }}</p>
+                <p class="text-4xl font-extrabold font-headline tracking-tight leading-none text-on-surface">{{ upcomingCount() }}</p>
+                <p class="text-sm text-on-surface-variant font-label mt-1.5">{{ 'HOME.STATS.UPCOMING' | translate }}</p>
               </div>
             </div>
           </div>
 
           <!-- In Progress -->
-          <div class="bg-surface-container-lowest rounded-xl p-5"
-               style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center">
-                <span class="material-symbols-outlined text-tertiary text-[22px]">flight_takeoff</span>
+          <div class="bg-surface-container-lowest rounded-card shadow-ambient p-6">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-tertiary text-[24px]">flight_takeoff</span>
               </div>
               <div>
-                <p class="text-2xl font-bold font-headline text-on-surface">{{ inProgressCount() }}</p>
-                <p class="text-sm text-on-surface-variant font-label">{{ 'HOME.STATS.IN_PROGRESS' | translate }}</p>
+                <p class="text-4xl font-extrabold font-headline tracking-tight leading-none text-on-surface">{{ inProgressCount() }}</p>
+                <p class="text-sm text-on-surface-variant font-label mt-1.5">{{ 'HOME.STATS.IN_PROGRESS' | translate }}</p>
               </div>
             </div>
           </div>
@@ -122,8 +119,8 @@
 
         <!-- Upcoming Trips -->
         <div class="mb-8">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold font-headline text-on-surface">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-2xl sm:text-3xl font-bold font-headline tracking-tight text-on-surface">
               {{ 'HOME.UPCOMING_TRIPS' | translate }}
             </h2>
           </div>
@@ -133,8 +130,8 @@
             }
             @if (moreTripsCount() > 0) {
               <a routerLink="/my-trips"
-                 class="flex flex-col items-center justify-center gap-1 min-h-[180px] rounded-xl border-none text-on-surface-variant hover:border-primary hover:text-primary transition-colors">
-                <span class="text-3xl font-bold font-headline">+{{ moreTripsCount() }}</span>
+                 class="flex flex-col items-center justify-center gap-1 min-h-[180px] rounded-card border-2 border-dashed border-outline-variant/30 bg-surface-container-low/30 text-on-surface-variant hover:border-primary/60 hover:bg-primary/5 hover:text-primary transition-colors">
+                <span class="text-3xl font-extrabold font-headline tracking-tight">+{{ moreTripsCount() }}</span>
                 <span class="text-sm font-label font-semibold">{{ 'HOME.VIEW_ALL' | translate }}</span>
               </a>
             }
@@ -155,8 +152,7 @@
 
       <!-- Activity Feed Sidebar -->
       <aside class="xl:w-80 shrink-0">
-        <div class="bg-surface-container-lowest rounded-xl p-5 xl:sticky xl:top-24 xl:h-[calc(100vh-7rem)] xl:flex xl:flex-col"
-             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <div class="bg-surface-container-lowest rounded-card shadow-ambient p-5 xl:sticky xl:top-24 xl:h-[calc(100vh-7rem)] xl:flex xl:flex-col">
           <app-activity-feed class="xl:flex xl:flex-col xl:flex-1 xl:min-h-0" />
         </div>
       </aside>

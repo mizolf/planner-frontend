@@ -1,9 +1,9 @@
 <!-- Top Navbar -->
-<nav class="bg-surface-container-highest/70 backdrop-blur-xl sticky top-0 z-50">
+<nav class="bg-surface-container-highest/70 backdrop-blur-xl shadow-ambient sticky top-0 z-50">
   <!-- max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -->
    <!-- px-6 lg:px-10 -->
   <div class="px-6 lg:px-10">
-    <div class="flex items-center justify-between h-16">
+    <div class="relative flex items-center justify-between h-16">
 
       <!-- Left: Logo -->
       <a routerLink="/home" class="text-primary font-headline text-2xl font-bold tracking-tighter">
@@ -11,21 +11,21 @@
       </a>
 
       <!-- Center: Nav links (desktop) -->
-      <div class="hidden lg:flex items-center gap-1">
+      <div class="hidden lg:flex items-center gap-1.5 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <a routerLink="/home"
-           routerLinkActive="bg-primary/10 text-primary"
+           routerLinkActive="bg-primary/10 text-primary font-semibold"
            [routerLinkActiveOptions]="{ exact: true }"
-           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.DASHBOARD' | translate }}
         </a>
         <a routerLink="/my-trips"
-           routerLinkActive="bg-primary/10 text-primary"
-           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           routerLinkActive="bg-primary/10 text-primary font-semibold"
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.MY_TRIPS' | translate }}
         </a>
         <a routerLink="/explore"
-           routerLinkActive="bg-primary/10 text-primary"
-           class="px-4 py-2 rounded-lg font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           routerLinkActive="bg-primary/10 text-primary font-semibold"
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
           {{ 'NAV.EXPLORE' | translate }}
         </a>
       </div>
@@ -54,7 +54,7 @@
           <button
             type="button"
             (click)="toggleProfile()"
-            class="w-9 h-9 rounded-full bg-primary text-on-primary font-label text-sm font-semibold flex items-center justify-center hover:bg-primary-dim transition-colors"
+            class="w-9 h-9 rounded-full bg-primary text-on-primary font-label text-sm font-semibold flex items-center justify-center ring-2 ring-surface-container-lowest hover:bg-primary-dim transition-colors"
             aria-label="User menu"
           >
             {{ getInitials() }}
@@ -65,8 +65,7 @@
             <div (click)="closeProfile()" class="fixed inset-0 z-40"></div>
 
             <!-- Dropdown -->
-            <div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl z-50 py-1"
-                 style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+            <div class="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-card shadow-ambient z-50 py-1">
               <a routerLink="/profile"
                  (click)="closeProfile()"
                  class="flex items-center gap-3 px-4 py-2.5 font-label text-sm text-on-surface hover:bg-surface-container-low transition-colors">
@@ -133,8 +132,7 @@
   <div (click)="closeMobile()" class="fixed inset-0 bg-inverse-surface/30 z-40 lg:hidden"></div>
 
   <!-- Drawer -->
-  <aside class="fixed top-0 left-0 h-full w-72 bg-surface-container-lowest z-50 lg:hidden"
-         style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+  <aside class="fixed top-0 left-0 h-full w-72 bg-surface-container-lowest shadow-floating z-50 lg:hidden">
     <!-- Header -->
     <div class="flex items-center justify-between p-6">
       <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
