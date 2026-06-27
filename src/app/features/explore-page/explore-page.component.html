@@ -8,10 +8,10 @@
         <span class="material-symbols-outlined text-primary text-[26px]">explore</span>
       </div>
       <div>
-        <h1 class="text-3xl font-bold font-headline text-on-surface">
+        <h1 class="text-4xl sm:text-5xl font-extrabold font-headline tracking-tighter text-on-surface">
           {{ 'EXPLORE.PAGE.TITLE' | translate }}
         </h1>
-        <p class="text-on-surface-variant font-body mt-1">
+        <p class="text-lg text-on-surface-variant font-body mt-2">
           {{ 'EXPLORE.PAGE.SUBTITLE' | translate }}
         </p>
       </div>
@@ -28,27 +28,20 @@
         [value]="searchTerm()"
         (input)="searchTerm.set(searchInput.value)"
         [placeholder]="'EXPLORE.SEARCH_PLACEHOLDER' | translate"
-        class="w-full pl-11 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl font-body text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
-        style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);" />
+        class="w-full pl-11 pr-4 py-2.5 bg-surface-container-lowest rounded-md shadow-sm font-body text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary-container transition" />
     </div>
   </div>
 
-  <!-- Tab bar -->
-  <div class="flex items-center gap-6 border-b border-outline-variant/15 mb-6">
+  <!-- Tab bar (tonal pill group) -->
+  <div class="inline-flex flex-wrap items-center gap-1 bg-surface-container-low rounded-full p-1 mb-6">
     <button type="button" (click)="setTab('TEMPLATES')"
-      class="px-1 pb-3 font-label text-sm font-semibold border-b-2 transition-colors"
-      [class.text-primary]="activeTab() === 'TEMPLATES'"
-      [class.border-primary]="activeTab() === 'TEMPLATES'"
-      [class.text-on-surface-variant]="activeTab() !== 'TEMPLATES'"
-      [class.border-transparent]="activeTab() !== 'TEMPLATES'">
+      class="px-4 py-2 rounded-full font-label text-sm font-semibold transition-colors"
+      [ngClass]="tabClasses('TEMPLATES')">
       {{ 'EXPLORE.TEMPLATES.TAB' | translate }}
     </button>
     <button type="button" (click)="setTab('COMMUNITY')"
-      class="px-1 pb-3 font-label text-sm font-semibold border-b-2 transition-colors"
-      [class.text-primary]="activeTab() === 'COMMUNITY'"
-      [class.border-primary]="activeTab() === 'COMMUNITY'"
-      [class.text-on-surface-variant]="activeTab() !== 'COMMUNITY'"
-      [class.border-transparent]="activeTab() !== 'COMMUNITY'">
+      class="px-4 py-2 rounded-full font-label text-sm font-semibold transition-colors"
+      [ngClass]="tabClasses('COMMUNITY')">
       {{ 'EXPLORE.COMMUNITY.TAB' | translate }}
     </button>
   </div>
@@ -56,7 +49,7 @@
   <!-- ============ TEMPLATES TAB ============ -->
   @if (activeTab() === 'TEMPLATES') {
     <section class="mb-12">
-      <h2 class="text-xl font-bold font-headline text-on-surface mb-4">
+      <h2 class="text-2xl font-bold font-headline text-on-surface mb-4">
         {{ 'EXPLORE.PAGE.ALL_TEMPLATES' | translate }}
       </h2>
 
@@ -64,18 +57,20 @@
       @if (templates().length > 0) {
         <div class="flex flex-wrap gap-2 mb-6">
           <button type="button" (click)="clearStyleFilter()"
-            class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-colors"
+            class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-all"
             [class.bg-primary]="selectedStyles().size === 0"
             [class.text-on-primary]="selectedStyles().size === 0"
+            [class.shadow-ambient]="selectedStyles().size === 0"
             [class.bg-surface-container-low]="selectedStyles().size > 0"
             [class.text-on-surface-variant]="selectedStyles().size > 0">
             {{ 'EXPLORE.FILTER.ALL' | translate }}
           </button>
           @for (style of availableStyles(); track style.slug) {
             <button type="button" (click)="toggleStyle(style.slug)"
-              class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-colors"
+              class="px-4 py-1.5 rounded-full font-label text-sm font-semibold transition-all"
               [class.bg-primary]="selectedStyles().has(style.slug)"
               [class.text-on-primary]="selectedStyles().has(style.slug)"
+              [class.shadow-ambient]="selectedStyles().has(style.slug)"
               [class.bg-surface-container-low]="!selectedStyles().has(style.slug)"
               [class.text-on-surface-variant]="!selectedStyles().has(style.slug)">
               {{ style.name }}
@@ -88,15 +83,14 @@
       @if (loading()) {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
           @for (_ of [1, 2, 3, 4]; track $index) {
-            <div class="h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+            <div class="h-48 bg-surface-container-low rounded-card animate-pulse"></div>
           }
         </div>
       }
 
       <!-- Error -->
       @else if (error()) {
-        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
-             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-card shadow-ambient">
           <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
           <p class="text-error font-label mb-4 text-sm">{{ error()! | translate }}</p>
           <button
@@ -140,7 +134,7 @@
   <!-- ============ COMMUNITY TAB ============ -->
   @if (activeTab() === 'COMMUNITY') {
     <section class="mb-12" #communityTop>
-      <h2 class="text-xl font-bold font-headline text-on-surface mb-1">
+      <h2 class="text-2xl font-bold font-headline text-on-surface mb-1">
         {{ 'EXPLORE.COMMUNITY.HEADING' | translate }}
       </h2>
       <p class="text-sm text-on-surface-variant font-body mb-6">
@@ -151,15 +145,14 @@
       @if (communityLoading()) {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
           @for (_ of [1, 2, 3, 4]; track $index) {
-            <div class="h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+            <div class="h-48 bg-surface-container-low rounded-card animate-pulse"></div>
           }
         </div>
       }
 
       <!-- Error -->
       @else if (communityError()) {
-        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-xl"
-             style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+        <div class="flex flex-col items-center justify-center py-16 text-center bg-surface-container-lowest rounded-card shadow-ambient">
           <span class="material-symbols-outlined text-5xl text-error/40 mb-3">cloud_off</span>
           <p class="text-error font-label mb-4 text-sm">{{ communityError()! | translate }}</p>
           <button

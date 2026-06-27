@@ -1,13 +1,15 @@
 <button type="button" (click)="onClick()"
-   class="group flex w-full h-full text-left bg-surface-container-lowest rounded-xl overflow-hidden hover:bg-surface-container-low transition-colors"
-   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+   class="group flex w-full h-full text-left bg-surface-container-lowest rounded-card overflow-hidden shadow-ambient transition-all duration-200 hover:shadow-floating motion-safe:hover:-translate-y-1">
 
-  <!-- Image (left) -->
-  <div class="relative w-44 sm:w-52 shrink-0 min-h-[180px] bg-surface-container-low flex items-center justify-center">
+  <!-- Cover (left): real image when available, else tonal placeholder -->
+  <div class="relative w-44 sm:w-52 shrink-0 min-h-[180px] overflow-hidden"
+       [ngClass]="template().imageUrl ? '' : 'ph-image ph-image-' + tone()">
     @if (template().imageUrl) {
-      <img [src]="template().imageUrl" [alt]="template().name" class="w-full h-full object-cover" />
+      <img [src]="template().imageUrl" [alt]="template().name" class="absolute inset-0 w-full h-full object-cover" />
     } @else {
-      <span class="material-symbols-outlined text-5xl text-on-surface-variant/30">landscape</span>
+      <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
+        {{ coverLabel() }}
+      </span>
     }
     <!-- Category badge -->
     <span class="absolute top-2 left-2 inline-flex text-xs font-label px-2.5 py-1 rounded-full bg-primary/90 text-on-primary font-semibold backdrop-blur-sm">

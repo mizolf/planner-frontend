@@ -1,11 +1,11 @@
 <button type="button" (click)="onClick()"
-   class="group flex w-full h-full text-left bg-surface-container-lowest rounded-xl overflow-hidden hover:bg-surface-container-low transition-colors"
-   style="box-shadow: 0 12px 40px rgba(32, 48, 68, 0.06);">
+   class="group flex w-full h-full text-left bg-surface-container-lowest rounded-card overflow-hidden shadow-ambient transition-all duration-200 hover:shadow-floating motion-safe:hover:-translate-y-1">
 
-  <!-- Cover (left): placeholder gradient (no uploads) -->
-  <div class="relative w-44 sm:w-52 shrink-0 min-h-[180px] bg-gradient-to-br from-primary/15 to-tertiary/15 flex flex-col items-center justify-center gap-2 p-4">
-    <span class="material-symbols-outlined text-5xl text-primary/40">public</span>
-    <span class="text-sm font-label font-semibold text-on-surface-variant text-center line-clamp-2">{{ trip().destination }}</span>
+  <!-- Cover (left): tonal gradient placeholder (community has no uploads) -->
+  <div class="ph-image relative w-44 sm:w-52 shrink-0 min-h-[180px]" [ngClass]="'ph-image-' + tone()">
+    <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
+      {{ coverLabel() }}
+    </span>
   </div>
 
   <!-- Content (right) -->

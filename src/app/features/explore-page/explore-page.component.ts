@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Location } from '@angular/common';
+import { Location, NgClass } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, skip } from 'rxjs/operators';
@@ -42,6 +42,7 @@ const COMMUNITY_SEARCH_DEBOUNCE_MS = 300;
   selector: 'app-explore-page',
   standalone: true,
   imports: [
+    NgClass,
     TranslateModule,
     PaginatorComponent,
     TemplateCardComponent,
@@ -149,6 +150,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.searchSub?.unsubscribe();
+  }
+
+  /** Presentational only: tonal pill classes for the active/inactive tab. */
+  tabClasses(tab: ExploreTab): string {
+    return this.activeTab() === tab
+      ? 'bg-surface-container-lowest text-primary shadow-ambient'
+      : 'text-on-surface-variant hover:text-on-surface';
   }
 
   setTab(tab: ExploreTab): void {

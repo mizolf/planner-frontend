@@ -19,9 +19,10 @@
           type="button"
           (click)="go(slot)"
           [attr.aria-current]="slot === page() ? 'page' : null"
-          class="inline-flex items-center justify-center min-w-9 h-9 px-2 rounded-lg font-label text-sm font-semibold transition-colors"
+          class="inline-flex items-center justify-center min-w-9 h-9 px-2 rounded-lg font-label text-sm font-semibold transition-all"
           [class.bg-primary]="slot === page()"
           [class.text-on-primary]="slot === page()"
+          [class.shadow-ambient]="slot === page()"
           [class.text-on-surface-variant]="slot !== page()"
           [class.hover:bg-surface-container-high]="slot !== page()">
           {{ slot + 1 }}
