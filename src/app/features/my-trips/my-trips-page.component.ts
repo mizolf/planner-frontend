@@ -1,4 +1,5 @@
 import { Component, computed, inject, OnInit, signal, ViewChild } from "@angular/core";
+import { NgClass } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { TripCardComponent } from "../trips/trip-card/trip-card.component";
 import { CreateTripDialogComponent } from "../trips/create-trip-dialog/create-trip-dialog.component";
@@ -11,7 +12,7 @@ type SortOption = 'DEFAULT' | 'START_ASC' | 'START_DESC' | 'NAME_ASC' | 'RECENT'
 @Component({
   selector: 'app-my-trips-page',
   standalone: true,
-  imports: [TranslateModule, TripCardComponent, CreateTripDialogComponent],
+  imports: [NgClass, TranslateModule, TripCardComponent, CreateTripDialogComponent],
   templateUrl: './my-trips-page.component.html',
 })
 export class MyTripsPageComponent implements OnInit {
@@ -85,6 +86,13 @@ export class MyTripsPageComponent implements OnInit {
   ngOnInit(): void { this.tripService.loadTrips(); }
 
   setTab(tab: MyTripsTab): void { this.activeTab.set(tab); }
+
+  /** Presentational only: tonal pill classes for the active/inactive tab. */
+  tabClasses(tab: MyTripsTab): string {
+    return this.activeTab() === tab
+      ? 'bg-surface-container-lowest text-primary shadow-ambient'
+      : 'text-on-surface-variant hover:text-on-surface';
+  }
   openCreateTripDialog(): void { this.dialog.open(); }
   retryLoadTrips(): void { this.tripService.loadTrips(); }
 
