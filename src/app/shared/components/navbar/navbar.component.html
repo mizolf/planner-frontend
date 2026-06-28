@@ -36,9 +36,9 @@
         <a
           routerLink="/invites"
           [attr.aria-label]="'NAVBAR.NOTIFICATIONS_ARIA' | translate:{ count: pendingCount() }"
-          class="relative p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          class="relative inline-flex items-center justify-center p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <span class="material-symbols-outlined text-[22px]">notifications</span>
+          <span class="material-symbols-outlined text-[22px] leading-none">mail</span>
           @if (pendingCount() > 0) {
             <span
               role="status"
@@ -116,10 +116,10 @@
         <button
           type="button"
           (click)="toggleMobile()"
-          class="lg:hidden p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          class="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           aria-label="Open menu"
         >
-          <span class="material-symbols-outlined text-[24px]">menu</span>
+          <span class="material-symbols-outlined text-[24px] leading-none">menu</span>
         </button>
       </div>
 
@@ -127,22 +127,19 @@
   </div>
 </nav>
 
-<!-- Mobile drawer overlay -->
+<!-- Mobile full-screen menu -->
 @if (mobileOpen()) {
-  <div (click)="closeMobile()" class="fixed inset-0 bg-inverse-surface/30 z-40 lg:hidden"></div>
-
-  <!-- Drawer -->
-  <aside class="fixed top-0 left-0 h-full w-72 bg-surface-container-lowest shadow-floating z-50 lg:hidden">
+  <aside class="fixed inset-0 bg-surface-container-lowest z-[60] lg:hidden flex flex-col animate-slide-down">
     <!-- Header -->
     <div class="flex items-center justify-between p-6">
       <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
       <button
         type="button"
         (click)="closeMobile()"
-        class="p-1 rounded-lg text-on-surface hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        class="inline-flex items-center justify-center p-1 rounded-lg text-on-surface hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         aria-label="Close menu"
       >
-        <span class="material-symbols-outlined text-[22px]">close</span>
+        <span class="material-symbols-outlined text-[22px] leading-none">close</span>
       </button>
     </div>
 
@@ -185,5 +182,44 @@
         {{ 'NAV.SETTINGS' | translate }}
       </a>
     </nav>
+
+    <!-- Language + logout -->
+    <div class="px-4 mt-auto pb-6 flex flex-col gap-1">
+      <div class="my-1 border-t border-outline-variant/15"></div>
+
+      <!-- Language toggle -->
+      <div class="flex items-center justify-between gap-3 px-4 py-3">
+        <span class="flex items-center gap-3 font-label text-sm text-on-surface">
+          <span class="material-symbols-outlined text-[20px] text-on-surface-variant">language</span>
+          {{ 'NAV.LANGUAGE' | translate }}
+        </span>
+        <span class="flex items-center gap-1">
+          <button
+            type="button"
+            (click)="setLang('en')"
+            class="text-[11px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+            [class]="currentLang() === 'en' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+          >EN</button>
+          <span class="text-on-surface-variant/20 text-[11px]">|</span>
+          <button
+            type="button"
+            (click)="setLang('hr')"
+            class="text-[11px] font-label uppercase tracking-widest hover:text-primary transition-colors"
+            [class]="currentLang() === 'hr' ? 'font-bold text-primary' : 'text-on-surface-variant/40'"
+          >HR</button>
+        </span>
+      </div>
+
+      <div class="my-1 border-t border-outline-variant/15"></div>
+
+      <!-- Logout -->
+      <button
+        type="button"
+        (click)="onLogout()"
+        class="flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg font-label text-sm text-error hover:bg-error/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+        {{ 'NAV.LOGOUT' | translate }}
+      </button>
+    </div>
   </aside>
 }
