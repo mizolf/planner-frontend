@@ -1,5 +1,5 @@
 <!-- Top Navbar -->
-<nav class="bg-surface-container-highest/70 backdrop-blur-xl shadow-ambient sticky top-0 z-50">
+<nav class="bg-surface-container-lowest shadow-ambient sticky top-0 z-50">
   <!-- max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -->
    <!-- px-6 lg:px-10 -->
   <div class="px-6 lg:px-10">
@@ -15,17 +15,17 @@
         <a routerLink="/home"
            routerLinkActive="bg-primary/10 text-primary font-semibold"
            [routerLinkActiveOptions]="{ exact: true }"
-           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           {{ 'NAV.DASHBOARD' | translate }}
         </a>
         <a routerLink="/my-trips"
            routerLinkActive="bg-primary/10 text-primary font-semibold"
-           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           {{ 'NAV.MY_TRIPS' | translate }}
         </a>
         <a routerLink="/explore"
            routerLinkActive="bg-primary/10 text-primary font-semibold"
-           class="px-4 py-2 rounded-full font-label text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors">
+           class="px-4 py-2 rounded-full font-label text-sm text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           {{ 'NAV.EXPLORE' | translate }}
         </a>
       </div>
@@ -36,7 +36,7 @@
         <a
           routerLink="/invites"
           [attr.aria-label]="'NAVBAR.NOTIFICATIONS_ARIA' | translate:{ count: pendingCount() }"
-          class="relative p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
+          class="relative p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           <span class="material-symbols-outlined text-[22px]">notifications</span>
           @if (pendingCount() > 0) {
@@ -54,7 +54,7 @@
           <button
             type="button"
             (click)="toggleProfile()"
-            class="w-9 h-9 rounded-full bg-primary text-on-primary font-label text-sm font-semibold flex items-center justify-center ring-2 ring-surface-container-lowest hover:bg-primary-dim transition-colors"
+            class="w-9 h-9 rounded-full bg-primary text-on-primary font-label text-sm font-semibold flex items-center justify-center ring-2 ring-surface-container-lowest hover:bg-primary-dim transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="User menu"
           >
             {{ getInitials() }}
@@ -116,7 +116,7 @@
         <button
           type="button"
           (click)="toggleMobile()"
-          class="lg:hidden p-2 rounded-lg text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors"
+          class="lg:hidden p-2 rounded-lg text-on-surface hover:text-primary hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           aria-label="Open menu"
         >
           <span class="material-symbols-outlined text-[24px]">menu</span>
@@ -139,7 +139,7 @@
       <button
         type="button"
         (click)="closeMobile()"
-        class="p-1 rounded-lg text-on-surface-variant hover:text-primary transition-colors"
+        class="p-1 rounded-lg text-on-surface hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         aria-label="Close menu"
       >
         <span class="material-symbols-outlined text-[22px]">close</span>
@@ -152,35 +152,35 @@
          routerLinkActive="bg-primary/10 text-primary"
          [routerLinkActiveOptions]="{ exact: true }"
          (click)="closeMobile()"
-         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <span class="material-symbols-outlined text-[20px]">dashboard</span>
         {{ 'NAV.DASHBOARD' | translate }}
       </a>
       <a routerLink="/my-trips"
          routerLinkActive="bg-primary/10 text-primary"
          (click)="closeMobile()"
-         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <span class="material-symbols-outlined text-[20px]">luggage</span>
         {{ 'NAV.MY_TRIPS' | translate }}
       </a>
       <a routerLink="/explore"
         routerLinkActive="bg-primary/10 text-primary"
          (click)="closeMobile()"
-         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <span class="material-symbols-outlined text-[20px]">explore</span>
         {{ 'NAV.EXPLORE' | translate }}
       </a>
       <a routerLink="/profile"
          routerLinkActive="bg-primary/10 text-primary"
          (click)="closeMobile()"
-         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <span class="material-symbols-outlined text-[20px]">person</span>
         {{ 'NAV.MY_PROFILE' | translate }}
       </a>
       <a routerLink="/settings"
          routerLinkActive="bg-primary/10 text-primary"
          (click)="closeMobile()"
-         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface-variant hover:bg-primary/5 transition-colors">
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-label text-sm text-on-surface hover:bg-primary/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
         <span class="material-symbols-outlined text-[20px]">settings</span>
         {{ 'NAV.SETTINGS' | translate }}
       </a>
