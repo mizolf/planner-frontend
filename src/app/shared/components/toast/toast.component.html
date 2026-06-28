@@ -1,7 +1,7 @@
 @if (toast(); as t) {
-  <div class="fixed top-4 right-4 z-[60] flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-lg max-w-sm animate-slide-in"
+  <div class="fixed top-4 right-4 z-[60] flex items-center gap-3 px-5 py-3.5 rounded-card shadow-floating max-w-sm animate-slide-in"
        [ngClass]="t.type === 'success'
-         ? 'bg-surface-container-lowest text-on-surface border border-outline-variant/10'
+         ? 'bg-surface-container-lowest text-on-surface'
          : 'bg-error-container text-on-error-container'">
     <span class="material-symbols-outlined text-[20px]"
           [ngClass]="t.type === 'success' ? 'text-primary' : 'text-error'">
