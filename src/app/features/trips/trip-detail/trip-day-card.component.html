@@ -17,8 +17,8 @@
           type="button"
           (click)="addActivity.emit()"
           [attr.aria-label]="'TRIPS.DETAIL.ACTIVITIES.ADD.TITLE' | translate"
-          class="p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
-          <span class="material-symbols-outlined text-[20px]">add</span>
+          class="inline-flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+          <span class="material-symbols-outlined text-[20px] leading-none">add</span>
         </button>
       }
       @if (canEditDay()) {
@@ -26,8 +26,8 @@
           type="button"
           (click)="editDay.emit()"
           [attr.aria-label]="'TRIPS.DETAIL.DAYS.EDIT.CTA' | translate"
-          class="p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
-          <span class="material-symbols-outlined text-[20px]">edit</span>
+          class="inline-flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+          <span class="material-symbols-outlined text-[20px] leading-none">edit</span>
         </button>
       }
       @if (canDelete()) {
@@ -35,8 +35,8 @@
           type="button"
           (click)="deleteDay.emit()"
           [attr.aria-label]="'TRIPS.DETAIL.DAYS.DELETE.CTA' | translate"
-          class="p-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
-          <span class="material-symbols-outlined text-[20px]">delete</span>
+          class="inline-flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors">
+          <span class="material-symbols-outlined text-[20px] leading-none">delete</span>
         </button>
       }
     </div>
@@ -139,8 +139,8 @@
                 (keydown.enter)="$event.stopPropagation()"
                 (keydown.space)="$event.stopPropagation()"
                 [attr.aria-label]="'TRIPS.DETAIL.ACTIVITIES.LOCATE' | translate"
-                class="shrink-0 -mt-0.5 p-1.5 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
-                <span class="material-symbols-outlined text-[18px]">pin_drop</span>
+                class="shrink-0 -mt-0.5 inline-flex items-center justify-center p-1.5 rounded-lg text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                <span class="material-symbols-outlined text-[18px] leading-none">pin_drop</span>
               </button>
             }
           </div>
