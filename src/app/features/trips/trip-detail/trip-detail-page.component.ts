@@ -35,6 +35,7 @@ import { TripMapComponent } from "./trip-map.component";
 import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
 import { TripMembersSectionComponent } from "./trip-members-section.component";
+import { TripChatSectionComponent } from "./trip-chat-section.component";
 
 @Component({
   selector: "app-trip-detail-page",
@@ -59,6 +60,7 @@ import { TripMembersSectionComponent } from "./trip-members-section.component";
     TripDayPickerComponent,
     TripDetailHeaderComponent,
     TripMembersSectionComponent,
+    TripChatSectionComponent,
   ],
   templateUrl: "./trip-detail-page.component.html",
 })

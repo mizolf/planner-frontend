@@ -295,6 +295,33 @@
           "ERROR_GENERIC": "Izbacivanje člana nije uspjelo. Pokušajte ponovno."
         }
       },
+      "CHAT": {
+        "TITLE": "Razgovor",
+        "EMPTY": "Još nema poruka — javite se prvi!",
+        "LOAD_OLDER": "Učitaj starije poruke",
+        "LOAD_ERROR": "Učitavanje poruka nije uspjelo.",
+        "RETRY": "Pokušaj ponovno",
+        "INPUT_PLACEHOLDER": "Napišite poruku…",
+        "SEND": "Pošalji poruku",
+        "CLOSE": "Zatvori razgovor",
+        "EDIT": "Uredi poruku",
+        "DELETE": "Obriši poruku",
+        "EDITED": "(uređeno)",
+        "SAVE": "Spremi",
+        "CANCEL": "Odustani",
+        "ERROR": {
+          "GENERIC": "Nešto je pošlo po zlu. Pokušajte ponovno."
+        },
+        "DELETE_CONFIRM": {
+          "TITLE": "Obrisati poruku?",
+          "MESSAGE": "Poruka će biti uklonjena za sve. Ovo se ne može poništiti.",
+          "CONFIRM": "Obriši",
+          "CANCEL": "Odustani",
+          "SUCCESS": "Poruka obrisana.",
+          "ERROR_FORBIDDEN": "Možete brisati samo vlastite poruke.",
+          "ERROR_GENERIC": "Brisanje poruke nije uspjelo. Pokušajte ponovno."
+        }
+      },
       "DAYS": {
         "TITLE": "Plan putovanja",
         "LABEL": "Dan {{number}}",

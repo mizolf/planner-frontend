@@ -1,0 +1,53 @@
+@if (message(); as m) {
+  <div
+    (click)="close()"
+    class="fixed inset-0 bg-inverse-surface/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+
+    <div
+      (click)="$event.stopPropagation()"
+      class="bg-surface-container-lowest rounded-card max-w-sm w-full overflow-hidden flex flex-col"
+      style="box-shadow: 0 20px 60px rgba(32, 48, 68, 0.15);"
+      role="alertdialog"
+      aria-modal="true">
+
+      <div class="px-6 pt-6 pb-2">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="material-symbols-outlined text-error">delete</span>
+          <h2 class="text-lg font-bold font-headline text-on-surface">
+            {{ 'TRIPS.DETAIL.CHAT.DELETE_CONFIRM.TITLE' | translate }}
+          </h2>
+        </div>
+
+        <p class="text-sm text-on-surface-variant font-body leading-relaxed">
+          {{ 'TRIPS.DETAIL.CHAT.DELETE_CONFIRM.MESSAGE' | translate }}
+        </p>
+
+        <p class="mt-3 text-sm text-on-surface font-body italic line-clamp-3 bg-surface-container-low rounded-lg px-3 py-2">
+          {{ m.content }}
+        </p>
+      </div>
+
+      <div class="px-6 py-4 mt-2 flex items-center justify-end gap-3">
+        <button
+          type="button"
+          (click)="close()"
+          [disabled]="loading()"
+          class="px-5 py-2.5 rounded-lg font-label text-sm font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50">
+          {{ 'TRIPS.DETAIL.CHAT.DELETE_CONFIRM.CANCEL' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="confirm()"
+          [disabled]="loading()"
+          class="px-5 py-2.5 bg-error text-on-error rounded-lg font-label text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+          @if (loading()) {
+            {{ 'AUTH.COMMON.LOADING' | translate }}
+          } @else {
+            {{ 'TRIPS.DETAIL.CHAT.DELETE_CONFIRM.CONFIRM' | translate }}
+          }
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

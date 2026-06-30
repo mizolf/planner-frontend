@@ -1,0 +1,200 @@
+<!-- Floating chat widget, pinned to the bottom-right corner -->
+<div class="fixed bottom-5 right-5 z-40 flex flex-col items-end">
+
+  @if (expanded()) {
+    <div class="mb-3 w-[22rem] max-w-[calc(100vw-2.5rem)] h-[min(70vh,34rem)] bg-surface-container-lowest rounded-card shadow-floating flex flex-col overflow-hidden animate-fade-in-up">
+
+      <!-- Header -->
+      <div class="shrink-0 flex items-center justify-between gap-3 px-4 py-3 border-b border-outline-variant/15">
+        <span class="flex items-center gap-2.5 min-w-0">
+          <span class="material-symbols-outlined text-primary text-[20px]">forum</span>
+          <span class="font-headline font-bold text-on-surface tracking-tight truncate">
+            {{ 'TRIPS.DETAIL.CHAT.TITLE' | translate }}
+          </span>
+          <span
+            class="size-2 rounded-full shrink-0"
+            [class]="connected() ? 'bg-secondary' : 'bg-on-surface-variant/30'"></span>
+        </span>
+        <button
+          type="button"
+          (click)="toggle()"
+          [attr.aria-label]="'TRIPS.DETAIL.CHAT.CLOSE' | translate"
+          class="shrink-0 size-8 inline-flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Message list -->
+      <div #scrollBox class="flex-1 min-h-0 overflow-y-auto px-4 py-3">
+        @if (loading() && messages().length === 0) {
+          <div class="space-y-4 animate-pulse py-2">
+            @for (n of [1, 2, 3]; track n) {
+              <div class="flex gap-2.5">
+                <div class="size-9 rounded-full bg-surface-container-low shrink-0"></div>
+                <div class="flex-1 space-y-2">
+                  <div class="h-3 w-24 bg-surface-container-low rounded"></div>
+                  <div class="h-8 w-3/4 bg-surface-container-low rounded-2xl"></div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else if (error()) {
+          <div class="text-center py-8">
+            <span class="material-symbols-outlined text-3xl text-error/60">cloud_off</span>
+            <p class="text-sm text-on-surface-variant mt-2">
+              {{ 'TRIPS.DETAIL.CHAT.LOAD_ERROR' | translate }}
+            </p>
+            <button
+              type="button"
+              (click)="retry()"
+              class="mt-2 text-sm font-label font-semibold text-primary hover:underline">
+              {{ 'TRIPS.DETAIL.CHAT.RETRY' | translate }}
+            </button>
+          </div>
+        } @else if (messages().length === 0) {
+          <div class="h-full flex flex-col items-center justify-center text-center py-10">
+            <span class="material-symbols-outlined text-4xl text-on-surface-variant/30">chat_bubble</span>
+            <p class="text-sm text-on-surface-variant mt-2">
+              {{ 'TRIPS.DETAIL.CHAT.EMPTY' | translate }}
+            </p>
+          </div>
+        } @else {
+          @if (hasMore()) {
+            <div class="text-center mb-3">
+              <button
+                type="button"
+                (click)="loadOlder()"
+                [disabled]="loadingOlder()"
+                class="text-xs font-label font-semibold text-primary hover:underline disabled:opacity-50">
+                @if (loadingOlder()) {
+                  {{ 'AUTH.COMMON.LOADING' | translate }}
+                } @else {
+                  {{ 'TRIPS.DETAIL.CHAT.LOAD_OLDER' | translate }}
+                }
+              </button>
+            </div>
+          }
+
+          <ul class="space-y-3">
+            @for (m of messages(); track m.id) {
+              <li class="group flex gap-2.5" [class.flex-row-reverse]="isOwn(m)">
+                <div class="size-9 shrink-0 rounded-full bg-primary-container text-on-primary-container font-headline font-bold text-xs flex items-center justify-center">
+                  {{ initialsOf(m.senderName) }}
+                </div>
+
+                <div class="min-w-0 max-w-[85%]">
+                  <div
+                    class="flex items-baseline gap-2"
+                    [class.flex-row-reverse]="isOwn(m)">
+                    <span class="text-xs font-label font-semibold text-on-surface truncate">
+                      {{ m.senderName }}
+                    </span>
+                    <span class="text-[10px] text-on-surface-variant/70 shrink-0">
+                      {{ m.createdAt | date:'shortTime' }}
+                    </span>
+                  </div>
+
+                  @if (editingId() === m.id) {
+                    <div class="mt-1">
+                      <textarea
+                        rows="2"
+                        maxlength="2000"
+                        [value]="editDraft()"
+                        (input)="editDraft.set($any($event.target).value)"
+                        (keydown.escape)="cancelEdit()"
+                        class="w-full resize-none rounded-2xl bg-surface-container-low text-on-surface text-sm font-body px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-container"></textarea>
+                      <div class="flex justify-end gap-2 mt-1.5">
+                        <button
+                          type="button"
+                          (click)="cancelEdit()"
+                          class="text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface">
+                          {{ 'TRIPS.DETAIL.CHAT.CANCEL' | translate }}
+                        </button>
+                        <button
+                          type="button"
+                          (click)="saveEdit(m)"
+                          class="text-xs font-label font-semibold text-primary hover:underline">
+                          {{ 'TRIPS.DETAIL.CHAT.SAVE' | translate }}
+                        </button>
+                      </div>
+                    </div>
+                  } @else {
+                    <div
+                      class="mt-1 inline-block rounded-2xl px-3 py-2 text-sm font-body break-words whitespace-pre-wrap"
+                      [class]="isOwn(m)
+                        ? 'bg-primary text-on-primary rounded-tr-sm'
+                        : 'bg-surface-container-high text-on-surface rounded-tl-sm'">
+                      {{ m.content }}
+                      @if (m.edited) {
+                        <span class="opacity-60 text-[10px] ml-1">
+                          {{ 'TRIPS.DETAIL.CHAT.EDITED' | translate }}
+                        </span>
+                      }
+                    </div>
+
+                    @if (isOwn(m)) {
+                      <div
+                        class="flex gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        [class.justify-end]="isOwn(m)">
+                        <button
+                          type="button"
+                          (click)="startEdit(m)"
+                          [attr.aria-label]="'TRIPS.DETAIL.CHAT.EDIT' | translate"
+                          class="size-7 inline-flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                          <span class="material-symbols-outlined text-[16px]">edit</span>
+                        </button>
+                        <button
+                          type="button"
+                          (click)="confirmDelete(m)"
+                          [attr.aria-label]="'TRIPS.DETAIL.CHAT.DELETE' | translate"
+                          class="size-7 inline-flex items-center justify-center rounded-full text-on-surface-variant hover:bg-error/10 hover:text-error transition-colors">
+                          <span class="material-symbols-outlined text-[16px]">delete</span>
+                        </button>
+                      </div>
+                    }
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <!-- Composer -->
+      <div class="shrink-0 px-3 py-3 border-t border-outline-variant/15 flex items-end gap-2">
+        <textarea
+          rows="1"
+          maxlength="2000"
+          [value]="draft()"
+          (input)="draft.set($any($event.target).value)"
+          (keydown)="onComposerKeydown($event)"
+          [placeholder]="'TRIPS.DETAIL.CHAT.INPUT_PLACEHOLDER' | translate"
+          class="flex-1 resize-none rounded-2xl bg-surface-container-low text-on-surface text-sm font-body px-3.5 py-2.5 max-h-28 focus:outline-none focus:ring-2 focus:ring-primary-container placeholder:text-on-surface-variant/50"></textarea>
+        <button
+          type="button"
+          (click)="send()"
+          [disabled]="sending() || draft().trim().length === 0"
+          [attr.aria-label]="'TRIPS.DETAIL.CHAT.SEND' | translate"
+          class="shrink-0 size-10 inline-flex items-center justify-center rounded-full bg-primary text-on-primary hover:bg-primary-dim transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          <span class="material-symbols-outlined text-[20px]">send</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Pill trigger -->
+  <button
+    type="button"
+    (click)="toggle()"
+    class="inline-flex items-center gap-2 rounded-full bg-primary text-on-primary shadow-floating px-5 py-3 font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+    <span class="material-symbols-outlined text-[20px]">forum</span>
+    <span>{{ 'TRIPS.DETAIL.CHAT.TITLE' | translate }}</span>
+    @if (!expanded() && unreadCount() > 0) {
+      <span class="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-on-primary text-primary text-[11px] font-bold">
+        {{ unreadCount() }}
+      </span>
+    }
+  </button>
+
+  <app-delete-message-dialog />
+</div>

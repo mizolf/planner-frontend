@@ -295,6 +295,33 @@
           "ERROR_GENERIC": "Couldn't remove the member. Please try again."
         }
       },
+      "CHAT": {
+        "TITLE": "Chat",
+        "EMPTY": "No messages yet — say hello!",
+        "LOAD_OLDER": "Load older messages",
+        "LOAD_ERROR": "Couldn't load messages.",
+        "RETRY": "Retry",
+        "INPUT_PLACEHOLDER": "Write a message…",
+        "SEND": "Send message",
+        "CLOSE": "Close chat",
+        "EDIT": "Edit message",
+        "DELETE": "Delete message",
+        "EDITED": "(edited)",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "ERROR": {
+          "GENERIC": "Something went wrong. Please try again."
+        },
+        "DELETE_CONFIRM": {
+          "TITLE": "Delete message?",
+          "MESSAGE": "This message will be removed for everyone. This can't be undone.",
+          "CONFIRM": "Delete",
+          "CANCEL": "Cancel",
+          "SUCCESS": "Message deleted.",
+          "ERROR_FORBIDDEN": "You can only delete your own messages.",
+          "ERROR_GENERIC": "Couldn't delete the message. Please try again."
+        }
+      },
       "DAYS": {
         "TITLE": "Itinerary",
         "LABEL": "Day {{number}}",
