@@ -8,11 +8,12 @@ import { CreateTripDialogComponent } from '../features/trips/create-trip-dialog/
 import { TripCardComponent } from '../features/trips/trip-card/trip-card.component';
 import { ActivityFeedComponent } from '../features/activity-feed/activity-feed.component';
 import { ExploreSectionComponent } from '../features/explore/explore-section/explore-section.component';
+import { RecommendedTripsComponent } from '../features/explore/recommended-trips/recommended-trips.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [TranslateModule, RouterLink, CreateTripDialogComponent, TripCardComponent, ActivityFeedComponent, ExploreSectionComponent],
+  imports: [TranslateModule, RouterLink, CreateTripDialogComponent, TripCardComponent, ActivityFeedComponent, RecommendedTripsComponent, ExploreSectionComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })

@@ -27,6 +27,10 @@ export class ExploreService {
   private readonly _featuredTemplatesLoading = signal(false);
   private readonly _featuredTemplatesError = signal<string | null>(null);
 
+  private readonly _recommendedTemplates = signal<FeaturedTemplateResponse[]>([]);
+  private readonly _recommendedTemplatesLoading = signal(false);
+  private readonly _recommendedTemplatesError = signal<string | null>(null);
+
   private readonly _currentStyle = signal<TripStyleDetailResponse | null>(null);
   private readonly _currentStyleLoading = signal(false);
   private readonly _currentStyleError = signal<string | null>(null);
@@ -45,6 +49,10 @@ export class ExploreService {
   readonly featuredTemplates = this._featuredTemplates.asReadonly();
   readonly featuredTemplatesLoading = this._featuredTemplatesLoading.asReadonly();
   readonly featuredTemplatesError = this._featuredTemplatesError.asReadonly();
+
+  readonly recommendedTemplates = this._recommendedTemplates.asReadonly();
+  readonly recommendedTemplatesLoading = this._recommendedTemplatesLoading.asReadonly();
+  readonly recommendedTemplatesError = this._recommendedTemplatesError.asReadonly();
 
   readonly currentStyle = this._currentStyle.asReadonly();
   readonly currentStyleLoading = this._currentStyleLoading.asReadonly();
@@ -82,6 +90,22 @@ export class ExploreService {
       error: () => {
         this._featuredTemplatesLoading.set(false);
         this._featuredTemplatesError.set('EXPLORE.ERROR_LOADING_TEMPLATES');
+      },
+    });
+  }
+
+  loadRecommended(): void {
+    this._recommendedTemplatesLoading.set(true);
+    this._recommendedTemplatesError.set(null);
+
+    this.http.get<FeaturedTemplateResponse[]>(`${this.apiUrl}/recommended`).subscribe({
+      next: (templates) => {
+        this._recommendedTemplates.set(templates);
+        this._recommendedTemplatesLoading.set(false);
+      },
+      error: () => {
+        this._recommendedTemplatesLoading.set(false);
+        this._recommendedTemplatesError.set('EXPLORE.RECOMMENDED.ERROR');
       },
     });
   }

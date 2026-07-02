@@ -516,6 +516,18 @@
   "EXPLORE": {
     "SECTION_TITLE": "Explore Templates",
     "SECTION_SUBTITLE": "Get inspired by curated trip ideas.",
+    "RECOMMENDED": {
+      "HEADING": "Recommended for you",
+      "SUBTITLE": "Trips picked to match your travel interests",
+      "ERROR": "Couldn't load recommendations",
+      "NO_MATCHES": "No trips match your interests yet. Try adding a few more.",
+      "ADJUST": "Adjust interests",
+      "EMPTY": {
+        "TITLE": "Personalize your trips",
+        "DESCRIPTION": "Add your travel interests and we'll recommend trips you'll love.",
+        "CTA": "Set interests"
+      }
+    },
     "LOADING": "Loading inspiration...",
     "EMPTY": "No templates available yet.",
     "ERROR_LOADING_STYLES": "Failed to load explore section. Please try again.",

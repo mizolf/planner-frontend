@@ -1,4 +1,4 @@
-<div class="px-6 lg:px-10 py-8 max-w-7xl mx-auto">
+<div class="px-6 lg:px-10 py-8 max-w-[90rem] mx-auto">
 
   <!-- Greeting + CTA (always visible) -->
   <div class="flex items-start justify-between mb-10">
@@ -66,6 +66,8 @@
         {{ 'HOME.EMPTY.CTA' | translate }}
       </button>
     </div>
+
+    <app-recommended-trips />
 
     <app-explore-section />
   }
@@ -137,6 +139,9 @@
             }
           </div>
         </div>
+
+        <!-- Recommended for you -->
+        <app-recommended-trips />
 
         <!-- Explore Templates -->
         <app-explore-section />

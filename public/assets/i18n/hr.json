@@ -516,6 +516,18 @@
   "EXPLORE": {
     "SECTION_TITLE": "Istraži predloške",
     "SECTION_SUBTITLE": "Inspirirajte se odabranim idejama za putovanja.",
+    "RECOMMENDED": {
+      "HEADING": "Preporučeno za tebe",
+      "SUBTITLE": "Putovanja odabrana prema tvojim interesima",
+      "ERROR": "Preporuke se ne mogu učitati",
+      "NO_MATCHES": "Nijedno putovanje još ne odgovara tvojim interesima. Pokušaj dodati još koji.",
+      "ADJUST": "Uredi interese",
+      "EMPTY": {
+        "TITLE": "Personaliziraj svoja putovanja",
+        "DESCRIPTION": "Dodaj svoje interese i preporučit ćemo ti putovanja koja ćeš voljeti.",
+        "CTA": "Postavi interese"
+      }
+    },
     "LOADING": "Učitavanje inspiracije...",
     "EMPTY": "Trenutno nema dostupnih predložaka.",
     "ERROR_LOADING_STYLES": "Učitavanje sekcije nije uspjelo. Pokušajte ponovo.",

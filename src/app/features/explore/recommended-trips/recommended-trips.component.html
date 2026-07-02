@@ -1,0 +1,80 @@
+<section class="mb-8">
+  <!-- Header -->
+  <div class="mb-4">
+    <h2 class="text-2xl sm:text-3xl font-bold font-headline tracking-tight text-on-surface">
+      {{ 'EXPLORE.RECOMMENDED.HEADING' | translate }}
+    </h2>
+    <p class="text-sm text-on-surface-variant font-body mt-1">
+      {{ 'EXPLORE.RECOMMENDED.SUBTITLE' | translate }}
+    </p>
+  </div>
+
+  <!-- No interests set: prompt the user to personalize -->
+  @if (!hasInterests()) {
+    <div class="flex flex-col items-center justify-center py-12 px-6 text-center bg-surface-container-lowest rounded-card shadow-ambient">
+      <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+        <span class="material-symbols-outlined text-3xl text-primary">interests</span>
+      </div>
+      <h3 class="text-lg font-bold font-headline text-on-surface mb-1">
+        {{ 'EXPLORE.RECOMMENDED.EMPTY.TITLE' | translate }}
+      </h3>
+      <p class="text-on-surface-variant font-body text-sm max-w-sm mb-6">
+        {{ 'EXPLORE.RECOMMENDED.EMPTY.DESCRIPTION' | translate }}
+      </p>
+      <a routerLink="/settings"
+         class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-lg font-label font-semibold hover:bg-primary-dim transition-colors">
+        <span class="material-symbols-outlined text-[20px]">tune</span>
+        {{ 'EXPLORE.RECOMMENDED.EMPTY.CTA' | translate }}
+      </a>
+    </div>
+  }
+
+  <!-- Loading skeleton -->
+  @else if (loading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      @for (_ of [1, 2]; track $index) {
+        <div class="h-56 bg-surface-container-low rounded-card animate-pulse"></div>
+      }
+    </div>
+  }
+
+  <!-- Error -->
+  @else if (error()) {
+    <div class="flex flex-col items-center justify-center py-12 text-center bg-surface-container-lowest rounded-card shadow-ambient">
+      <span class="material-symbols-outlined text-4xl text-error/40 mb-3">cloud_off</span>
+      <p class="text-error font-label mb-3 text-sm">{{ error()! | translate }}</p>
+      <button
+        type="button"
+        (click)="retry()"
+        class="px-5 py-2 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold hover:bg-primary-dim transition-colors">
+        {{ 'EXPLORE.RETRY' | translate }}
+      </button>
+    </div>
+  }
+
+  <!-- Empty: user has interests, but none of the templates match them -->
+  @else if (templates().length === 0) {
+    <div class="flex flex-col items-center justify-center py-12 px-6 text-center bg-surface-container-lowest rounded-card shadow-ambient">
+      <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-3">travel_explore</span>
+      <p class="text-on-surface-variant font-body text-sm max-w-sm mb-4">
+        {{ 'EXPLORE.RECOMMENDED.NO_MATCHES' | translate }}
+      </p>
+      <a routerLink="/settings"
+         class="text-sm font-label font-semibold text-primary hover:text-primary-dim transition-colors">
+        {{ 'EXPLORE.RECOMMENDED.ADJUST' | translate }}
+      </a>
+    </div>
+  }
+
+  <!-- Recommended templates grid -->
+  @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      @for (t of templates(); track t.id) {
+        <app-template-card [template]="t" (cardClick)="onTemplateClick($event)" />
+      }
+    </div>
+  }
+</section>
+
+<app-template-preview-dialog (applyClicked)="onApplyClicked($event)" />
+<app-apply-template-dialog (tripCreated)="onTripCreated($event)" />
