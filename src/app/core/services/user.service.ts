@@ -21,6 +21,10 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/me`);
   }
 
+  setCurrentUser(user: User): void {
+    this._currentUser.set(user);
+  }
+
   loadCurrentUser(): void {
     this._loading.set(true);
     this._error.set(null);
@@ -44,6 +48,12 @@ export class UserService {
   updatePreferences(req: UpdatePreferencesRequest): Observable<User> {
     return this.http
       .put<User>(`${this.apiUrl}/me/preferences`, req)
+      .pipe(tap((user) => this._currentUser.set(user)));
+  }
+
+  completeOnboarding(): Observable<User> {
+    return this.http
+      .put<User>(`${this.apiUrl}/me/onboarding-complete`, {})
       .pipe(tap((user) => this._currentUser.set(user)));
   }
 }

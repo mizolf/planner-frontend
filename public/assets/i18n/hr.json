@@ -164,6 +164,14 @@
       "ERROR_GENERIC": "Spremanje preferencija nije uspjelo. Pokušaj ponovo."
     }
   },
+  "ONBOARDING": {
+    "TITLE": "Što te zanima?",
+    "SUBTITLE": "Odaberi nekoliko interesa pa ćemo ti prilagoditi prijedloge putovanja. Možeš ih promijeniti bilo kada.",
+    "LABEL": "Interesi",
+    "CONTINUE": "Nastavi",
+    "SKIP": "Preskoči za sada",
+    "ERROR": "Nešto je pošlo po zlu. Pokušaj ponovo."
+  },
   "MY_TRIPS": {
     "TITLE": "Moja putovanja",
     "SUBTITLE": "Sva vaša putovanja na jednom mjestu.",

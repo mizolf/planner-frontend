@@ -18,7 +18,10 @@ export class DashboardLayoutComponent implements OnInit {
   inviteService = inject(InviteService);
 
   ngOnInit(): void {
-    this.userService.loadCurrentUser();
+    // The onboarding guard usually loads the user already; only fetch if it hasn't.
+    if (!this.userService.currentUser()) {
+      this.userService.loadCurrentUser();
+    }
     this.inviteService.loadMyInvites();
   }
 }

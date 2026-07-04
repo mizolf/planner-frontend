@@ -164,6 +164,14 @@
       "ERROR_GENERIC": "Couldn't save your preferences. Please try again."
     }
   },
+  "ONBOARDING": {
+    "TITLE": "What are you into?",
+    "SUBTITLE": "Pick a few interests and we'll tailor trip ideas to your style. You can change these anytime.",
+    "LABEL": "Interests",
+    "CONTINUE": "Continue",
+    "SKIP": "Skip for now",
+    "ERROR": "Something went wrong. Please try again."
+  },
   "MY_TRIPS": {
     "TITLE": "My Trips",
     "SUBTITLE": "All your trips in one place.",

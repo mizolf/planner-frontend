@@ -5,6 +5,7 @@ export interface User {
   fullName: string;
   email: string;
   preferredInterests: Interest[];
+  onboardingCompleted: boolean;
 }
 
 export interface ChangePasswordRequest {

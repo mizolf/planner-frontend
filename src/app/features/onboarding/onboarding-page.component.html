@@ -1,0 +1,53 @@
+<main class="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface px-6 py-12">
+  <!-- Ambient gradient background (mirrors the auth layout hero) -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-surface-container-low via-surface-bright to-primary-container/10"></div>
+    <div class="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-secondary/5 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-2xl animate-fade-in-up">
+    <!-- Brand -->
+    <div class="flex items-center justify-center gap-2 mb-8">
+      <span class="text-primary font-headline text-2xl font-bold tracking-tighter">plannr.</span>
+    </div>
+
+    <!-- Heading -->
+    <div class="text-center mb-10">
+      <h1 class="text-4xl sm:text-5xl font-extrabold font-headline tracking-tighter text-on-surface">
+        {{ 'ONBOARDING.TITLE' | translate }}
+      </h1>
+      <p class="text-lg text-on-surface-variant font-body mt-3 max-w-lg mx-auto">
+        {{ 'ONBOARDING.SUBTITLE' | translate }}
+      </p>
+    </div>
+
+    <!-- Interests + actions -->
+    <section class="bg-surface-container-lowest rounded-card shadow-ambient p-6 sm:p-8">
+      <form [formGroup]="form" (ngSubmit)="onContinue()" class="flex flex-col gap-8">
+        <app-interest-chips label="ONBOARDING.LABEL" controlName="interests" />
+
+        <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
+          <button
+            type="button"
+            (click)="onSkip()"
+            [disabled]="loading()"
+            class="px-6 py-2.5 rounded-lg font-label text-sm font-semibold text-on-surface-variant bg-surface-container-low hover:bg-surface-container-high transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+            {{ 'ONBOARDING.SKIP' | translate }}
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="!canContinue() || loading()"
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label text-sm font-semibold shadow-ambient hover:bg-primary-dim hover:shadow-floating transition-all disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed">
+            @if (loading()) {
+              {{ 'AUTH.COMMON.LOADING' | translate }}
+            } @else {
+              {{ 'ONBOARDING.CONTINUE' | translate }}
+            }
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>

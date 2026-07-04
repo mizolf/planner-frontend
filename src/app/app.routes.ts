@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth/guards/auth.guard';
+import { onboardingGuard, onboardingRedirectGuard } from './core/guards/onboarding.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./core/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
-    canActivate: [authGuard],
+    canActivate: [authGuard, onboardingGuard],
     children: [
       { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
       { path: 'my-trips', loadComponent: () => import('./features/my-trips/my-trips-page.component').then(m => m.MyTripsPageComponent) },
@@ -27,6 +28,12 @@ export const routes: Routes = [
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
+  },
+  {
+    path: 'onboarding',
+    canActivate: [authGuard, onboardingRedirectGuard],
+    loadComponent: () =>
+      import('./features/onboarding/onboarding-page.component').then(m => m.OnboardingPageComponent),
   },
   {
     path: 'auth',
