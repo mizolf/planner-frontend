@@ -1,0 +1,19 @@
+services:
+  app:
+    build: ../planner-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../planner-backend/.env
+
+  web:
+    build: 
+      context: .
+      args:
+        BUILD_CONFIG: development
+    restart: unless-stopped
+    ports: 
+      - "4200:80"
+    depends_on:
+      - app
