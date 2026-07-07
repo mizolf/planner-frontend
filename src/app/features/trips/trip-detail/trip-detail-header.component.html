@@ -73,6 +73,13 @@
     </div>
   }
 
+  <app-trip-cover
+    class="block mb-8"
+    [tripId]="trip().id"
+    [imageUrl]="trip().imageUrl"
+    [tripName]="trip().name"
+    [canManage]="canEdit()" />
+
   <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-start mb-8">
     <div class="min-w-0">
       <p class="text-[11px] font-label font-semibold text-tertiary uppercase tracking-[0.25em] mb-3">

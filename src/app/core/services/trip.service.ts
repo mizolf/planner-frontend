@@ -112,6 +112,32 @@ export class TripService {
       );
   }
 
+  uploadTripImage(tripId: number, file: File): Observable<TripResponse> {
+    const formData = new FormData();
+    formData.append("file", file); // field name MUST be "file" (backend contract)
+    // No manual Content-Type: the browser sets the multipart boundary itself.
+    return this.http
+      .post<TripResponse>(`${this.apiUrl}/${tripId}/image`, formData)
+      .pipe(tap((updated) => this.patchImageUrl(tripId, updated.imageUrl)));
+  }
+
+  deleteTripImage(tripId: number): Observable<TripResponse> {
+    return this.http
+      .delete<TripResponse>(`${this.apiUrl}/${tripId}/image`)
+      .pipe(tap((updated) => this.patchImageUrl(tripId, updated.imageUrl)));
+  }
+
+  // Patches ONLY imageUrl — spreading the whole TripResponse into the detail
+  // signal would clobber days/members.
+  private patchImageUrl(tripId: number, imageUrl: string | null): void {
+    this._tripDetail.update((detail) =>
+      detail && detail.id === tripId ? { ...detail, imageUrl } : detail,
+    );
+    this._trips.update((trips) =>
+      trips.map((t) => (t.id === tripId ? { ...t, imageUrl } : t)),
+    );
+  }
+
   deleteTrip(tripId: number): Observable<void> {
     return this.http
       .delete<void>(`${this.apiUrl}/${tripId}`)

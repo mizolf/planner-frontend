@@ -67,6 +67,8 @@ export interface TripResponse {
   interests: Interest[];
   // Additive + backward-compatible: existing rows default to PRIVATE server-side.
   visibility: TripVisibility;
+  // Permanent public URL of the cover image; null when no image is uploaded.
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 }

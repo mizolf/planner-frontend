@@ -1,8 +1,9 @@
-import { Component, inject, signal, HostListener } from '@angular/core';
+import { Component, inject, signal, viewChild, HostListener } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { TripService } from '../../../core/services/trip.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { CreateTripRequest, Interest } from '../../../core/models/trip.model';
@@ -11,6 +12,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { DestinationAutocompleteComponent } from '../../../shared/components/destination-autocomplete/destination-autocomplete.component';
 import { TextareaFieldComponent } from '../../../shared/components/textarea-field/textarea-field.component';
 import { InterestChipsComponent } from '../../../shared/components/interest-chips/interest-chips.component';
+import { CoverImagePickerComponent } from '../../../shared/components/cover-image-picker/cover-image-picker.component';
 import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validators/trip.validators';
 
 @Component({
@@ -23,6 +25,7 @@ import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validato
     DestinationAutocompleteComponent,
     TextareaFieldComponent,
     InterestChipsComponent,
+    CoverImagePickerComponent,
   ],
   templateUrl: './create-trip-dialog.component.html',
 })
@@ -37,6 +40,8 @@ export class CreateTripDialogComponent {
   errorMessage = signal<string | null>(null);
   // Set only by picking a suggestion; any manual keystroke clears it
   coords = signal<{ lat: number; lon: number } | null>(null);
+
+  private readonly imagePicker = viewChild(CoverImagePickerComponent);
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -104,42 +109,65 @@ export class CreateTripDialogComponent {
       request.longitude = coords.lon;
     }
 
-    this.tripService.createTrip(request).subscribe({
-      next: (newTrip) => {
-        this.loading.set(false);
-        this.close();
+    // Staged cover image: the trip id only exists after POST /trips, so the
+    // upload is chained onto the create. An upload failure must not fail the
+    // whole flow — the trip IS created — so it's caught and reported separately.
+    const stagedImage = this.imagePicker()?.stagedFile() ?? null;
 
-        if (v.generateWithAi) {
-          // Jump to the new trip; it shows an "AI is generating…" state while
-          // the (slow, ~15–25s) request runs. The subscription outlives this
-          // dialog — toastService/tripService are root singletons — so the
-          // success/error toast still fires after navigation.
-          this.router.navigate(['/trips', newTrip.id]);
-          this.tripService.generateItinerary(newTrip.id).subscribe({
-            next: () =>
-              this.toastService.show({ message: 'TRIPS.DETAIL.AI.SUCCESS', type: 'success' }),
-            error: () =>
-              this.toastService.show({ message: 'TRIPS.DETAIL.AI.ERROR', type: 'error' }),
-          });
-        } else {
-          this.toastService.show({ message: 'TRIPS.CREATE.SUCCESS', type: 'success' });
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.loading.set(false);
-        if (err.status === 409 && err.error?.code === 'OVERLAPPING_DATES') {
-          this.errorMessage.set('TRIPS.CREATE.DATES_OVERLAP');
-        } else if (err.status === 400) {
-          const msg = err.error?.message ?? err.error;
-          this.errorMessage.set(
-            typeof msg === 'string' && msg.includes('End date must not be before start date')
-              ? 'TRIPS.CREATE.END_BEFORE_START'
-              : 'TRIPS.CREATE.ERROR_VALIDATION',
-          );
-        } else {
-          this.errorMessage.set('TRIPS.CREATE.ERROR_GENERIC');
-        }
-      },
-    });
+    this.tripService
+      .createTrip(request)
+      .pipe(
+        switchMap((newTrip) =>
+          stagedImage
+            ? this.tripService.uploadTripImage(newTrip.id, stagedImage).pipe(
+                map(() => newTrip),
+                catchError(() => {
+                  this.toastService.show({
+                    message: 'TRIPS.DETAIL.IMAGE.PARTIAL_SAVE',
+                    type: 'error',
+                  });
+                  return of(newTrip);
+                }),
+              )
+            : of(newTrip),
+        ),
+      )
+      .subscribe({
+        next: (newTrip) => {
+          this.loading.set(false);
+          this.close();
+
+          if (v.generateWithAi) {
+            // Jump to the new trip; it shows an "AI is generating…" state while
+            // the (slow, ~15–25s) request runs. The subscription outlives this
+            // dialog — toastService/tripService are root singletons — so the
+            // success/error toast still fires after navigation.
+            this.router.navigate(['/trips', newTrip.id]);
+            this.tripService.generateItinerary(newTrip.id).subscribe({
+              next: () =>
+                this.toastService.show({ message: 'TRIPS.DETAIL.AI.SUCCESS', type: 'success' }),
+              error: () =>
+                this.toastService.show({ message: 'TRIPS.DETAIL.AI.ERROR', type: 'error' }),
+            });
+          } else {
+            this.toastService.show({ message: 'TRIPS.CREATE.SUCCESS', type: 'success' });
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.loading.set(false);
+          if (err.status === 409 && err.error?.code === 'OVERLAPPING_DATES') {
+            this.errorMessage.set('TRIPS.CREATE.DATES_OVERLAP');
+          } else if (err.status === 400) {
+            const msg = err.error?.message ?? err.error;
+            this.errorMessage.set(
+              typeof msg === 'string' && msg.includes('End date must not be before start date')
+                ? 'TRIPS.CREATE.END_BEFORE_START'
+                : 'TRIPS.CREATE.ERROR_VALIDATION',
+            );
+          } else {
+            this.errorMessage.set('TRIPS.CREATE.ERROR_GENERIC');
+          }
+        },
+      });
   }
 }

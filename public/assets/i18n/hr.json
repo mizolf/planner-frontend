@@ -264,6 +264,27 @@
       "DELETE_CTA": "Obriši put",
       "LEAVE_CTA": "Napusti putovanje",
       "MENU_ARIA": "Radnje putovanja",
+      "IMAGE": {
+        "LABEL": "Naslovna slika",
+        "CHANGE": "Promijeni naslovnicu",
+        "ADD": "Dodaj naslovnicu",
+        "DELETE": "Ukloni",
+        "CANCEL": "Odustani",
+        "UPLOADING": "Prijenos u tijeku…",
+        "HINT": "JPEG, PNG ili WebP · najviše 5 MB",
+        "UPLOAD_SUCCESS": "Naslovna slika je ažurirana.",
+        "DELETE_SUCCESS": "Naslovna slika je uklonjena.",
+        "DELETE_CONFIRM": "Ukloniti ovu naslovnu sliku?",
+        "PARTIAL_SAVE": "Putovanje je spremljeno, ali prijenos slike nije uspio.",
+        "ERRORS": {
+          "INVALID_TYPE": "Taj tip datoteke nije podržan. Koristi JPEG, PNG ili WebP.",
+          "TOO_LARGE": "Slika je prevelika (najviše 5 MB).",
+          "FORBIDDEN": "Nemaš dopuštenje za promjenu slike ovog putovanja.",
+          "NOT_FOUND": "Putovanje nije pronađeno.",
+          "UPLOAD_FAILED": "Prijenos slike nije uspio. Pokušaj ponovno kasnije.",
+          "GENERIC": "Nešto je pošlo po zlu. Pokušaj ponovno."
+        }
+      },
       "VISIBILITY": {
         "PUBLIC": "Javno",
         "PRIVATE": "Privatno",

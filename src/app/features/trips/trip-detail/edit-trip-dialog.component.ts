@@ -1,8 +1,9 @@
-import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import { Component, HostListener, computed, inject, signal, viewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { TripService } from '../../../core/services/trip.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import {
@@ -16,6 +17,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { DestinationAutocompleteComponent } from '../../../shared/components/destination-autocomplete/destination-autocomplete.component';
 import { TextareaFieldComponent } from '../../../shared/components/textarea-field/textarea-field.component';
 import { InterestChipsComponent } from '../../../shared/components/interest-chips/interest-chips.component';
+import { CoverImagePickerComponent } from '../../../shared/components/cover-image-picker/cover-image-picker.component';
 import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validators/trip.validators';
 
 @Component({
@@ -28,6 +30,7 @@ import { endDateAfterStartDate, budgetMaxDigits } from '../../../shared/validato
     DestinationAutocompleteComponent,
     TextareaFieldComponent,
     InterestChipsComponent,
+    CoverImagePickerComponent,
   ],
   templateUrl: './edit-trip-dialog.component.html',
 })
@@ -44,6 +47,9 @@ export class EditTripDialogComponent {
   readonly errorMessage = signal<string | null>(null);
   // Set by prefill or picking a suggestion; any manual keystroke clears it
   readonly coords = signal<{ lat: number; lon: number } | null>(null);
+
+  readonly currentImageUrl = signal<string | null>(null);
+  private readonly imagePicker = viewChild(CoverImagePickerComponent);
 
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -90,6 +96,7 @@ export class EditTripDialogComponent {
   open(trip: TripDetailResponse): void {
     this._tripId.set(trip.id);
     this._originalDays.set(trip.days);
+    this.currentImageUrl.set(trip.imageUrl);
     this.form.reset({
       name: trip.name,
       description: trip.description ?? '',
@@ -144,17 +151,46 @@ export class EditTripDialogComponent {
     };
     if (v.budget !== null) request.budget = v.budget;
 
-    this.tripService.updateTrip(tripId, request).subscribe({
-      next: () => {
-        this.loading.set(false);
-        this.close();
-        this.toastService.show({ message: 'TRIPS.DETAIL.EDIT.SUCCESS', type: 'success' });
-      },
-      error: (err: HttpErrorResponse) => {
-        this.loading.set(false);
-        this.applyError(err);
-      },
-    });
+    // Staged image change rides along with the save. A failed image op must
+    // not fail the whole flow — the trip update already succeeded — so it's
+    // caught and reported separately.
+    const picker = this.imagePicker();
+    const stagedImage = picker?.stagedFile() ?? null;
+    const removeImage = picker?.removeExisting() ?? false;
+
+    this.tripService
+      .updateTrip(tripId, request)
+      .pipe(
+        switchMap((updated) => {
+          const imageOp$: Observable<unknown> | null = stagedImage
+            ? this.tripService.uploadTripImage(tripId, stagedImage)
+            : removeImage
+              ? this.tripService.deleteTripImage(tripId)
+              : null;
+          if (!imageOp$) return of(updated);
+          return imageOp$.pipe(
+            map(() => updated),
+            catchError(() => {
+              this.toastService.show({
+                message: 'TRIPS.DETAIL.IMAGE.PARTIAL_SAVE',
+                type: 'error',
+              });
+              return of(updated);
+            }),
+          );
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.loading.set(false);
+          this.close();
+          this.toastService.show({ message: 'TRIPS.DETAIL.EDIT.SUCCESS', type: 'success' });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.loading.set(false);
+          this.applyError(err);
+        },
+      });
   }
 
   private applyError(err: HttpErrorResponse): void {

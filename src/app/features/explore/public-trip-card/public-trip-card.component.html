@@ -1,11 +1,16 @@
 <button type="button" (click)="onClick()"
    class="group flex w-full h-full text-left bg-surface-container-lowest rounded-card overflow-hidden shadow-ambient transition-all duration-200 hover:shadow-floating motion-safe:hover:-translate-y-1">
 
-  <!-- Cover (left): tonal gradient placeholder (community has no uploads) -->
-  <div class="ph-image relative w-44 sm:w-52 shrink-0 min-h-[180px]" [ngClass]="'ph-image-' + tone()">
-    <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
-      {{ coverLabel() }}
-    </span>
+  <!-- Cover (left): real image when available, else tonal placeholder -->
+  <div class="relative w-44 sm:w-52 shrink-0 min-h-[180px] overflow-hidden"
+       [ngClass]="trip().imageUrl ? '' : 'ph-image ph-image-' + tone()">
+    @if (trip().imageUrl) {
+      <img [src]="trip().imageUrl" [alt]="trip().name" class="absolute inset-0 w-full h-full object-cover" />
+    } @else {
+      <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
+        {{ coverLabel() }}
+      </span>
+    }
   </div>
 
   <!-- Content (right) -->

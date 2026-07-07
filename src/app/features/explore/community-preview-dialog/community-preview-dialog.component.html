@@ -60,10 +60,14 @@
 
         @else if (detail()) {
           @let d = detail()!;
-          <!-- Hero placeholder (no uploads) -->
+          <!-- Hero: real image when available, else gradient placeholder -->
           <div class="relative h-48 bg-gradient-to-br from-primary/15 to-tertiary/15 rounded-xl flex flex-col items-center justify-center gap-2 mb-5 overflow-hidden">
-            <span class="material-symbols-outlined text-6xl text-primary/40">public</span>
-            <span class="text-sm font-label font-semibold text-on-surface-variant">{{ d.destination }}</span>
+            @if (d.imageUrl) {
+              <img [src]="d.imageUrl" [alt]="d.name" class="absolute inset-0 w-full h-full object-cover" />
+            } @else {
+              <span class="material-symbols-outlined text-6xl text-primary/40">public</span>
+              <span class="text-sm font-label font-semibold text-on-surface-variant">{{ d.destination }}</span>
+            }
           </div>
 
           <!-- Metadata badges -->

@@ -5,13 +5,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TripDetailResponse } from '../../../core/models/trip.model';
 import { initialsOf } from '../../../shared/utils/initials';
 import { getTripStatusColor } from '../../../shared/utils/trip-status-color';
+import { TripCoverComponent } from './trip-cover.component';
 
 const MAX_AVATARS = 4;
 
 @Component({
   selector: 'app-trip-detail-header',
   standalone: true,
-  imports: [DatePipe, DecimalPipe, NgClass, RouterLink, TranslateModule],
+  imports: [DatePipe, DecimalPipe, NgClass, RouterLink, TranslateModule, TripCoverComponent],
   templateUrl: './trip-detail-header.component.html',
 })
 export class TripDetailHeaderComponent {

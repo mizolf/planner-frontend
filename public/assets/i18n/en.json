@@ -264,6 +264,27 @@
       "DELETE_CTA": "Delete trip",
       "LEAVE_CTA": "Leave trip",
       "MENU_ARIA": "Trip actions",
+      "IMAGE": {
+        "LABEL": "Cover image",
+        "CHANGE": "Change cover",
+        "ADD": "Add cover",
+        "DELETE": "Remove",
+        "CANCEL": "Cancel",
+        "UPLOADING": "Uploading…",
+        "HINT": "JPEG, PNG or WebP · max 5 MB",
+        "UPLOAD_SUCCESS": "Cover image updated.",
+        "DELETE_SUCCESS": "Cover image removed.",
+        "DELETE_CONFIRM": "Remove this cover image?",
+        "PARTIAL_SAVE": "Trip saved, but the cover image upload failed.",
+        "ERRORS": {
+          "INVALID_TYPE": "That file type isn't supported. Use JPEG, PNG or WebP.",
+          "TOO_LARGE": "The image is too large (max 5 MB).",
+          "FORBIDDEN": "You don't have permission to change this trip's image.",
+          "NOT_FOUND": "Trip not found.",
+          "UPLOAD_FAILED": "Image upload failed. Please try again later.",
+          "GENERIC": "Something went wrong. Please try again."
+        }
+      },
       "VISIBILITY": {
         "PUBLIC": "Public",
         "PRIVATE": "Private",

@@ -16,6 +16,7 @@ export interface PublicTripSummaryResponse {
   interests: Interest[];
   ownerDisplayName: string;
   memberCount: number;
+  imageUrl: string | null;
 }
 
 // GET /trips/public/{id} → full itinerary for the preview dialog.
@@ -32,6 +33,7 @@ export interface PublicTripDetailResponse {
   interests: Interest[];
   ownerDisplayName: string;
   memberCount: number;
+  imageUrl: string | null;
   days: PublicTripDayResponse[];
 }
 

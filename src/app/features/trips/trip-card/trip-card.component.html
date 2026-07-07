@@ -1,11 +1,16 @@
 <a [routerLink]="['/trips', trip().id]"
    class="group flex flex-col bg-surface-container-lowest rounded-card overflow-hidden shadow-ambient transition-all duration-200 hover:shadow-floating motion-safe:hover:-translate-y-1">
 
-  <!-- Tonal gradient cover (stands in for a cover image) -->
-  <div class="ph-image relative h-36 shrink-0" [ngClass]="'ph-image-' + tone()">
-    <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
-      {{ coverLabel() }}
-    </span>
+  <!-- Cover: real image when available, else tonal placeholder -->
+  <div class="relative h-36 shrink-0 overflow-hidden"
+       [ngClass]="trip().imageUrl ? '' : 'ph-image ph-image-' + tone()">
+    @if (trip().imageUrl) {
+      <img [src]="trip().imageUrl" [alt]="trip().name" class="absolute inset-0 w-full h-full object-cover" />
+    } @else {
+      <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
+        {{ coverLabel() }}
+      </span>
+    }
 
     <!-- Countdown / status chip -->
     <div class="absolute top-3 left-3">

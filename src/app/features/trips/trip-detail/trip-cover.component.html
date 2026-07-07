@@ -1,0 +1,80 @@
+<div
+  class="group relative h-56 sm:h-64 rounded-hero overflow-hidden"
+  [ngClass]="imageUrl() ? '' : 'ph-image ph-image-' + tone()">
+
+  @if (imageUrl()) {
+    <img [src]="imageUrl()" [alt]="tripName()" class="absolute inset-0 w-full h-full object-cover" />
+  } @else {
+    <span class="font-headline font-bold text-[2.25rem] leading-none tracking-wider text-white/90">
+      {{ coverLabel() }}
+    </span>
+  }
+
+  @if (canManage()) {
+    <input
+      #fileInput
+      type="file"
+      class="hidden"
+      accept="image/jpeg,image/png,image/webp"
+      (change)="onFileSelected($event)" />
+
+    <!-- Hover-revealed controls (also revealed on keyboard focus) -->
+    @if (!uploading() && !confirmingDelete()) {
+      <div class="absolute top-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
+        <button
+          type="button"
+          (click)="fileInput.click()"
+          [title]="'TRIPS.DETAIL.IMAGE.HINT' | translate"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-label text-sm font-semibold bg-black/45 text-white backdrop-blur-sm hover:bg-black/60 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">{{ imageUrl() ? 'photo_camera' : 'add_photo_alternate' }}</span>
+          {{ (imageUrl() ? 'TRIPS.DETAIL.IMAGE.CHANGE' : 'TRIPS.DETAIL.IMAGE.ADD') | translate }}
+        </button>
+
+        @if (imageUrl()) {
+          <button
+            type="button"
+            (click)="confirmingDelete.set(true)"
+            [attr.aria-label]="'TRIPS.DETAIL.IMAGE.DELETE' | translate"
+            class="inline-flex items-center justify-center size-9 rounded-lg bg-black/45 text-white backdrop-blur-sm hover:bg-error/80 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">delete</span>
+          </button>
+        }
+      </div>
+    }
+
+    <!-- Upload in progress: dim the cover, pulse label -->
+    @if (uploading()) {
+      <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+        <span class="animate-pulse inline-flex items-center gap-2 text-white font-label font-semibold text-sm">
+          <span class="material-symbols-outlined text-[20px]">cloud_upload</span>
+          {{ 'TRIPS.DETAIL.IMAGE.UPLOADING' | translate }}
+        </span>
+      </div>
+    }
+
+    <!-- Inline delete confirm (no separate modal) -->
+    @if (confirmingDelete()) {
+      <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <p class="text-white font-label font-semibold text-sm">
+          {{ 'TRIPS.DETAIL.IMAGE.DELETE_CONFIRM' | translate }}
+        </p>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            (click)="confirmingDelete.set(false)"
+            [disabled]="deleting()"
+            class="px-3.5 py-2 rounded-lg font-label text-sm font-semibold bg-white/15 text-white backdrop-blur-sm hover:bg-white/25 transition-colors disabled:opacity-50">
+            {{ 'TRIPS.DETAIL.IMAGE.CANCEL' | translate }}
+          </button>
+          <button
+            type="button"
+            (click)="confirmDelete()"
+            [disabled]="deleting()"
+            class="px-3.5 py-2 rounded-lg font-label text-sm font-semibold bg-error text-on-error hover:bg-error/90 transition-colors disabled:opacity-50">
+            {{ 'TRIPS.DETAIL.IMAGE.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    }
+  }
+</div>
