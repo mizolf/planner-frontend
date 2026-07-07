@@ -23,6 +23,7 @@ export class UserService {
 
   setCurrentUser(user: User): void {
     this._currentUser.set(user);
+    this._loading.set(false);
   }
 
   loadCurrentUser(): void {
