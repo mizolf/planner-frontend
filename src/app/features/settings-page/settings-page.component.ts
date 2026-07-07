@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +14,7 @@ import { ToastService } from '../../shared/services/toast.service';
 import { Interest } from '../../core/models/trip.model';
 import { PasswordFieldComponent } from '../../shared/components/password-field/password-field.component';
 import { InterestChipsComponent } from '../../shared/components/interest-chips/interest-chips.component';
+import { DeleteAccountDialogComponent } from './delete-account-dialog.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -24,6 +25,7 @@ import { InterestChipsComponent } from '../../shared/components/interest-chips/i
     TranslateModule,
     PasswordFieldComponent,
     InterestChipsComponent,
+    DeleteAccountDialogComponent,
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
@@ -38,6 +40,8 @@ export class SettingsPageComponent implements OnInit {
 
   preferencesLoading = signal(false);
   preferencesError = signal<string | null>(null);
+
+  private readonly deleteAccountDialog = viewChild(DeleteAccountDialogComponent);
 
   passwordForm = this.fb.nonNullable.group(
     {
@@ -102,6 +106,10 @@ export class SettingsPageComponent implements OnInit {
         }
       },
     });
+  }
+
+  openDeleteAccountDialog(): void {
+    this.deleteAccountDialog()?.open();
   }
 
   onSavePreferences(): void {

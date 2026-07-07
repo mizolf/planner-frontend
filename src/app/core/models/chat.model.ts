@@ -4,8 +4,8 @@
 
 export interface ChatMessageResponse {
   id: number;
-  senderId: number;
-  senderName: string;
+  senderId: number | null; // null = author deleted their account
+  senderName: string | null;
   content: string;
   createdAt: string; // ISO instant
   edited: boolean;

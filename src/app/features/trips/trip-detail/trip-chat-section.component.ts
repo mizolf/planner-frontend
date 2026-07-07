@@ -86,7 +86,9 @@ export class TripChatSectionComponent implements OnInit, OnDestroy {
   }
 
   isOwn(message: ChatMessageResponse): boolean {
-    return message.senderId === this.currentUserId();
+    // senderId is null for deleted authors; without the guard a null senderId
+    // would match currentUserId while it is still null (user not yet loaded).
+    return message.senderId !== null && message.senderId === this.currentUserId();
   }
 
   toggle(): void {

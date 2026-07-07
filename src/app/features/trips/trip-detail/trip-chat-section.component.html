@@ -87,7 +87,11 @@
                     class="flex items-baseline gap-2"
                     [class.flex-row-reverse]="isOwn(m)">
                     <span class="text-xs font-label font-semibold text-on-surface truncate">
-                      {{ m.senderName }}
+                      @if (m.senderName) {
+                        {{ m.senderName }}
+                      } @else {
+                        <span class="italic text-on-surface-variant">{{ 'TRIPS.DETAIL.CHAT.DELETED_USER' | translate }}</span>
+                      }
                     </span>
                     <span class="text-[10px] text-on-surface-variant/70 shrink-0">
                       {{ m.createdAt | date:'shortTime' }}

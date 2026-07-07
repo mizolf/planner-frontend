@@ -46,6 +46,16 @@ export class UserService {
     return this.http.put<void>(`${this.apiUrl}/me/password`, req);
   }
 
+  deleteAccount(password: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/me`, { body: { password } });
+  }
+
+  /** Reset the cached user so a later login with another account starts clean. */
+  clearCurrentUser(): void {
+    this._currentUser.set(null);
+    this._loading.set(true);
+  }
+
   updatePreferences(req: UpdatePreferencesRequest): Observable<User> {
     return this.http
       .put<User>(`${this.apiUrl}/me/preferences`, req)

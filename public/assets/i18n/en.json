@@ -162,6 +162,26 @@
       "SAVE": "Save preferences",
       "SUCCESS": "Preferences saved.",
       "ERROR_GENERIC": "Couldn't save your preferences. Please try again."
+    },
+    "DELETE_ACCOUNT": {
+      "TITLE": "Delete account",
+      "SUBTITLE": "Permanently delete your account and personal data.",
+      "BUTTON": "Delete account",
+      "DIALOG": {
+        "TITLE": "Delete your account?",
+        "INTRO": "This can't be undone. Here's what happens:",
+        "CONSEQ_MEMBER": "Trips you're a member of continue without you.",
+        "CONSEQ_OWNED": "Trips you own are handed over to their longest-standing member.",
+        "CONSEQ_SOLE": "Trips where you're the only member are permanently deleted, including their cover image.",
+        "CONSEQ_CHAT": "Your chat messages remain, shown as written by a deleted user."
+      },
+      "PASSWORD_LABEL": "Confirm with your password",
+      "PASSWORD_PLACEHOLDER": "Your current password",
+      "PASSWORD_REQUIRED": "Password is required.",
+      "INVALID_PASSWORD": "Password is incorrect.",
+      "CANCEL": "Cancel",
+      "CONFIRM": "Delete my account",
+      "ERROR_GENERIC": "Couldn't delete your account. Please try again."
     }
   },
   "ONBOARDING": {
@@ -327,6 +347,7 @@
       "CHAT": {
         "TITLE": "Chat",
         "EMPTY": "No messages yet — say hello!",
+        "DELETED_USER": "Deleted user",
         "LOAD_OLDER": "Load older messages",
         "LOAD_ERROR": "Couldn't load messages.",
         "RETRY": "Retry",

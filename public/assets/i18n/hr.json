@@ -162,6 +162,26 @@
       "SAVE": "Spremi preferencije",
       "SUCCESS": "Preferencije spremljene.",
       "ERROR_GENERIC": "Spremanje preferencija nije uspjelo. Pokušaj ponovo."
+    },
+    "DELETE_ACCOUNT": {
+      "TITLE": "Brisanje računa",
+      "SUBTITLE": "Trajno izbriši svoj račun i osobne podatke.",
+      "BUTTON": "Izbriši račun",
+      "DIALOG": {
+        "TITLE": "Izbrisati račun?",
+        "INTRO": "Ovo se ne može poništiti. Evo što će se dogoditi:",
+        "CONSEQ_MEMBER": "Putovanja na kojima si član nastavljaju se bez tebe.",
+        "CONSEQ_OWNED": "Vlasništvo nad tvojim putovanjima prenosi se na najdugovječnijeg člana.",
+        "CONSEQ_SOLE": "Putovanja na kojima si jedini član trajno se brišu, uključujući naslovnu sliku.",
+        "CONSEQ_CHAT": "Tvoje poruke u razgovorima ostaju, prikazane kao poruke obrisanog korisnika."
+      },
+      "PASSWORD_LABEL": "Potvrdi lozinkom",
+      "PASSWORD_PLACEHOLDER": "Tvoja trenutna lozinka",
+      "PASSWORD_REQUIRED": "Lozinka je obavezna.",
+      "INVALID_PASSWORD": "Lozinka nije ispravna.",
+      "CANCEL": "Odustani",
+      "CONFIRM": "Izbriši moj račun",
+      "ERROR_GENERIC": "Brisanje računa nije uspjelo. Pokušaj ponovo."
     }
   },
   "ONBOARDING": {
@@ -327,6 +347,7 @@
       "CHAT": {
         "TITLE": "Razgovor",
         "EMPTY": "Još nema poruka — javite se prvi!",
+        "DELETED_USER": "Obrisan korisnik",
         "LOAD_OLDER": "Učitaj starije poruke",
         "LOAD_ERROR": "Učitavanje poruka nije uspjelo.",
         "RETRY": "Pokušaj ponovno",

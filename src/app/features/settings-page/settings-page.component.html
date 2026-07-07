@@ -135,5 +135,33 @@
       </form>
     </section>
 
+    <!-- Delete account -->
+    <section class="bg-surface-container-lowest rounded-card shadow-ambient p-6">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-11 h-11 rounded-xl bg-error/10 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-error text-[24px]">delete_forever</span>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold font-headline text-on-surface">
+            {{ 'SETTINGS.DELETE_ACCOUNT.TITLE' | translate }}
+          </h2>
+          <p class="text-sm text-on-surface-variant font-body">
+            {{ 'SETTINGS.DELETE_ACCOUNT.SUBTITLE' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          type="button"
+          (click)="openDeleteAccountDialog()"
+          class="px-5 py-2.5 bg-error text-on-error rounded-lg font-label text-sm font-semibold hover:opacity-90 transition-opacity">
+          {{ 'SETTINGS.DELETE_ACCOUNT.BUTTON' | translate }}
+        </button>
+      </div>
+    </section>
+
   </div>
+
+  <app-delete-account-dialog />
 </div>
