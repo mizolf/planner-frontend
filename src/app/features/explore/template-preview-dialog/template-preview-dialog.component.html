@@ -36,7 +36,7 @@
         <!-- Loading -->
         @if (loading()) {
           <div class="space-y-4 animate-pulse">
-            <div class="h-40 bg-surface-container-low rounded-xl"></div>
+            <div class="h-80 bg-surface-container-low rounded-xl"></div>
             <div class="h-6 bg-surface-container-low rounded w-1/3"></div>
             @for (_ of [1, 2, 3]; track $index) {
               <div class="h-20 bg-surface-container-low rounded-xl"></div>
@@ -61,7 +61,7 @@
         @else if (template()) {
           @let t = template()!;
           <!-- Hero image / placeholder -->
-          <div class="relative h-48 bg-surface-container-low rounded-xl flex items-center justify-center mb-5 overflow-hidden">
+          <div class="relative h-80 bg-surface-container-low rounded-xl flex items-center justify-center mb-5 overflow-hidden">
             @if (t.imageUrl) {
               <img [src]="t.imageUrl" [alt]="t.name" class="w-full h-full object-cover" />
             } @else {
