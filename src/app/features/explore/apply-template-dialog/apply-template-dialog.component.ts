@@ -16,6 +16,7 @@ interface ApplyDialogOpenArgs {
   templateSlug: string;
   templateName: string;
   durationDays: number;
+  estimatedBudget: number | null;
 }
 
 @Component({
@@ -68,7 +69,7 @@ export class ApplyTemplateDialogComponent {
     this.styleSlug = args.styleSlug;
     this.templateSlug = args.templateSlug;
     this._durationDays.set(args.durationDays);
-    this.form.reset({ startDate: '', name: args.templateName, budget: null });
+    this.form.reset({ startDate: '', name: args.templateName, budget: args.estimatedBudget });
     this.errorMessage.set(null);
     this.isOpen.set(true);
     this.bodyScrollLock.lock();

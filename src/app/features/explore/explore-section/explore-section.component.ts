@@ -63,6 +63,7 @@ export class ExploreSectionComponent implements OnInit {
       templateSlug: event.template.slug,
       templateName: event.template.name,
       durationDays: event.template.durationDays,
+      estimatedBudget: event.template.estimatedBudget,
     });
   }
 
