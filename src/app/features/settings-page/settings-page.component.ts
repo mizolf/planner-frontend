@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../core/services/user.service';
 import { ToastService } from '../../shared/services/toast.service';
@@ -21,7 +22,6 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog.component'
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    RouterLink,
     TranslateModule,
     PasswordFieldComponent,
     InterestChipsComponent,
@@ -34,6 +34,8 @@ export class SettingsPageComponent implements OnInit {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private toastService = inject(ToastService);
+  private router = inject(Router);
+  private location = inject(Location);
 
   passwordLoading = signal(false);
   passwordError = signal<string | null>(null);
@@ -42,6 +44,14 @@ export class SettingsPageComponent implements OnInit {
   preferencesError = signal<string | null>(null);
 
   private readonly deleteAccountDialog = viewChild(DeleteAccountDialogComponent);
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/profile']);
+    }
+  }
 
   passwordForm = this.fb.nonNullable.group(
     {

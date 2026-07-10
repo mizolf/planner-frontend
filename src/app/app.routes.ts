@@ -40,6 +40,18 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then(m => m.authRoutes),
   },
   {
+    path: 'privacy',
+    loadComponent: () => import('./features/legal/privacy-page/privacy-page.component').then(m => m.PrivacyPageComponent),
+  },
+  {
+    path: 'terms',
+    loadComponent: () => import('./features/legal/terms-page/terms-page.component').then(m => m.TermsPageComponent),
+  },
+  {
+    path: 'support',
+    loadComponent: () => import('./features/legal/support-page/support-page.component').then(m => m.SupportPageComponent),
+  },
+  {
     path: 'not-found',
     loadComponent: () => import('./core/not-found/not-found.component').then(m => m.NotFoundComponent),
   },

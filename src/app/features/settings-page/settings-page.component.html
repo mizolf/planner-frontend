@@ -2,11 +2,12 @@
 
   <!-- Page header -->
   <header class="mb-8">
-    <a routerLink="/profile"
+    <button type="button"
+       (click)="goBack()"
        class="inline-flex items-center gap-1.5 text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-[0.15em] mb-6">
       <span class="material-symbols-outlined text-[16px]">arrow_back</span>
       {{ 'SETTINGS.BACK' | translate }}
-    </a>
+    </button>
     <h1 class="text-4xl sm:text-5xl font-extrabold font-headline tracking-tighter text-on-surface">
       {{ 'SETTINGS.TITLE' | translate }}
     </h1>

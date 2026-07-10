@@ -4,21 +4,22 @@ import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-not-found',
+  selector: 'app-terms-page',
   standalone: true,
   imports: [RouterLink, TranslateModule],
-  templateUrl: './not-found.component.html',
+  templateUrl: './terms-page.component.html',
 })
-export class NotFoundComponent {
+export class TermsPageComponent {
   private router = inject(Router);
   private location = inject(Location);
 
-  goHome(): void {
-    this.router.navigate(['/home']);
-  }
+  readonly year = new Date().getFullYear();
 
-  // TODO: Change to explore/destinations route when implemented
-  goExplore(): void {
-    this.location.back();
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }
