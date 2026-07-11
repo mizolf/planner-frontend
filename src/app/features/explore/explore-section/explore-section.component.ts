@@ -58,13 +58,7 @@ export class ExploreSectionComponent implements OnInit {
   }
 
   onApplyClicked(event: { styleSlug: string; template: TripTemplateDetailResponse }): void {
-    this.applyDialog.open({
-      styleSlug: event.styleSlug,
-      templateSlug: event.template.slug,
-      templateName: event.template.name,
-      durationDays: event.template.durationDays,
-      estimatedBudget: event.template.estimatedBudget,
-    });
+    this.applyDialog.open(event.styleSlug, event.template);
   }
 
   onTripCreated(_trip: TripResponse): void {

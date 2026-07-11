@@ -5,19 +5,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExploreService } from '../../../core/services/explore.service';
-import { ApplyTripTemplateRequest } from '../../../core/models/explore.model';
+import {
+  ApplyTripTemplateRequest,
+  TripTemplateDetailResponse,
+} from '../../../core/models/explore.model';
 import { TripResponse } from '../../../core/models/trip.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { BodyScrollLockService } from '../../../shared/services/body-scroll-lock.service';
 import { budgetMaxDigits, dateNotInPast } from '../../../shared/validators/trip.validators';
-
-interface ApplyDialogOpenArgs {
-  styleSlug: string;
-  templateSlug: string;
-  templateName: string;
-  durationDays: number;
-  estimatedBudget: number | null;
-}
 
 @Component({
   selector: 'app-apply-template-dialog',
@@ -65,11 +60,11 @@ export class ApplyTemplateDialogComponent {
     if (this.isOpen()) this.close();
   }
 
-  open(args: ApplyDialogOpenArgs): void {
-    this.styleSlug = args.styleSlug;
-    this.templateSlug = args.templateSlug;
-    this._durationDays.set(args.durationDays);
-    this.form.reset({ startDate: '', name: args.templateName, budget: args.estimatedBudget });
+  open(styleSlug: string, template: TripTemplateDetailResponse): void {
+    this.styleSlug = styleSlug;
+    this.templateSlug = template.slug;
+    this._durationDays.set(template.durationDays);
+    this.form.reset({ startDate: '', name: template.name, budget: template.estimatedBudget });
     this.errorMessage.set(null);
     this.isOpen.set(true);
     this.bodyScrollLock.lock();
