@@ -1,8 +1,6 @@
 {
   "AUTH": {
     "COMMON": {
-      "GOOGLE_SIGNIN": "Continue with Google",
-      "DIVIDER": "Or use email",
       "EMAIL_LABEL": "Email Address",
       "EMAIL_PLACEHOLDER": "plannr@gmail.com",
       "EMAIL_REQUIRED": "Email is required.",
@@ -780,7 +778,7 @@
     "LAST_UPDATED": "Last updated: July 2026",
     "INTRO": "plannr. is a student project for planning trips together. This page explains what data we collect and how we use it. By using plannr., you agree to what is described here.",
     "S1_TITLE": "Data we collect",
-    "S1_BODY1": "When you create an account, we store your name, email address and password. Your password is stored hashed — never in plain text. If you sign in with Google, we receive your name, email address and profile picture from Google.",
+    "S1_BODY1": "When you create an account, we store your name, email address and password. Your password is stored hashed — never in plain text.",
     "S1_BODY2": "Everything else we store is content you create yourself: trips with their day-by-day itineraries and activities, uploaded cover images, chat messages, and trip memberships and invites. We don't collect anything in the background.",
     "S2_TITLE": "How we use your data",
     "S2_BODY": "Your data is used only to make the app work: showing your trips, enabling collaboration (your name and avatar are visible to members of trips you join) and powering trip chat. Trips you mark as public — including community templates — are visible to all users. We don't sell your data, and there are no ads and no analytics.",
@@ -789,7 +787,6 @@
     "S4_TITLE": "Third-party services",
     "S4_ITEM1": "Photon (Komoot) — the text you type into the destination search is sent to their API to provide autocomplete suggestions.",
     "S4_ITEM2": "OpenStreetMap — when a trip map is shown, your browser loads map tiles from OpenStreetMap servers, which can see your IP address.",
-    "S4_ITEM3": "Google — only if you choose to sign in with Google.",
     "S4_BODY": "None of these services are used for advertising or tracking.",
     "S5_TITLE": "Deleting your data",
     "S5_BODY": "You can delete your account at any time in Settings → Delete account (you'll be asked to confirm with your password). Deleting your account removes your data from our servers.",

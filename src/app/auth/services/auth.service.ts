@@ -73,11 +73,6 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/resend`, request, { responseType: 'text' });
   }
 
-  loginWithGoogle(): void {
-    // TODO: Implement Google OAuth redirect flow when backend supports it
-    console.warn('Google OAuth not yet implemented');
-  }
-
   logout(): Observable<string> {
     return this.http.post(`${this.apiUrl}/logout`, null, { responseType: 'text' }).pipe(
       tap(() => {

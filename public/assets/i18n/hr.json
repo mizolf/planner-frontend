@@ -1,8 +1,6 @@
 {
   "AUTH": {
     "COMMON": {
-      "GOOGLE_SIGNIN": "Nastavi s Googleom",
-      "DIVIDER": "Ili koristi email",
       "EMAIL_LABEL": "Email adresa",
       "EMAIL_PLACEHOLDER": "plannr@gmail.com",
       "EMAIL_REQUIRED": "Email je obavezan.",
@@ -780,7 +778,7 @@
     "LAST_UPDATED": "Zadnja izmjena: srpanj 2026.",
     "INTRO": "plannr. je studentski projekt za zajedničko planiranje putovanja. Ova stranica objašnjava koje podatke prikupljamo i kako ih koristimo. Korištenjem plannr. aplikacije pristaješ na ovdje opisano.",
     "S1_TITLE": "Podaci koje prikupljamo",
-    "S1_BODY1": "Kad kreiraš račun, spremamo tvoje ime, email adresu i lozinku. Lozinka se sprema hashirana — nikad u čitljivom obliku. Ako se prijaviš Google računom, od Googlea dobivamo tvoje ime, email adresu i profilnu sliku.",
+    "S1_BODY1": "Kad kreiraš račun, spremamo tvoje ime, email adresu i lozinku. Lozinka se sprema hashirana — nikad u čitljivom obliku.",
     "S1_BODY2": "Sve ostalo što spremamo sadržaj je koji sam kreiraš: putovanja s itinerarima po danima i aktivnostima, uploadane naslovne slike, chat poruke te članstva i pozivnice u putovanja. Ništa ne prikupljamo u pozadini.",
     "S2_TITLE": "Kako koristimo tvoje podatke",
     "S2_BODY": "Tvoji podaci koriste se isključivo za rad aplikacije: prikaz tvojih putovanja, suradnju s drugima (tvoje ime i avatar vidljivi su članovima putovanja kojima se pridružiš) i chat unutar putovanja. Putovanja koja označiš javnima — uključujući community predloške — vidljiva su svim korisnicima. Podatke ne prodajemo, a oglasa i analitike nema.",
@@ -789,7 +787,6 @@
     "S4_TITLE": "Usluge trećih strana",
     "S4_ITEM1": "Photon (Komoot) — tekst koji upišeš u pretragu odredišta šalje se njihovom API-ju radi prijedloga u autocompleteu.",
     "S4_ITEM2": "OpenStreetMap — pri prikazu karte putovanja tvoj preglednik dohvaća kartografske pločice s OpenStreetMap servera, koji pritom vide tvoju IP adresu.",
-    "S4_ITEM3": "Google — samo ako odabereš prijavu Google računom.",
     "S4_BODY": "Nijedna od ovih usluga ne koristi se za oglašavanje ni praćenje.",
     "S5_TITLE": "Brisanje podataka",
     "S5_BODY": "Račun možeš obrisati u bilo kojem trenutku u Postavkama → Brisanje računa (uz potvrdu lozinkom). Brisanjem računa tvoji se podaci uklanjaju s naših servera.",
