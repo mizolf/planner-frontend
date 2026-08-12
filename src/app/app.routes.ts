@@ -8,7 +8,7 @@ export const routes: Routes = [
     loadComponent: () => import('./core/dashboard-layout/dashboard-layout.component').then(m => m.DashboardLayoutComponent),
     canActivate: [authGuard, onboardingGuard],
     children: [
-      { path: 'home', loadComponent: () => import('./home-page/home-page.component').then(m => m.HomePageComponent) },
+      { path: 'home', loadComponent: () => import('./features/home-page/home-page.component').then(m => m.HomePageComponent) },
       { path: 'my-trips', loadComponent: () => import('./features/my-trips/my-trips-page.component').then(m => m.MyTripsPageComponent) },
       { path: 'explore', loadComponent: () => import('./features/explore-page/explore-page.component').then(m => m.ExplorePageComponent) },
       { path: 'explore/community', data: { tab: 'COMMUNITY' }, loadComponent: () => import('./features/explore-page/explore-page.component').then(m => m.ExplorePageComponent) },

@@ -1,14 +1,14 @@
 import { Component, computed, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserService } from '../core/services/user.service';
-import { TripService } from '../core/services/trip.service';
-import { TripStatus } from '../core/models/trip.model';
-import { CreateTripDialogComponent } from '../features/trips/create-trip-dialog/create-trip-dialog.component';
-import { TripCardComponent } from '../features/trips/trip-card/trip-card.component';
-import { ActivityFeedComponent } from '../features/activity-feed/activity-feed.component';
-import { ExploreSectionComponent } from '../features/explore/explore-section/explore-section.component';
-import { RecommendedTripsComponent } from '../features/explore/recommended-trips/recommended-trips.component';
+import { UserService } from '../../core/services/user.service';
+import { TripService } from '../../core/services/trip.service';
+import { TripStatus } from '../../core/models/trip.model';
+import { CreateTripDialogComponent } from '../trips/create-trip-dialog/create-trip-dialog.component';
+import { TripCardComponent } from '../trips/trip-card/trip-card.component';
+import { ActivityFeedComponent } from '../activity-feed/activity-feed.component';
+import { ExploreSectionComponent } from '../explore/explore-section/explore-section.component';
+import { RecommendedTripsComponent } from '../explore/recommended-trips/recommended-trips.component';
 
 @Component({
   selector: 'app-home-page',
