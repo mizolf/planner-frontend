@@ -65,8 +65,8 @@ export class RegisterComponent {
               control.setErrors({ serverError: message });
             }
           }
-        } else if (err.status === 500) {
-          // Backend returns 500 for duplicate email/fullName (database constraint)
+        } else if (err.status === 409) {
+          // Backend rejects an already-registered email with EMAIL_ALREADY_IN_USE
           this.errorMessage.set('AUTH.REGISTER.ERROR_DUPLICATE');
         } else {
           this.errorMessage.set('AUTH.REGISTER.ERROR_GENERIC');
