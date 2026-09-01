@@ -160,7 +160,7 @@
                     <span class="material-symbols-outlined text-[18px]">calendar_month</span>
                   </div>
                   <span class="font-mono text-[12.5px] text-on-surface font-medium">
-                    {{ t.startDate | date:'mediumDate' }} {{ 'TRIPS.DETAIL.DATE_SEPARATOR' | translate }} {{ t.endDate | date:'mediumDate' }}
+                    {{ t.startDate | localizedDate:'mediumDate' }} {{ 'TRIPS.DETAIL.DATE_SEPARATOR' | translate }} {{ t.endDate | localizedDate:'mediumDate' }}
                   </span>
                 </div>
                 <!-- Length -->

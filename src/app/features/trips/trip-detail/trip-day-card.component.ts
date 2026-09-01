@@ -1,5 +1,5 @@
 import { Component, input, output } from "@angular/core";
-import { DatePipe, DecimalPipe, NgClass } from "@angular/common";
+import { DecimalPipe, NgClass } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import {
   CATEGORY_ICONS,
@@ -7,11 +7,12 @@ import {
   TripDayResponse,
 } from "../../../core/models/trip.model";
 import { formatTime } from "../../../shared/utils/format-time";
+import { LocalizedDatePipe } from "../../../shared/pipes/localized-date.pipe";
 
 @Component({
   selector: "app-trip-day-card",
   standalone: true,
-  imports: [DatePipe, DecimalPipe, NgClass, TranslateModule],
+  imports: [LocalizedDatePipe, DecimalPipe, NgClass, TranslateModule],
   templateUrl: "./trip-day-card.component.html",
 })
 export class TripDayCardComponent {

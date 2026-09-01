@@ -52,7 +52,7 @@
             </div>
             <p class="text-xs text-on-surface-variant font-body truncate mt-0.5">{{ member.email }}</p>
             <p class="text-[11px] text-on-surface-variant/70 font-label mt-2">
-              {{ 'TRIPS.DETAIL.MEMBERS.JOINED_AT' | translate:{ date: (member.joinedAt | date:'mediumDate') } }}
+              {{ 'TRIPS.DETAIL.MEMBERS.JOINED_AT' | translate:{ date: (member.joinedAt | localizedDate:'mediumDate') } }}
             </p>
           </div>
           @if (canManage(member)) {

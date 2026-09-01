@@ -34,7 +34,7 @@
       <span class="truncate">{{ trip().destination }}</span>
     </p>
     <p class="font-mono text-xs text-on-surface-variant mt-3">
-      {{ trip().startDate | date:'mediumDate' }} – {{ trip().endDate | date:'mediumDate' }}
+      {{ trip().startDate | localizedDate:'mediumDate' }} – {{ trip().endDate | localizedDate:'mediumDate' }}
     </p>
   </div>
 </a>

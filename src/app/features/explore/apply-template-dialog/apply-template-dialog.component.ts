@@ -2,7 +2,6 @@ import { Component, computed, HostListener, inject, output, signal } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ExploreService } from '../../../core/services/explore.service';
 import {
@@ -13,11 +12,12 @@ import { TripResponse } from '../../../core/models/trip.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { BodyScrollLockService } from '../../../shared/services/body-scroll-lock.service';
 import { budgetMaxDigits, dateNotInPast } from '../../../shared/validators/trip.validators';
+import { LocalizedDatePipe } from '../../../shared/pipes/localized-date.pipe';
 
 @Component({
   selector: 'app-apply-template-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, DatePipe, FormFieldComponent],
+  imports: [ReactiveFormsModule, TranslateModule, LocalizedDatePipe, FormFieldComponent],
   templateUrl: './apply-template-dialog.component.html',
 })
 export class ApplyTemplateDialogComponent {

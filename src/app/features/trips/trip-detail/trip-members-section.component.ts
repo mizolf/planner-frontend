@@ -1,5 +1,4 @@
 import { Component, ViewChild, inject, input, output } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -11,11 +10,12 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { initialsOf } from '../../../shared/utils/initials';
 import { getMemberRoleColor } from '../../../shared/utils/member-role-color';
 import { RemoveMemberDialogComponent } from './remove-member-dialog.component';
+import { LocalizedDatePipe } from '../../../shared/pipes/localized-date.pipe';
 
 @Component({
   selector: 'app-trip-members-section',
   standalone: true,
-  imports: [DatePipe, TranslateModule, RemoveMemberDialogComponent],
+  imports: [LocalizedDatePipe, TranslateModule, RemoveMemberDialogComponent],
   templateUrl: './trip-members-section.component.html',
 })
 export class TripMembersSectionComponent {

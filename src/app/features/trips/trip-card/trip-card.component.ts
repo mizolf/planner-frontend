@@ -1,14 +1,15 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DatePipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { TripResponse } from '../../../core/models/trip.model';
 import { getTripStatusColor } from '../../../shared/utils/trip-status-color';
+import { LocalizedDatePipe } from '../../../shared/pipes/localized-date.pipe';
 
 @Component({
   selector: 'app-trip-card',
   standalone: true,
-  imports: [RouterLink, DatePipe, NgClass, TranslateModule],
+  imports: [RouterLink, LocalizedDatePipe, NgClass, TranslateModule],
   templateUrl: './trip-card.component.html',
 })
 export class TripCardComponent {

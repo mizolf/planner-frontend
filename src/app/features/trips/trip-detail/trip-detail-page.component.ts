@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
-import { DatePipe, NgClass } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { Subscription } from "rxjs";
 import { getTripStatusColor } from "../../../shared/utils/trip-status-color";
 import {
@@ -36,6 +36,7 @@ import { TripDayPickerComponent } from "./trip-day-picker.component";
 import { TripDetailHeaderComponent } from "./trip-detail-header.component";
 import { TripMembersSectionComponent } from "./trip-members-section.component";
 import { TripChatSectionComponent } from "./trip-chat-section.component";
+import { LocalizedDatePipe } from "../../../shared/pipes/localized-date.pipe";
 
 @Component({
   selector: "app-trip-detail-page",
@@ -43,7 +44,7 @@ import { TripChatSectionComponent } from "./trip-chat-section.component";
   imports: [
     RouterLink,
     TranslateModule,
-    DatePipe,
+    LocalizedDatePipe,
     NgClass,
     AddDayDialogComponent,
     EditDayDialogComponent,

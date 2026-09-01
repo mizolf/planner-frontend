@@ -9,18 +9,18 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { DatePipe } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { ChatMessageResponse } from "../../../core/models/chat.model";
 import { ChatService } from "../../../core/services/chat.service";
 import { ToastService } from "../../../shared/services/toast.service";
 import { initialsOf } from "../../../shared/utils/initials";
 import { DeleteMessageDialogComponent } from "./delete-message-dialog.component";
+import { LocalizedDatePipe } from "../../../shared/pipes/localized-date.pipe";
 
 @Component({
   selector: "app-trip-chat-section",
   standalone: true,
-  imports: [DatePipe, TranslateModule, DeleteMessageDialogComponent],
+  imports: [LocalizedDatePipe, TranslateModule, DeleteMessageDialogComponent],
   templateUrl: "./trip-chat-section.component.html",
 })
 export class TripChatSectionComponent implements OnInit, OnDestroy {

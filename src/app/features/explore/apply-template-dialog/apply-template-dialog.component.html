@@ -55,7 +55,7 @@
           @if (endDate(); as ed) {
             <p class="text-xs text-on-surface-variant font-label flex items-center gap-1 -mt-3 ml-1">
               <span class="material-symbols-outlined text-[14px]">event_available</span>
-              {{ 'EXPLORE.APPLY.END_DATE_HINT' | translate:{ date: (ed | date:'mediumDate') } }}
+              {{ 'EXPLORE.APPLY.END_DATE_HINT' | translate:{ date: (ed | localizedDate:'mediumDate') } }}
             </p>
           }
 

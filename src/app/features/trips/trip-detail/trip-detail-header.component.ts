@@ -1,18 +1,19 @@
 import { Component, computed, input, output, signal } from '@angular/core';
-import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { TripDetailResponse } from '../../../core/models/trip.model';
 import { initialsOf } from '../../../shared/utils/initials';
 import { getTripStatusColor } from '../../../shared/utils/trip-status-color';
 import { TripCoverComponent } from './trip-cover.component';
+import { LocalizedDatePipe } from '../../../shared/pipes/localized-date.pipe';
 
 const MAX_AVATARS = 4;
 
 @Component({
   selector: 'app-trip-detail-header',
   standalone: true,
-  imports: [DatePipe, DecimalPipe, NgClass, RouterLink, TranslateModule, TripCoverComponent],
+  imports: [LocalizedDatePipe, DecimalPipe, NgClass, RouterLink, TranslateModule, TripCoverComponent],
   templateUrl: './trip-detail-header.component.html',
 })
 export class TripDetailHeaderComponent {

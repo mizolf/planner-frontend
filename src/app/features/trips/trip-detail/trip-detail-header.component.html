@@ -120,9 +120,9 @@
   <div class="flex flex-wrap items-center gap-x-5 gap-y-3 mb-5 text-sm font-label text-on-surface-variant">
     <span class="inline-flex items-center gap-2">
       <span class="material-symbols-outlined text-[16px] text-on-surface-variant/70">calendar_month</span>
-      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().startDate | date:'mediumDate' }}</span>
+      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().startDate | localizedDate:'mediumDate' }}</span>
       <span class="text-on-surface-variant/50">{{ 'TRIPS.DETAIL.DATE_SEPARATOR' | translate }}</span>
-      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().endDate | date:'mediumDate' }}</span>
+      <span class="text-on-surface font-semibold font-mono text-[13px]">{{ trip().endDate | localizedDate:'mediumDate' }}</span>
     </span>
 
     <span
