@@ -313,7 +313,7 @@
       },
       "ROLE": {
         "OWNER": "Vlasnik",
-        "EDITOR": "Urednik",
+        "EDITOR": "Uređivač",
         "VIEWER": "Gledatelj"
       },
       "MEMBERS": {
@@ -613,6 +613,7 @@
       "SUBMIT": "Primijeni",
       "CANCEL": "Odustani",
       "SUCCESS": "Putovanje kreirano iz predloška!",
+      "DATES_OVERLAP": "Ovi datumi se preklapaju s drugim tvojim putovanjem. Odaberi druge datume.",
       "ERROR_VALIDATION": "Provjerite unos i pokušajte ponovo.",
       "ERROR_UNAUTHORIZED": "Vaša sesija je istekla. Prijavite se ponovo.",
       "ERROR_NOT_FOUND": "Ovaj predložak više nije dostupan.",
@@ -693,7 +694,7 @@
       "SUBMIT": "Pošalji poziv"
     },
     "ROLES": {
-      "EDITOR": "Urednik",
+      "EDITOR": "Uređivač",
       "VIEWER": "Gledatelj"
     },
     "PENDING": {

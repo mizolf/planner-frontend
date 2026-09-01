@@ -613,6 +613,7 @@
       "SUBMIT": "Apply",
       "CANCEL": "Cancel",
       "SUCCESS": "Trip created from template!",
+      "DATES_OVERLAP": "These dates overlap with another of your trips. Please choose different dates.",
       "ERROR_VALIDATION": "Please check your input and try again.",
       "ERROR_UNAUTHORIZED": "Your session has expired. Please log in again.",
       "ERROR_NOT_FOUND": "This template is no longer available.",

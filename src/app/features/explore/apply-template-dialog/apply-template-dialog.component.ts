@@ -107,7 +107,9 @@ export class ApplyTemplateDialogComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false);
-        if (err.status === 400) {
+        if (err.status === 409 && err.error?.code === 'OVERLAPPING_DATES') {
+          this.errorMessage.set('EXPLORE.APPLY.DATES_OVERLAP');
+        } else if (err.status === 400) {
           this.errorMessage.set('EXPLORE.APPLY.ERROR_VALIDATION');
         } else if (err.status === 401 || err.status === 403) {
           this.errorMessage.set('EXPLORE.APPLY.ERROR_UNAUTHORIZED');
